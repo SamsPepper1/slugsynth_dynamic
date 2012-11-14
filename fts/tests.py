@@ -62,7 +62,7 @@ class NewSongTest(LiveServerTestCase):
 		self.browser.quit()
 
 
-	def DONTtest_newSong_view_contains_correct_elements(self):
+	def test_newSong_view_contains_correct_elements(self):
 		# connect to live_server_url+'/newsong/'
 		self.browser.get(self.live_server_url+'/newsong/')
 
