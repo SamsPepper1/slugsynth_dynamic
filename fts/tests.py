@@ -17,7 +17,7 @@ class CreateUserTest(LiveServerTestCase):
 	def tearDown(self):
 		self.browser.quit()
 
-	def test_home_view_has_correct_elements(self):
+	def DONTtest_home_view_has_correct_elements(self):
 		# Barry opens web browser and goes to home page
 		print 'connecting to %s'% self.live_server_url
 		self.browser.get(self.live_server_url)
@@ -49,19 +49,31 @@ class CreateUserTest(LiveServerTestCase):
 			self.assertEquals(self.live_server_url+address, link.get_attribute('href'))
 
 
-	def go_to_sign_up_page_and_create_new_user(self):
+	def test_go_to_sign_up_page_and_create_new_user(self):
 		
 		# go to home page
-		self.browser.get('/')
+		self.browser.get(self.live_server_url)
 
 		# click on 'Sign Up' link
-
+		link = self.browser.find_element_by_link_text('Sign Up')
+		link.click()
 
 		# see form with inputs for username, password, and email adress
-
+		username_field = self.browser.find_element_by_name('username')
+		email_field = self.browser.find_element_by_name('email')
+		password_field = self.browser.find_element_by_name('password')
+		password1_field = self.browser.find_element_by_name('password1')
+		bio_field = self.browser.find_element_by_name('bio')			
 
 		#fill in username, password, and email
+		username_field.send_keys('alice')
+		email_field.send_keys('alice@example.com')
+		password_field.send_keys('1234')
+		password1_field.send_keys('1234')
+		bio_field.send_keys('I was born in a stable on christmas day')
 
+		# click submit
+		self.fail('TODO')
 
 		#should be redirected to Sign In Page
 
@@ -73,7 +85,7 @@ class CreateUserTest(LiveServerTestCase):
 		# should press submit, and be redirected to new Song Page
 
 
-	def test_newSong_view_contains_correct_elements(self):
+	def DONTtest_newSong_view_contains_correct_elements(self):
 		# connect to live_server_url+'/newsong/'
 		self.browser.get(self.live_server_url+'/newsong/')
 
