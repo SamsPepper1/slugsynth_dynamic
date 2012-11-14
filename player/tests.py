@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 from player.models import Player
 
-class PlayerTests(TestCase):
+class PlayerModelTests(TestCase):
 
 	def test_player_object_exists_and_contains_user_as_User(self):
 		# make a User Object

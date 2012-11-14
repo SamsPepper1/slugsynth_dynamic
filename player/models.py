@@ -12,3 +12,9 @@ class Player(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+
+def create_player_user_callback(sender, instance, **kwargs):
+	player, new = Player.get_or_create(user=instance)
+
+post_save.connect(create_player_user_callback, User)

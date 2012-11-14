@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.conf import settings
 
-class HomePageTest(LiveServerTestCase):
+class CreateUserTest(LiveServerTestCase):
 
 	#set up test browser
 	def setUp(self):
@@ -49,17 +49,28 @@ class HomePageTest(LiveServerTestCase):
 			self.assertEquals(self.live_server_url+address, link.get_attribute('href'))
 
 
-class NewSongTest(LiveServerTestCase):
-	#set up test browser
-	def setUp(self):
-		self.browser = webdriver.Firefox()
-		print 'setting up web browser'
-		self.browser.implicitly_wait(3)
+	def go_to_sign_up_page_and_create_new_user(self):
+		
+		# go to home page
+		self.browser.get('/')
+
+		# click on 'Sign Up' link
 
 
-	# tear down test browser
-	def tearDown(self):
-		self.browser.quit()
+		# see form with inputs for username, password, and email adress
+
+
+		#fill in username, password, and email
+
+
+		#should be redirected to Sign In Page
+
+		
+		# should see inputs for username and password
+
+		#should fill them in correctly
+
+		# should press submit, and be redirected to new Song Page
 
 
 	def test_newSong_view_contains_correct_elements(self):
@@ -88,5 +99,5 @@ class NewSongTest(LiveServerTestCase):
 			self.assertIn(self.live_server_url+settings.STATIC_URL+js, script_srcs)
 
 
-		self.fail('TODO')
+	
 
