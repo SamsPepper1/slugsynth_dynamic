@@ -2,12 +2,14 @@ from collections import namedtuple
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from django.conf import settings
 
 class HomePageTest(LiveServerTestCase):
 
 	#set up test browser
 	def setUp(self):
 		self.browser = webdriver.Firefox()
+		print 'setting up web browser'
 		self.browser.implicitly_wait(3)
 
 
@@ -17,10 +19,74 @@ class HomePageTest(LiveServerTestCase):
 
 	def test_home_view_has_correct_elements(self):
 		# Barry opens web browser and goes to home page
+		print 'connecting to %s'% self.live_server_url
 		self.browser.get(self.live_server_url)
 
 		# Barry sees header 'SlugJam'	
 		main_header = self.browser.find_element_by_tag_name('h1')
-		self.assertEquals('SlugJam', main_header)
+		self.assertEquals('SlugJam', main_header.text)
 
+		# check title is correct
+		title = self.browser.find_element_by_tag_name('title')
+		self.assertEquals('SlugJam | Home', title.text)
+	
+		# list of links
+		links = [
+				('Sign Up', '/user/signup/'),
+				('Log In', '/user/login/'),
+				('New Song','/newsong/'),
+				('About','/about/'),
+			]
+
+		response = self.client.get('/')
+
+		# cycle through links, checking they exist and point to the correct url
+		for text, address in links:
+
+			# it should link to live_server_url+address
+			link = self.browser.find_element_by_link_text(text)
+
+			self.assertEquals(self.live_server_url+address, link.get_attribute('href'))
+
+
+class NewSongTest(LiveServerTestCase):
+	#set up test browser
+	def setUp(self):
+		self.browser = webdriver.Firefox()
+		print 'setting up web browser'
+		self.browser.implicitly_wait(3)
+
+
+	# tear down test browser
+	def tearDown(self):
+		self.browser.quit()
+
+
+	def DONTtest_newSong_view_contains_correct_elements(self):
+		# connect to live_server_url+'/newsong/'
+		self.browser.get(self.live_server_url+'/newsong/')
+
+		#New Song page should have title 'SLugJam | New Song'
+		title = self.browser.find_element_by_tag_name('title')
+		self.assertEquals('SlugJam | New Song', title.text)
+
+		# test all script files are included
+		js_list = [
+				'js/raphael-min.js',
+				'js/newWave.js',
+				'images/slugpaths.js',
+				'js/slugsynth.js',
+				'js/catmullRom2Bezier.js',
+			]
+				
+		# get list of script elements from the document
+		scripts = self.browser.find_elements_by_tag_name('script')
+		script_srcs = [s.get_attribute('src') for s in scripts]
+
+		# check that each js is in script_srcs
+		for js in js_list:
+			self.assertIn(self.live_server_url+settings.STATIC_URL+js, script_srcs)
+
+
+		self.fail('TODO')
 

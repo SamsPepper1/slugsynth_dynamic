@@ -1,0 +1,70 @@
+
+        body {
+            background-color: #85BE6A;
+            font-family: Courier;
+            color: #222;
+        }
+        header {
+            width: 100%;
+            text-align: center;
+        }
+        
+        h3,
+        h4 {
+            color: #222;
+
+        }
+        
+        header p {
+           opacity: 0.6;
+           font-size: 80%;
+           color: #222;
+        }
+        
+        header p:hover{
+            opacity: 1;
+        }
+
+        article {
+            width: 400px;;
+            text-align: center;
+        }
+        
+        
+        article ul {
+            font-size: 80%;
+            width: 100%;
+            text-align: left;
+        }
+        
+        article li {
+
+        }
+
+
+        #controls {
+            width: 100%;
+            text-align: center;
+        }
+        #track {
+            border-top: 50px;
+            width: 100%;
+            text-align: center;
+        }
+        #slugBoxLeft {
+            position: absolute;
+            top: 120px;
+            left: 0px;
+            width: 100%;
+            vertical-align: center;
+            height: 200px;
+        }
+        #buttons {
+            width: 100%;
+            text-align: center;
+        }
+        #buttons.button {
+            font-weight: strong;
+            font-size: 140%;
+            cursor: pointer;
+        }       

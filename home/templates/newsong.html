@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    
+        <meta charset="utf-8">
+        
+        <title>SlugJam | {{ title }}</title>
+        
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css"></link>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}images/slugpaths.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/catmullRom2Bezier.js"></script>
+        <style type="text/css">
+        </style>     
+    </head>
+    <body>
+        <header>
+            <h3>slugjam</h3>
+        </header>
+        <div id="controls"></div>
+        <div id="track"></div>
+        <div id="slugBoxLeft"></div>
+        <article> 
+        <p>currently only works in firefox.</p>
+        <p>VERY buggy. will update with more sensible demo soon.</p>
+            <h4>How To</h4>
+            <ul>
+                <li>click on a slug</li>
+                <li>click on grid to place</li>
+                <li> click on the slug again to remove it</li>
+                <li> click play</li>
+                <li> click on the slug on the grid to remove it</li>
+                <li>click 'Mold' to change the shape/sound envelope</li>
+                <li>click 'wave' to view the soundwave produced</li>
+                <li> click the little green arrow on the slugmold/wave panel to close it</li>
+            </ul>
+        </article>
+    <body>
+</html>
