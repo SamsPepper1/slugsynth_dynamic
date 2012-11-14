@@ -19,8 +19,9 @@ class PlayerModelTests(TestCase):
 		u.save()
 		self.assertIn(u, User.objects.all())
 
-		# make Player object around user
-		p = Player(user=u)
+		#Check that it created a Player object 
+		self.assertEquals(len(Player.objects.all()), 1)
+		p = Player.objects.all()[0]
 
 		# Player should have following attributes:
 		attributes = ['bio','slugs','songs','comments','votes']
@@ -29,7 +30,7 @@ class PlayerModelTests(TestCase):
 		for a in attributes:
 			self.assertEquals(hasattr(p,a), True)
 
-		#check the Player saves correctly
+		#check the Player saves correctly		print p.user.id
 		p.save()
 		#check it has been correctly added
 		self.assertIn(p, Player.objects.all())
