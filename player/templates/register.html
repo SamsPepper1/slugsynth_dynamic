@@ -3,7 +3,44 @@
 		<title>SlugJam | {{ title }}</title>
 	</head>
 	<body>
-	{{form}}
+	<form method='post' action=''>
+		{% csrf_token %}
+		{% if form.errors %} <p> Please correct these errors: </p>{% endif %}
+		
+		{% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{% endif %}
+		<div class="register_div">
+			<p><label for="username" {% if form.username.errors %} class="errors"{% endif %}>Username:</p>
+			<p>{{form.username}}</p>
+		</div>
+
+		{% if form.email.errors %}<p class="error">{{ form.email.errors }}</p>{% endif %}
+		<div class="register_div">
+			<p><label for="email" {% if form.email.errors %} class="errors"{% endif %}>Email:</p>
+			<p>{{form.email}}</p>
+		</div>
+
+		{% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{% endif %}
+		<div class="register_div">
+			<p><label for="password" {% if form.password.errors %} class="errors"{% endif %}>Password:</p>
+			<p>{{form.password}}</p>
+		</div>
+
+		{% if form.passwordB.errors %}<p class="error">{{ form.passwordB.errors }}</p>{% endif %}
+		<div class="register_div">
+			<p><label for="passwordB" {% if form.passwordB.errors %} class="errors"{% endif %}>Verify Password:</p>
+			<p>{{form.passwordB}}</p>
+		</div>
+
+		{% if form.bio.errors %}<p class="error">{{ form.bio.errors }}</p>{% endif %}
+		<div class="register_div">
+			<p><label for="bio" {% if form.bio.errors %} class="errors"{% endif %}>About Me:</p>
+			<p>{{form.bio}}</p>
+		</div>
+
+		<input type="submit"/>
+	</form>
+	
+
 	</body>
 </html>
 

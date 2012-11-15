@@ -3,6 +3,8 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.conf import settings
+from django.contrib.auth.models import User
+from player.models import Player
 
 class CreateUserTest(LiveServerTestCase):
 
@@ -51,6 +53,10 @@ class CreateUserTest(LiveServerTestCase):
 
 	def test_go_to_sign_up_page_and_create_new_user(self):
 		
+		# count how many users and players there are already
+		user_count = len(User.objects.all())
+		player_count = len(Player.objects.all())
+		
 		# go to home page
 		self.browser.get(self.live_server_url)
 
@@ -62,20 +68,35 @@ class CreateUserTest(LiveServerTestCase):
 		username_field = self.browser.find_element_by_name('username')
 		email_field = self.browser.find_element_by_name('email')
 		password_field = self.browser.find_element_by_name('password')
-		password1_field = self.browser.find_element_by_name('password1')
+		passwordB_field = self.browser.find_element_by_name('passwordB')
 		bio_field = self.browser.find_element_by_name('bio')			
 
 		#fill in username, password, and email
-		username_field.send_keys('alice')
+		username_field.send_keys('')
 		email_field.send_keys('alice@example.com')
 		password_field.send_keys('1234')
-		password1_field.send_keys('1234')
+		passwordB_field.send_keys('1234')
 		bio_field.send_keys('I was born in a stable on christmas day')
 
 		# click submit
-		self.fail('TODO')
+		submit = self.browser.find_element_by_css_selector("input[type='submit']")
+		submit.click()	
 
-		#should be redirected to Sign In Page
+		#should be redirected to profile page
+		body = self.browser.find_element_by_tag_name('body')
+		self.assertIn("error", body.text)
+
+
+		
+
+		self.fail('TODO')
+		title = self.browser.find_element_by_tag_name('title')
+		self.assertEquals("SlugJam | alice's Profile", title.text)
+		
+		# Check that User and Player numbers have increased by one
+		self.assertEquals(len(Player.objects.all()), player_count +1)
+		self.assertEquals(len(User.objects.all()), User_count +1)
+
 
 		
 		# should see inputs for username and password
