@@ -21,11 +21,20 @@ class RegistrationForm(ModelForm):
 			User.objects.get(username=username)
 		except User.DoesNotExist:
 			return username
-		raise forms.ValidatoinError("That username is already taken, please select, another")
+		raise forms.ValidationError("That username is already taken, please select, another")
 
 	def clean(self):
-		password = self.cleaned_data['password']
-		passwordB = self.cleaned_data['passwordB']
+		try:
+			password = self.cleaned_data['password']
+			passwordB = self.cleaned_data['passwordB']
+		except KeyError:
+			raise forms.ValidationError("you left a field blank..")
 		if password != passwordB:
 			raise forms.ValidationError("The passwords did not match. Please try again.")
 		return self.cleaned_data
+
+
+class LoginForm(forms.Form):
+	username	=	forms.CharField(label=(u'User Name'))
+	password	=	forms.CharField(label=(u'Password'), widget=forms.PasswordInput(render_value=False))
+

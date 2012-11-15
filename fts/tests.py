@@ -71,7 +71,7 @@ class CreateUserTest(LiveServerTestCase):
 		passwordB_field = self.browser.find_element_by_name('passwordB')
 		bio_field = self.browser.find_element_by_name('bio')			
 
-		#fill in username, password, and email
+		#fill in password, and email, ignore username
 		username_field.send_keys('')
 		email_field.send_keys('alice@example.com')
 		password_field.send_keys('1234')
@@ -82,14 +82,23 @@ class CreateUserTest(LiveServerTestCase):
 		submit = self.browser.find_element_by_css_selector("input[type='submit']")
 		submit.click()	
 
-		#should be redirected to profile page
+		#should be sent back error form
 		body = self.browser.find_element_by_tag_name('body')
 		self.assertIn("error", body.text)
 
-
+		# previous inputs should still be there
 		
 
-		self.fail('TODO')
+		
+		#fill in form correctly
+		username_field = self.browser.find_element_by_name('username')
+		username_field.send_keys('alice')
+
+		# click submit
+		submit = self.browser.find_element_by_css_selector("input[type='submit']")
+		submit.click()	
+
+		# new page should be alice's profile
 		title = self.browser.find_element_by_tag_name('title')
 		self.assertEquals("SlugJam | alice's Profile", title.text)
 		
