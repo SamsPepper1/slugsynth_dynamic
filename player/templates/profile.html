@@ -8,5 +8,15 @@
 	<p>Email: {{player.user.email}}</p>
 	<p>About Me: {{player.bio}}</p>
 
+
+	<div class="mySlugs">
+	<h2>{{player.user.username}}'s Slugs</h2>
+		<ul> 
+			{% for slug in player.slug_set.all %}
+				<p> {{slug.name}}: {{slug.sound.overTones}}<p>
+			{% endfor %}
+		</ul>
+	</div>
+
 {% endblock %}
 
