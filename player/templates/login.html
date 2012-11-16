@@ -1,9 +1,9 @@
-<html>
-	<head>
-		<title>SlugJam | Log In</title>
-	</head>
-	<body>
-	<form method='post' action=''>
+{% extends 'base.html' %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<form method='post' action=''>
 		{% csrf_token %}
 		{% if form.errors %} <p> Please correct these errors: </p>{% endif %}
 		
@@ -25,6 +25,4 @@
 	<div class="forgot_password">
 		<p> Forgot your password? <a href="/user/resetpassword/">Restt</a></p>
 	</div>
-
-	</body>
-</html>
+{% endblock %}

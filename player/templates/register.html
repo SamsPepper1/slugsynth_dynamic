@@ -1,8 +1,12 @@
-<html>
-	<head>
-		<title>SlugJam | Sign Up</title>
-	</head>
-	<body>
+
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+
+
 	<form method='post' action=''>
 		{% csrf_token %}
 		{% if form.errors %} <p> Please correct these errors: </p>{% endif %}
@@ -39,8 +43,5 @@
 
 		<input type="submit"/>
 	</form>
-	
 
-	</body>
-</html>
-
+{% endblock %}

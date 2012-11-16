@@ -1,12 +1,12 @@
-<html>
-	<head>
-		<title>SlugJam | {{player.user.username}}'s Profile</title>
-	</head>
-	
-	<body>
-		<h1>{{player.user.username}}'s Profile</h1>
-		<p>Email: {{player.user.email}}</p>
-		<p>About Me: {{player.bio}}</p>
-	</body>
+{% extends 'base.html' %}
 
-</html>
+{% block title %}{{player.user.username}}'s Profile{% endblock %}
+
+{% block content %}
+
+	<h1>{{player.user.username}}'s Profile</h1>
+	<p>Email: {{player.user.email}}</p>
+	<p>About Me: {{player.bio}}</p>
+
+{% endblock %}
+
