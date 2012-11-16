@@ -115,6 +115,10 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+LOGIN_URL='/user/login/'
+
+LOGIN_REDIRECT_URL='/user/profile'
+
 AUTH_PROFILE_MODULE = 'player.Player'
 
 INSTALLED_APPS = (
