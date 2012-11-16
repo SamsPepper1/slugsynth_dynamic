@@ -20,7 +20,7 @@
 		
 			{% block navbar %}
 			<ul>
-				<li class="NavBarItem Left"><a href="/about">About</a></li>
+				<li class="NavBarItem Left"><a href="/about/">About</a></li>
 				{% if user.is_authenticated %}
 					<li><a class="NavBarItem Right" href="/user/logout/">Log Out</a></li>
 				{% else %}
