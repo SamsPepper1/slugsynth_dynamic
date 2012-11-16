@@ -19,6 +19,15 @@
 		<nav class="mainNav">
 		
 			{% block navbar %}
+			<ul>
+				<li class="NavBarItem Left"><a href="/about">About</a></li>
+				{% if user.is_authenticated %}
+					<li><a class="NavBarItem Right" href="/user/logout/">Log Out</a></li>
+				{% else %}
+					<li><a class="NavBarItem Right" href="/user/login/">Log In</a></li>
+					<li><a class="NavBAr Right" href="/user/signup/">Sign Up</a></li>
+				{% endif %}
+			</ul>
 			{% endblock %}
 		
 		</nav>
