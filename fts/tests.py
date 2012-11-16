@@ -19,7 +19,7 @@ class CreateUserTest(LiveServerTestCase):
 	def tearDown(self):
 		self.browser.quit()
 
-	def DONTtest_home_view_has_correct_elements(self):
+	def test_home_view_has_correct_elements(self):
 		# Barry opens web browser and goes to home page
 		print 'connecting to %s'% self.live_server_url
 		self.browser.get(self.live_server_url)
@@ -93,29 +93,44 @@ class CreateUserTest(LiveServerTestCase):
 		#fill in form correctly
 		username_field = self.browser.find_element_by_name('username')
 		username_field.send_keys('alice')
+		password_field = self.browser.find_element_by_name('password')
+		passwordB_field = self.browser.find_element_by_name('passwordB')
+		password_field.send_keys('1234')
+		passwordB_field.send_keys('1234')
 
 		# click submit
 		submit = self.browser.find_element_by_css_selector("input[type='submit']")
 		submit.click()	
 
+
+		# Should take us to login page
+		title = self.browser.find_element_by_tag_name('title')
+		self.assertEquals("SlugJam | Log In", title.text)
+
+		# fill in log in info
+		username_field = self.browser.find_element_by_name('username')
+		username_field.send_keys('alice')
+		password_field = self.browser.find_element_by_name('password')
+		password_field.send_keys('1234')
+
+		# click submit
+		self.browser.find_element_by_css_selector("input[type='submit']").click()
+
 		# new page should be alice's profile
+		#print 'BODY TEXT: \n' + self.browser.find_element_by_tag_name('body').text
 		title = self.browser.find_element_by_tag_name('title')
 		self.assertEquals("SlugJam | alice's Profile", title.text)
 		
 		# Check that User and Player numbers have increased by one
 		self.assertEquals(len(Player.objects.all()), player_count +1)
-		self.assertEquals(len(User.objects.all()), User_count +1)
+		self.assertEquals(len(User.objects.all()), user_count +1)
 
-
-		
-		# should see inputs for username and password
-
-		#should fill them in correctly
-
-		# should press submit, and be redirected to new Song Page
-
-
-	def DONTtest_newSong_view_contains_correct_elements(self):
+		# User page should contain all user information
+		body = self.browser.find_element_by_tag_name('body')
+		self.assertIn('Email: alice@example.com', body.text)
+		self.assertIn('About Me: I was born in a stable on christmas day', body.text)
+	
+	def test_newSong_view_contains_correct_elements(self):
 		# connect to live_server_url+'/newsong/'
 		self.browser.get(self.live_server_url+'/newsong/')
 
