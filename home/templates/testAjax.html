@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load dajaxice_templatetags %}
+{% block title %}Test Ajax{% endblock %}
+{% block script %}
+{% dajaxice_js_import %}
+<script type="text/javascript">
+function callback(data){
+	document.getElementById('slugInfo').innerHTML = data.slug
+}
+</script>
+
+{% endblock %}
+
+{% block content %}
+	<input type="button" onclick="Dajaxice.slugs.returnslug(callback, {'pk':1});">click here</input>
+	<div id="slugInfo"></div>
+{% endblock %}
