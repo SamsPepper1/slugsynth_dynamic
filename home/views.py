@@ -10,3 +10,11 @@ def home(request):
 def newsong(request):
 	context = {'title': 'New Song'}
 	return render(request, 'newsong.html', context)	
+
+
+def testAjax(request):
+	context = {}
+	return render(request, 'testAjax.html', context)
+
+def about(request):
+	return render(request,'about.html')

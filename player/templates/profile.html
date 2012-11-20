@@ -3,15 +3,18 @@
 {% block title %}{{player.user.username}}'s Profile{% endblock %}
 
 {% block content %}
-
-	<h1>{{player.user.username}}'s Profile</h1>
+	<header>
+		<h2>{{player.user.username}}'s Profile</h2>
+	</header>
 	<p>Email: {{player.user.email}}</p>
 	<p>About Me: {{player.bio}}</p>
 
 
 	<div class="mySlugs">
-	<h2>{{player.user.username}}'s Slugs</h2>
-		<ul> 
+	<header>
+		<h3>{{player.user.username}}'s Slugs</h3>
+	</header>	
+	<ul> 
 			{% for slug in player.slug_set.all %}
 				<p> {{slug.name}}: {{slug.sound.overTones}}<p>
 			{% endfor %}

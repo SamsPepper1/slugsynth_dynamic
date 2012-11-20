@@ -16,12 +16,17 @@
 	</head>
 
 	<body>
+		<header id="mainHeader">
+		<a href="/"><h1></h1></a>
+		</header>
 		<nav class="mainNav">
 		
 			{% block navbar %}
 			<ul>
-				<li class="NavBarItem Left"><a href="/about/">About</a></li>
+				<li ><a class="NavBarItem Left" href="/about/">About</a></li>
+				<li><a class="NavBarItem" href="/newsong/">New Song</a></li>
 				{% if user.is_authenticated %}
+					<li><a class="NavBarItem" href="/user/profile/">Profile</a></li>
 					<li><a class="NavBarItem Right" href="/user/logout/">Log Out</a></li>
 				{% else %}
 					<li><a class="NavBarItem Right" href="/user/login/">Log In</a></li>
@@ -40,6 +45,10 @@
 		<footer class="mainFooter">
 		
 			{% block footer %}
+			<ul>
+				<li>lovingly crafted by #.3</li>
+			</ul>
+				
 			{% endblock %}
 		
 		</footer>
