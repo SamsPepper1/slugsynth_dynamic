@@ -23,6 +23,7 @@ def SignUp(request):
 			player = user.get_profile()
 			player.bio = form.cleaned_data['bio']
 			player.save()
+			player.getStarterPallette()
 			return HttpResponseRedirect('/user/login/')
 		else:
 			return render_to_response('register.html', {'form': form},
