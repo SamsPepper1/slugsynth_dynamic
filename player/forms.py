@@ -1,15 +1,30 @@
 
-from django import forms
+import floppyforms as forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from player.models import Player
 
+
+class PlaceholderInput(forms.TextInput):
+	template_name= 'placeholder_input.html'
+
+class PlaceholderTextArea(forms.Textarea):
+	template_name='placeholder_textarea.html'
+
+class PlaceholderPassword(forms.PasswordInput):
+	template_name='placeholder_password.html'
+
 class RegistrationForm(ModelForm):
-	username	=	forms.CharField(label=(u'User Name'))
-	email 		=	forms.EmailField(label=(u'Email Address'))
-	password	=	forms.CharField(label=(u'Password'), widget=forms.PasswordInput(render_value=False))
-	passwordB	=	forms.CharField(label=(u'Verify Password'), widget=forms.PasswordInput(render_value=False))
-	bio		=	forms.CharField(label=(u'About Me'))
+	username	=	forms.CharField(label=(u'User Name'), widget=PlaceholderInput(
+						attrs={'placeholder': u'choose a name'},))
+	email 		=	forms.EmailField(label=(u'Email Address'), widget=PlaceholderInput(
+						attrs={'placeholder': u'enter your email address'},))
+	password	=	forms.CharField(label=(u'Password'), widget=PlaceholderPassword(render_value=False,
+						attrs={'placeholder': u'enter a password'},))
+	passwordB	=	forms.CharField(label=(u'Verify Password'), widget=PlaceholderPassword(render_value=False,
+						attrs={'placeholder': u're-enter your password',}))
+	bio		=	forms.CharField(label=(u'About Me'), widget=PlaceholderTextArea(
+							attrs={'placeholder':'tell us something about yourself'},))
 
 	class Meta:
 		model = Player

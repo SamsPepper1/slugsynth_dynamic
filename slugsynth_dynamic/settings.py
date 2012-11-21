@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'slugs',
     'dajaxice',
     'dajax',
+    'floppyforms'
 )
 
 # A sample logging configuration. The only tangible logging

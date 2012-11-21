@@ -1,0 +1,24 @@
+{% include "floppyforms/textarea.html" %}
+
+<script type="text/javascript">
+	window.onload = function() {
+		if (!('placeholder' in document.createElement('textarea'))) {
+			var textarea = document.getElementById('{{attrs.id }}');
+			textarea.value = '{{attrs.placeholder }}';
+
+			textarea.onblur = function() {
+				if (this.value == '') {
+					this.value = '{{ attrs.placeholder }}';
+				};
+			};
+
+			textarea.onfocus = function() {
+				if (this.value == '{{ attrs.placeholder }}') {
+					this.value = '';
+				};
+			};
+		};
+	};
+
+
+</script>

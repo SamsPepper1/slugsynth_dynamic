@@ -47,7 +47,7 @@ def LogInRequest(request):
 				login(request, player)
 				return HttpResponseRedirect('/user/profile/')
 			else:
-				return	return_to_response('login.html', {'form': form, 'title': 'Log In'}, context_instance=RequestContext(request))
+				return	render_to_response('login.html', {'form': form, 'title': 'Log In'}, context_instance=RequestContext(request))
 		else:
 			return return_to_response('login.html', {'form': form, 'title': 'Log In'}, context_instance=RequestContext(request))
 
