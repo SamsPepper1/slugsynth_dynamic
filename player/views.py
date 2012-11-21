@@ -18,10 +18,12 @@ def SignUp(request):
 				username=form.cleaned_data['username'],
 				password=form.cleaned_data['password'],
 				email=form.cleaned_data['email']
+
 			)
 			user.save()
 			player = user.get_profile()
 			player.bio = form.cleaned_data['bio']
+			player.points = 17
 			player.save()
 			player.getStarterPallette()
 			return HttpResponseRedirect('/user/login/')

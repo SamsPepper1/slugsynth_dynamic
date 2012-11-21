@@ -28,7 +28,7 @@ class RegistrationForm(ModelForm):
 
 	class Meta:
 		model = Player
-		exclude = ('user','slugs','songs','comments','votes')
+		exclude = ('user','points')
 		
 	def clean_username(self):
 		username = self.cleaned_data['username']
@@ -50,6 +50,7 @@ class RegistrationForm(ModelForm):
 
 
 class LoginForm(forms.Form):
-	username	=	forms.CharField(label=(u'User Name'))
-	password	=	forms.CharField(label=(u'Password'), widget=forms.PasswordInput(render_value=False))
+	username	=	forms.CharField(label=(u'User Name'),widget=PlaceholderInput(
+							attrs={'placeholder': 'your username'},))
+	password	=	forms.CharField(label=(u'Password'), widget=PlaceholderPassword(render_value=False, attrs={'placeholder': 'your password'},))
 
