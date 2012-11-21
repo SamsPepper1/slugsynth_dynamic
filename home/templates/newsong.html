@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    
-        <meta charset="utf-8">
-        
-        <title>SlugJam | {{ title }}</title>
-        
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css"></link>
+{% extends 'base.html' %}
+
+{% block title %}New Song{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/index.css"></link>
+{% endblock %}
+
+{% block script %}
         <script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}images/slugpaths.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/catmullRom2Bezier.js"></script>
-        <style type="text/css">
-        </style>     
-    </head>
-    <body>
-        <header>
-            <h3>slugjam</h3>
-        </header>
-        <div id="controls"></div>
+{% endblock %}
+     
+{% block content %}
+       <div id="controls"></div>
         <div id="track"></div>
         <div id="slugBoxLeft"></div>
         <article> 
@@ -37,5 +33,5 @@
                 <li> click the little green arrow on the slugmold/wave panel to close it</li>
             </ul>
         </article>
-    <body>
-</html>
+
+{% endblock %}
