@@ -1110,9 +1110,10 @@ function cell(x, y, width, height,note, pos,paper, parent) {
     this.r.node.onclick = function() {
         var cell = all.grid.cells[pos][note];
         slug = all.currentSlug;
-        var scaleFactorY = 2;
+        var scaleFactorY = all.grid.height/200;
+	var scaleFactorX = all.pixelWidth/550;
         
-        var transform = 't '+ cell.x + ',' + (cell.y-((scaleFactorY*37)-cell.height)) + ' s 1.5,' + scaleFactorY + ',0,0';
+        var transform = 't '+ cell.x + ',' + (cell.y-((scaleFactorY*37)-cell.height)) + ' s '+ scaleFactorX + ',' + scaleFactorY + ',0,0';
         var id = String(Math.round(Math.random()*1000000));
         var slugIm = slug.draw(cell.parent.paper, 0,transform,mainAttrs.palletteSlugs,id );
         slugIm[1].node.onclick = function() {
@@ -1173,6 +1174,16 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
         play.play();
         setTimeout(function(){play.clear()},songLength/all.sampleRate*1000)
     }
+    this.saveShape= function(){
+	envhash = {
+		'A':this.currentShape.env.AttackSeconds,
+		'D':this.currentShape.env.DecaySeconds,
+		'S':this.currentShape.env.S,
+		'R':this.currentShape.env.ReleaseSeconds,
+		'shape':this.currentShape.path,
+	};
+	Dajaxice.slugs.saveShape(savedSlug, {'slugName': this.name, 'env':JSON.stringify(envhash)});
+	}
     //this.addShape = function(env) {
     //    var shape = getSlugShape(this.path,env);
     //    var envelope = getEnvelope(env);
@@ -1183,10 +1194,11 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
     //};
 };
 
-
-
-
 // sound functions
+
+function savedSlug(data) {
+	alert(data.message);
+}
 
 function getEnvelope(env) {
 
@@ -1346,7 +1358,7 @@ function setup(data) {
 	    baseFreq = 16.532,
 	    scale = scales.major,
 	    tempo = 240
-	    width = 800,
+	    width = 1000,
 	    height = 500,
 	    notes = [];
 	 
@@ -1361,7 +1373,7 @@ function parseSlug(slugJSON,id) {
 	console.log(slugJSON.shapes[0].shape);
 	path = JSON.parse(slugJSON.shapes[0].shape);
 	var soundJSON = slugJSON.sound;
-	var sound = new compoundSound(eval(soundJSON.waveForm), 330, soundJSON.amp, 0.5, sampleRate, env, JSON.parse(soundJSON.overTones), new constant(0), new constant(0), new constant(0));
+	var sound = new compoundSound(eval(soundJSON.waveForm), 330, soundJSON.amp, 0.38, sampleRate, env, JSON.parse(soundJSON.overTones), new constant(0), new constant(0), new constant(0));
 	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, [{'path': path, 'env': env}])
 	return slug;
 	}

@@ -6,7 +6,7 @@ import json
 class Shape(models.Model):
 	name = models.CharField(max_length=30)
 	last_used = models.DateTimeField()
-	shape = models.CharField(max_length=100)
+	shape = models.CharField(max_length=4000)
 	attack = models.FloatField()
 	decay = models.FloatField()
 	sustainLevel = models.FloatField()
