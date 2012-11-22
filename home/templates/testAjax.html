@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 {% load dajaxice_templatetags %}
 {% block title %}Test Ajax{% endblock %}
+
 {% block script %}
-{% dajaxice_js_import %}
-<script type="text/javascript">
-function callback(data){
-	document.getElementById('slugInfo').innerHTML = data.slug
-}
-</script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script>
+	{% dajaxice_js_import %}
+	<script type="text/javascript">
+		var slugs = [];
+		function callback(data){
+			console.log(data.message);
+			console.log(data.player);
+			console.log(data.slugs);
+			slugs = data.slugs;
+		}
+	</script>
 
 {% endblock %}
 
 {% block content %}
-	<input type="button" onclick="Dajaxice.slugs.returnslug(callback, {'pk':1});">click here</input>
+	<input type="button" onclick="Dajaxice.slugs.getDefaultPallette(callback);">click here</input>
 	<div id="slugInfo"></div>
 {% endblock %}

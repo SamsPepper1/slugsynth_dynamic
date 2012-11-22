@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load dajaxice_templatetags %}
 
 {% block title %}New Song{% endblock %}
 
@@ -7,11 +8,40 @@
 {% endblock %}
 
 {% block script %}
+	{% dajaxice_js_import %}
         <script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}images/slugpaths.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/catmullRom2Bezier.js"></script>
+	<script type="text/javascript">
+    
+
+var sampleRate = 44100
+
+
+
+
+	scales = { 
+	    'major': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
+	    'minor': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
+	    'minorPentatonic': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
+	    }
+
+       
+
+
+var dataArray,
+    start
+
+
+
+window.onload = function() {
+  
+   getPlayerSlugs(); 
+};
+</script>
+
 {% endblock %}
      
 {% block content %}

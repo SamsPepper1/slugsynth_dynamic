@@ -12,7 +12,7 @@ def returnslug(request, pk):
 def getDefaultPallette(request):
 	if request.user.is_authenticated():
 		player = request.user.get_profile()
-		slugs = [s.as_data() for s in player.slug_set.all()[:2]]
-		return simplejson.dumps({'message': "%s's slugs"%(player.user.username),'slug': slugs})
+		slugs = [s.as_data() for s in player.slug_set.all()]
+		return simplejson.dumps({'message': "%s's slugs"%(player.user.username),'player': player.__unicode__(),'slugs':slugs})
 	else:
-		return simplejson.dumps({'message': 'Not logged in', 'slug': None})
+		return simplejson.dumps({'message': 'None', 'slug': None})

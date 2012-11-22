@@ -1292,17 +1292,11 @@ var mainAttrs ={'cellAttrs': {
  
     }
     
-    
-    
-    
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-var namesRand = ['Billy','Tess','Barbara','Jon','Emma','Slug','Milton','Norman','Tod', 'Gary', 'Wilma']    
+var namesRand = ['Billy','Tess','Barbara','Jon','Emma','Slug','Milton','Norman','Tod', 'Gary', 'Wilma'];    
 
-var wavesRand = [sine,sine, square]
+var wavesRand = [sine,sine, square];
 
-var sampleRate = 44100
-
+    
 function randomSlug(id, color) {
     var shapes = [{'path': slugTwo, 'env':env1}];
     var env1 = new envelope(0.1,0.2,0.7,0.1,sampleRate)
@@ -1312,7 +1306,7 @@ function randomSlug(id, color) {
     var wave = wavesRand[Math.round(2*Math.random())];
     var overtones = [[1,1]];
     var oLength = 1+ (Math.random()*4)
-    var color = color;
+    var color = "hsb("+color+",0.5,0.5)";
     for (var i = 0; i < oLength;i++) {
         var n = Math.round(Math.random()*15)+1;
         overtones.push([n,n*(Math.random()+0.5)])
@@ -1321,61 +1315,55 @@ function randomSlug(id, color) {
     return new slugFamily(name,id, sound, color, 3,shapes)
     
 }
-             
-var env1 = new envelope(0.06,0.08,0.7,0.1,sampleRate)
 
 
-var sound1 = new compoundSound(sine, 330, 0.1, 1, sampleRate, env1,
-            [[1,1],[2,2],[4,4],[6,6]], new sine(8,0.02, sampleRate), new constant(0),
-            new constant(0))
-
-var sound2 = new compoundSound(sine, 330, 0.1, 1, sampleRate, env1,
-            [[1,3],[3,3],[5,4]], new constant(0), new sine(8,2,sampleRate),
-            new constant(0))
-
-var colorMain = Math.random();
-
-var shapes = [{'path': slugTwo, 'env': env1}];
-var slug1 = new slugFamily('john',0, sound1,"hsb("+Math.random() + ",0.5,0.7)",2,shapes)
-slug1.color = "hsb("+colorMain+",0.5,0.7)"
-var slug2 = new slugFamily('Bill',1, sound2, "hsb("+Math.random() + ",0.5,0.7)", 2,shapes)
-slug2.color = "hsb("+(colorMain+0.25)%1 +",0.5,0.7)"
-//var slug3 = new slugFamily('July',1, sound3, "hsb("+Math.random() +",0.5,0.7)",3,shapes)
-//slug3.color = "hsb("+(colorMain+0.5)%1+",0.5,0.7)"
-//var slug4 = new slugFamily('Ivan',3, sound4, "hsb(" +Math.random() + ",0.5,0.7)",4,shapes)
-//slug4.color = "hsb("+(colorMain+0.75)%1+",0.5,0.7)"
-
-var slugs = [];
-
-for (var i = 0; i < 4; i++){
-    slugs.push(randomSlug(i,"hsb(" + (colorMain+(i*0.25))%1 + ",0.5,0.7)"));
-};
-
-scales = { 
-    'major': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
-    'minor': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
-    'minorPentatonic': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
-    }
+    
+    
+function getPlayerSlugs(pk){
+	console.log(pk);
+	Dajaxice.slugs.getDefaultPallette(setup);
+}
 
 
-var id = 'track',
-    length = 16,
-    baseFreq = 16.532,
-    scale = scales.major,
-    tempo = 240
-    width = 800,
-    height = 500;
-    //slugs = [slug1,slug2,slug3,slug4],
-    var notes = []
-        
+var returned;
+function setup(data) {
+	slugs = [];
+	console.log(data.message);
+	if (data.message == 'None') {
+		color = Math.random();
+		for (var i = 0; i < 4; i++){
+			slugs.push(randomSlug(i, (color+i*0.25)%1));
+		}
+	}
+	else {
+		for (var i = 0; i < data.slugs.length; i++){	
+			slugs.push(parseSlug(data.slugs[i], i));
+		}
+	}
+	
+	var id = 'track',
+	    length = 16,
+	    baseFreq = 16.532,
+	    scale = scales.major,
+	    tempo = 240
+	    width = 800,
+	    height = 500,
+	    notes = [];
+	 
+	all = new main(id, length,baseFreq, sampleRate, scale, tempo, width, height, slugs, notes);
+	
+}
 
 
-var dataArray,
-    start
+function parseSlug(slugJSON,id) {
+	sampleRate = 44100;
+	var env  = new envelope(slugJSON.shapes[0].A, slugJSON.shapes[0].D, slugJSON.shapes[0].S, slugJSON.shapes[0].R, sampleRate);
+	console.log(slugJSON.shapes[0].shape);
+	path = JSON.parse(slugJSON.shapes[0].shape);
+	var soundJSON = slugJSON.sound;
+	var sound = new compoundSound(eval(soundJSON.waveForm), 330, soundJSON.amp, 0.5, sampleRate, env, JSON.parse(soundJSON.overTones), new constant(0), new constant(0), new constant(0));
+	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, [{'path': path, 'env': env}])
+	return slug;
+	}
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-window.onload = function() {
-  
-    all = new main(id,length,baseFreq,sampleRate,scale,tempo,width,height,slugs,notes)
-};
