@@ -34,7 +34,7 @@ def saveShape(request, slugName, env):
 				decay = env['D'],
 				sustainLevel = env['S'],
 				release = env['R'],
-				sustainLengthDefault=1.0)
+				sustainLengthDefault=env['duration'])
 			shape.save()
 			slug.shapes.add(shape)
 			#return simplejson.dumps({'message':'slug named %s, owned by %s, has been found. shape has been saved.'%(slug, player)})

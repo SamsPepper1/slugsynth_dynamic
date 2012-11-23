@@ -1007,7 +1007,7 @@ function controls(x,y,xMargin, yMargin,id,height, buttons, barAttrs,parent){
     this.buttons = buttons;
     this.buttonSet = [];
     this.body = this.parent.paper.rect(this.x+this.xMargin,this.y+this.yMargin,
-    this.parent.pixelWidth-(2*this.xMargin),this.height,10)
+    this.parent.pixelWidth-(2*this.xMargin),this.height,5)
         .attr(barAttrs)
         .toBack();
         
@@ -1181,6 +1181,7 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
 		'S':this.currentShape.env.S,
 		'R':this.currentShape.env.ReleaseSeconds,
 		'shape':this.currentShape.path,
+		'duration': this.sound.duration
 	};
 	Dajaxice.slugs.saveShape(savedSlug, {'slugName': this.name, 'env':JSON.stringify(envhash)});
 	}
@@ -1213,7 +1214,7 @@ function getShape(path, shape) {
 
 
 var mainAttrs ={'cellAttrs': {
-                    'fill': '#4B7C33',
+                    'fill': '#3F7C22',
                     'stroke': '#94BE80',
                     "stroke-width": 5,
                     "stroke-opacity": 0,
@@ -1222,9 +1223,9 @@ var mainAttrs ={'cellAttrs': {
             
             },
             'palletteAttrs': {
-                'fill': '#863746',
-                'stroke': '#643841',
-                'stroke-width': 3,
+                //'fill': '#486C62',
+                //'stroke': '#486C62',
+                'stroke-width': 0,
             },
             'palletteSlugs': {
                 'stroke': '#222',
@@ -1241,12 +1242,12 @@ var mainAttrs ={'cellAttrs': {
                 'opacity': 1,
             },
             'topBarAttrs': {
-                'stroke-width': 3, 
-                'stroke-opacity': 1,
-                'stroke-linecap': 'round',
-                'stroke-linejoin': 'round',
-                'fill': '#863746',
-                'stroke': '#643841'
+                'stroke-width': 0, 
+                //'stroke-opacity': 0.2,
+                //'stroke-linecap': 'round',
+                //'stroke-linejoin': 'round',
+                //'fill': '#919D69',
+                //'stroke': '#6F8F5F5'
             },
             'sideBarTop': {
                 'fill': '#23530F',
@@ -1270,8 +1271,8 @@ var mainAttrs ={'cellAttrs': {
                 'stroke-opacity': 1,
             },
             'buttonAttrs': {
-                    'fill': '#4B7C33',
-                    'stroke': '#94BE80',
+                    'fill': '#6F8F5F',
+                    'stroke': '#ADDF95',
                     "stroke-width": 5,
                     "stroke-opacity": 0.1,
                     'cursor': 'pointer'
