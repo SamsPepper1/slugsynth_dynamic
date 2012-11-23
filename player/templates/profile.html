@@ -1,27 +1,120 @@
 {% extends 'base.html' %}
+{% load dajaxice_templatetags %}
 
 {% block title %}{{player.user.username}}'s Profile{% endblock %}
 
+{% block script %}
+{% dajaxice_js_import %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
+<script type="text/javascript">
+
+
+function getSlugs(data){
+	slugs = []
+	for (var i = 0; i < data.slugs.length; i++){
+		slugs.push(parseSlug(data.slugs[i], i));
+	};
+	drawSlugs(slugs);
+	
+
+}
+function drawSlugs(slugs){
+	for (var i = 0; i < slugs.length; i++){
+		var outer = document.createElement('div');
+		outer.setAttribute('id','slugDiv_'+i);
+		outer.setAttribute('class','slugDiv');
+		var h3 = document.createElement('h3');
+		h3.innerHTML = slugs[i].name;
+		outer.appendChild(h3);
+		var d = document.createElement('div')
+		d.setAttribute('id','slugBox_'+i);
+		d.setAttribute('class','slugBox');
+		outer.appendChild(d);
+		document.getElementById('slugs_field').appendChild(outer);
+		var r = new Raphael(document.getElementById('slugBox_'+i),200,90);
+		slug = slugs[i].draw(r, 0, 's 2,2,0,0', mainAttrs.palletteSlugs, 'slug_'+i);
+		slug.attr('fill', slugs[i].color);
+	}
+}
+
+
+window.onload = function() {
+	var slugs = []
+	getPlayerSlugs(getSlugs);
+	var clicks = document.getElementById('profile_nav').children[0].children;
+	for (var i = 0; i < clicks.length; i++){
+		click = clicks[i];
+		click.onclick = function() {
+			
+			fields = document.getElementsByClassName('field')
+			for (var ii = 0; ii < fields.length; ii++){
+				fields[ii].hidden = true;
+				var token = fields[ii].id.split('_')[0]
+				document.getElementById(token+'_choice').setAttribute('class', '');
+			}
+			this.setAttribute('class', 'sel');
+			var token = this.id.split('_')[0];	
+			console.log(token);
+			document.getElementById(token+'_field').hidden = false;
+		};
+	};
+		
+};
+	
+</script>
+
+{% endblock %}
 {% block content %}
-<div class="main">
-	<header>
-		<h2>{{player.user.username}}'s Profile</h2>
+<div class="profile">
+	<section id="left">
+	<section id="profile_top">
+		<img href="{% if player.avatar %}{{ player.avatar.url }}{% else %}{{ STATIC_URL }}/default.jpg{% endif %}" alt="profile picture"></img>
+
+		<header>
+			
+		
+			<h2><span class="username">{{player.user.username}}</span>'s Profile</h2>
+		
+	<div id="profile_info">
+					<p>Email: {{player.user.email}}</p>
+				<p>About Me: {{player.bio}}</p>
+				<p>Points: {{player.points}}</p>
+		</div>
 	</header>
-	<p>Email: {{player.user.email}}</p>
-	<p>About Me: {{player.bio}}</p>
-	<p>Points: {{player.points}}</p>
-
-	<div class="mySlugs">
-	<header>
-		<h3>{{player.user.username}}'s Slugs</h3>
-	</header>	
-	<ul> 
-			{% for slug in player.slug_set.all %}
-				<p> {{slug.name}}: {{slug.sound.overTones}}<p>
-			{% endfor %}
+	</section>
+	<section id="profile_content">
+	<nav id="profile_nav">
+		<ul>
+			<li id="slugs_choice" class="sel" >slugs</li>
+			<li id="songs_choice" >songs</li>
+			<li id="friends_choice">friends</li>
 		</ul>
-	</div>
+	</nav>
 
+	<div class="field" id="slugs_field">
+
+				</div>
+	
+		<div class="field" id="songs_field" hidden=True>
+			<header>
+				<h3>{{player.user.username}}'s Songs</h3>
+			</header>
+		</div>
+
+		<div class="field" id="friends_field" hidden=True>
+
+			<header>
+				<h3>{{player.user.username}}'s Friends</h3>
+			</header>
+		</div>
+
+	</section>
+	</section>
+	<section id="right">
+
+	</section>
 </div>
 {% endblock %}
 

@@ -277,3 +277,137 @@ form input[type=submit] {
 .home {
 	height: 480px;
 }
+
+
+
+#left {
+
+	width: 70%;
+	
+}
+#right {
+	width: 20%;
+	
+	height: 300px;
+}
+
+
+.profile {
+
+	width: 80%;
+	min-height: 600px;
+	margin: 0 auto;
+	padding: 0 1em 0 1em;
+	border-radius: 2px;
+	background-image: url(../images/navbg.jpg);
+	background-repeat: True;
+}
+
+#profile_top {
+	padding: 10px;
+	margin: 0px;
+}
+
+#profile_top header {
+	width: 100%;
+	height: 190px;	
+	
+	
+}
+
+#profile_top img {
+	display: inline;
+	height: 180px;
+	width: 180px;
+	float: left;
+
+	border: 1px solid #444;
+}
+
+#profile_top header h2 {
+	float: left;
+	clear: none;
+	width: 200px;
+	padding: 0px;
+	margin: 0em 0em 1em 1em;
+	font-size: 100%;
+	text-transform: lowercase;
+	vertical-align: font-top;
+}
+
+#profile_top header h2 span {
+	font-size: 120%;
+	text-transform: uppercase;
+}
+
+#profile_info {
+	width: 400px;
+	clear: none;
+	float: left;
+	padding: 1em;
+}
+
+
+
+.profile nav {
+	background-image: url(../images/formbg.jpg);
+	border-radius: 5px;
+	color: #99bca0;
+	height: 2em;
+	-moz-box-shadow: 0px 0px 10px 5px #222222;
+	-webkit-box-shadow: 0px 0px 10px 5px #222222;
+	box-shadow: 2px 2px 3px 3px #222222;
+}
+
+.profile nav ul li {
+	vertical-align: middle;
+
+	cursor: pointer;
+	font-weight: bold;
+	
+}
+
+
+.profile nav ul li:hover {
+	
+	text-shadow: 0px 1px 5px #99bca0;
+}
+
+.sel {
+
+	font-weight: bolder;
+	color: #4F7ABA;
+	
+}
+
+.sel :hover {
+	font-weight: bolder;
+	color: #4F7ABA !important;
+}
+
+.slugDiv {
+	float: left;
+	padding: 5px;
+	height: 130px;
+	width: 210px;
+}
+.slugDiv h3 {
+	margin: 0px 0px 3px 5px;
+	padding: 0px;
+}
+
+.slugBox {
+	display: block;
+	height: 90px;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	float: left;
+	background-image: url(../images/formbg.jpg);
+	border-top: 2px solid #444444;
+	border-left:2px solid #444444;
+	border-radius: 10px;
+	-moz-box-shadow: 0px 0px 5x 5px #222222;
+	-webkit-box-shadow: 0px 0px 5px 5px #222222;
+	box-shadow: 2px 2px 3px 3px #222222;
+}
