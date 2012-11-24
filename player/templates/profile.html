@@ -70,19 +70,26 @@ window.onload = function() {
 <div class="profile">
 	<section id="left">
 	<section id="profile_top">
-		<img href="{% if player.avatar %}{{ player.avatar.url }}{% else %}{{ STATIC_URL }}/default.jpg{% endif %}" alt="profile picture"></img>
+		<img src="{% if player.avatar %}{{ player.avatar.url }}{% else %}{{ STATIC_URL }}images/default.jpg{% endif %}" alt="profile picture"></img>
 
 		<header>
-			
-		
+		<div id="profile_info">			
 			<h2><span class="username">{{player.user.username}}</span>'s Profile</h2>
-		
-	<div id="profile_info">
-					<p>Email: {{player.user.email}}</p>
-				<p>About Me: {{player.bio}}</p>
-				<p>Points: {{player.points}}</p>
+			<h3>{{player.user.email}}</h3>
+			<ul class="numbers">
+				<li>Points<strong>{{player.points}}</strong></li>
+				<li>Slugs<strong>4</strong></li>
+				<li class="end">Songs<strong>0</strong></li>
+			</ul>
 		</div>
-	</header>
+		<div id="profile_about">
+			<h3><strong>About</strong> {{player.user.username}}</h3>
+			<p>{{player.bio|truncatechars:200}}</p>
+		</div>
+
+		</header>
+
+		
 	</section>
 	<section id="profile_content">
 	<nav id="profile_nav">

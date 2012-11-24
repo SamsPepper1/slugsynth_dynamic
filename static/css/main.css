@@ -102,7 +102,7 @@ header h3 {
 	margin:  1em auto;
 	padding: 1em;
 	background: #E9ECB3;
-	background-image: url(../images/mainbg.jpg);
+	background-image: url(../images/navbg.jpg);
 	background-repeat: none;
 	border-radius: 4px;
 	-moz-box-shadow: 10px 10px 5px #888;
@@ -281,14 +281,19 @@ form input[type=submit] {
 
 
 #left {
-
+	float: left;
 	width: 70%;
 	
 }
 #right {
-	width: 20%;
-	
-	height: 300px;
+	float: right;
+	width: 25%;
+	margin: 1em 0em 1em 1em;
+	padding: 1em;
+	min-height: 400px;
+	border-radius: 5px;
+	background-image: url(../images/formbg.jpg);
+	box-shadow: 0px 0px 5px #222222;
 }
 
 
@@ -301,6 +306,9 @@ form input[type=submit] {
 	border-radius: 2px;
 	background-image: url(../images/navbg.jpg);
 	background-repeat: True;
+	-moz-box-shadow: 0px 0px 8px #666666;
+	-webkit-box-shadow: 0px 0px 8px #666666;
+	box-shadow: 0px 0px 8px #666666;
 }
 
 #profile_top {
@@ -310,53 +318,148 @@ form input[type=submit] {
 
 #profile_top header {
 	width: 100%;
-	height: 190px;	
+	height: 130px;	
 	
 	
 }
 
 #profile_top img {
 	display: inline;
-	height: 180px;
-	width: 180px;
+	height: 100px;
+	width: 100px;
+	padding: 10px;
 	float: left;
-
+	border-radius: 5px;
+	background-image: url(../images/formbg.jpg);
+	margin: 0.5em 1em 0em 0em;	
 	border: 1px solid #444;
+	box-shadow: 0px 0px 5px #222222;
 }
 
-#profile_top header h2 {
+#profile_info h2,
+#profile_info h3 {
+
 	float: left;
 	clear: none;
 	width: 200px;
 	padding: 0px;
-	margin: 0em 0em 1em 1em;
-	font-size: 100%;
+	margin: 0em 0em 0em 1em;
+	font-size: 70%;
 	text-transform: lowercase;
 	vertical-align: font-top;
+	line-height: 80%;
 }
 
 #profile_top header h2 span {
-	font-size: 120%;
+	font-size: 230%;
 	text-transform: uppercase;
+	
+}
+
+
+#profile_top p {
+	border: 0;
+	padding: 0;
 }
 
 #profile_info {
-	width: 400px;
+	width: 300px;
+	height: 100px;
 	clear: none;
 	float: left;
-	padding: 1em;
+	padding: 1em 0.25em 0 1em;
+	border-right: 1px dotted #888;
 }
 
+#profile_info h3 {
+	color: #666666;
+	margin-top: 0.5em;
+}
 
+#profile_info ul.numbers {
+	float: left;
+	list-style: none;
+	width: 290px;
+	margin: none;
+	padding:0.5em 0 0 0;
+	border-top: 1px dotted #888;
+	text-align: center;
+	
+}
+
+#profile_info ul.numbers li {
+	display: block;
+	float: left;
+	width: 95px;
+	text-transform: uppercase;
+	border-right: 1px dotted #888;
+	text-align: center;
+}
+
+#profile_info ul.numbers li.end {
+	border-right: none;
+}
+#profile_info ul.numbers li strong {
+	display: block;
+	font-size: 200%;
+	text-align: center;
+}	
+
+.infoDiv {
+	display: inline;
+}
+
+#profile_about {
+	clear: none;
+	float: left;
+	width: 250px;
+	max-height: 100px;
+	padding: 0.5em;
+
+
+}
+
+#profile_about h3 {
+	font-size: 70%;
+	margin: 0;
+	line-height: 1.2em;
+	
+}
+
+#profile_about h3 strong {
+	font-size: 170%;
+	font-weight: bold;
+}
+
+#profile_about p {
+	max-height: 100px;
+	margin: 0.25em 0 0.25em 0;
+	text-align: justify;
+	font-size: 80%;
+	text-overflow: hidden;
+}
+.label {
+	display: inline;	
+	width: 180px;
+	font-weight: bold;
+	margin: 1em 0px 0px 0px;
+}
+
+.info {
+	display: inline;
+	width: 200px;
+
+	margin-left: 1em;
+}
 
 .profile nav {
 	background-image: url(../images/formbg.jpg);
 	border-radius: 5px;
 	color: #99bca0;
 	height: 2em;
-	-moz-box-shadow: 0px 0px 10px 5px #222222;
-	-webkit-box-shadow: 0px 0px 10px 5px #222222;
-	box-shadow: 2px 2px 3px 3px #222222;
+	-moz-box-shadow: 0px 0px 5px #222222;
+	-webkit-box-shadow: 0px 0px 5px #222222;
+	box-shadow: 0px 0px 5px #222222;
 }
 
 .profile nav ul li {
@@ -407,7 +510,7 @@ form input[type=submit] {
 	border-top: 2px solid #444444;
 	border-left:2px solid #444444;
 	border-radius: 10px;
-	-moz-box-shadow: 0px 0px 5x 5px #222222;
-	-webkit-box-shadow: 0px 0px 5px 5px #222222;
-	box-shadow: 2px 2px 3px 3px #222222;
+	-moz-box-shadow: 0px 0px 5px #222222;
+	-webkit-box-shadow: 0px 0px 5px #222222;
+	box-shadow: 0px 0px 5px #222222;
 }
