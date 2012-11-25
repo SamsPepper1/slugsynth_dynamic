@@ -327,7 +327,7 @@ function drawWave(sound, width, height,sampleRate, xOffset, yOffset){
 //
 function play(sampleRate, readFn) {
     // Initialize the audio output.
-    var audio = new Audio();
+    audio = new Audio();
     audio.mozSetup(1, sampleRate);
 
     var currentWritePosition = 0;
@@ -387,3 +387,4 @@ function postData(size) {
         start = (start + soundData.length)%dataArray.length;
         return soundData;
     }
+

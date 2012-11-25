@@ -121,7 +121,6 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     // Draw top controlBar
     this.topControls = new controls(0,0,2,2,'topControl',30,[],mainAttrs.topBarAttrs,this);
 
-
     //ADD BUTTONS
     //TODO this is overly repetative...
     // add play button to top control bar
@@ -204,6 +203,11 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     // add grid
     this.grid = new grid(0,35,1+(this.pixelWidth/150),1+(this.pixelHeight/150),this);
 
+    // add timer
+    this.timerBody = this.paper.rect(this.pixelWidth/150,0-this.palletteHeight+this.pixelHeight, 148*(this.pixelWidth/150), 8,2).attr('fill','#222');
+    this.timer = this.paper.rect((this.pixelWidth/100), 2-this.palletteHeight+this.pixelHeight,0 , 4,2).attr('fill','#dd6666');
+	this.maxTimerWidth = 146*this.pixelWidth/150;
+
     //initialise sideBar (mostly offscreen)
     this.sideBarLeft = new sideBarLeft('slugBoxLeft',0,35,810,this.grid.height+60, this);
     
@@ -225,6 +229,11 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                     }
                 )
        },2000)
+	
+	this.stopInt = setInterval(function(){
+					var time = (audio.mozCurrentSampleOffset()%all.songLength+5512)/all.songLength;
+					all.timer.attr('width',all.maxTimerWidth*time);
+				}, 100)
     }
     
     this.stop = function() {
@@ -556,10 +565,20 @@ function slugMolder(x,y,width,height,parent){
             
             this.hooks.attr('cursor', 'col-resize');
             this.hooks[2].attr('cursor', 'move')
-            this.saveButton = new button(200,300,40,20,mainAttrs.buttonTextAttrs,mainAttrs.buttonAttrs,
-				 {}, 'save',function() {
+            this.saveButton = new button(this.width-55,300,80,20,mainAttrs.buttonTextAttrs,
+				mainAttrs.buttonAttrs,{}, 'Save Shape',function() {
                                                     all.currentSlug.saveShape();
                                                   }, this);
+	    this.octaveUpButton = new button(this.width-55, 30, 80,20,mainAttrs.buttonTextAttrs,
+				mainAttrs.buttonAttrs,{}, 'Octave Up', function() {
+					all.currentSlug.octave += 1;
+					}, this);
+            this.octaveUpButton = new button(this.width-55, 60, 80,20,mainAttrs.buttonTextAttrs,
+				mainAttrs.buttonAttrs,{}, 'Octave Down', function() {
+					all.currentSlug.octave -= 1;
+					}, this);
+
+
 
 
             // needs to be somehow automated to stretch/squeeze with screens.
@@ -596,7 +615,7 @@ function slugMolder(x,y,width,height,parent){
         this.getEnvelope = function() {
             // creates scaler functions
             var durationScaler = this.linearScaler([0.001,0.75],[this.cal.start, this.cal.end]);
-            var ampScaler = this.linearScaler([1,0],[this.cal.peak, this.cal.base]);
+            var ampScaler = this.linearScaler([1,0.001],[this.cal.peak, this.cal.base]);
             // applies functions to get new envelope values
             var A = durationScaler(this.hooks[0].attr('cx')-this.cal.start);
             var D = durationScaler(this.hooks[1].attr('cx') - this.hooks[0].attr('cx'));
@@ -626,8 +645,8 @@ function slugMolder(x,y,width,height,parent){
                 for (var i = 0; i < this.slug.length; i++){
                     slugAttrList[i] = this.slug[i].attrs;
                 }
-            all.currentSlug.shapes.push({'path': slugAttrList,'env': this.env,'duration': all.currentSlug.sound.duration })
-            all.currentSlug.currentShape = all.currentSlug.shapes[all.currentSlug.shapes.length-1];
+            
+            all.currentSlug.currentShape = {'path': slugAttrList,'env': this.env,'duration': all.currentSlug.sound.duration };
            // all.pallette.slugIms.remove();
            
             setTimeout(function(){all.pallette.drawSlugs()},2000);
@@ -1281,7 +1300,8 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
 // sound functions
 
 function savedSlug(data) {
-	alert(data.message);
+	console.log('saved slug');
+	all.currentSlug.shapes = [all.currentSlug.currentShape].concat(all.currentSlug.shapes);
 }
 
 function getEnvelope(env) {
