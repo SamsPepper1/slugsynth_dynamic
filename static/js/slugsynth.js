@@ -98,7 +98,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     this.palletteHeight = pixelWidth/6; // dynamic height of pallette object
     this.palletteSlugs = palletteSlugs;  // default starting slugs
     //TODO should be a function to highlight name of default currentSlug on start. animation should run once all other elements have loaded
-    this.currentSlug = this.palletteSlugs[0]; // currently selected slug. defaults to slug[0]
+    this.currentSlug = this.palletteSlugs[1]; // currently selected slug. defaults to slug[0]
 
     // song initialising
     this.tempo = tempo;
@@ -207,8 +207,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     //initialise sideBar (mostly offscreen)
     this.sideBarLeft = new sideBarLeft('slugBoxLeft',0,35,810,this.grid.height+60, this);
     
-    
-    //  FUNCTIONS //
+        //  FUNCTIONS //
     
     this.play = function() {
     // refreshes (global) dataArray;
@@ -274,7 +273,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     
         this.currentSlug = this.palletteSlugs[id];
         all.pallette.text[id].animate({
-                    'fill': 'black',
+                    'fill': '#999',
                     'transform':'S 1.5,1.5,'
                         +all.pallette.text[id].x + ','+
                         this.pallette.text[id].y
@@ -282,6 +281,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
         
                 
             };
+    
     this.addNote = function(pos,note,id) {
     
         // TODO rewrite. sort out frequency confusion( with slug object)
@@ -982,7 +982,11 @@ function pallette(xMargin,yMargin, parent) {
             
             
             slugIm[1].node.onclick = function () {
-                all.changeCurrentSlug(this.id[0]);
+		if (this.id[0] != all.currentSlug.id){
+                	all.changeCurrentSlug(this.id[0]);
+		} else {
+			all.pallette.showShapes(this.id[0]);
+		};
             }            
             //add slugIm and text to pallette.slugIms[name]
             this.slugIms.push(slugIm);
@@ -991,6 +995,63 @@ function pallette(xMargin,yMargin, parent) {
         
     
     }
+    this.showShapes = function(id){
+	var slug = this.slugs[id];
+	var currentShape = slug.currentShape
+	var posX = id*75*this.slugScale;
+	this.shapesRect = this.paper.rect(posX, this.y-50, 100*this.slugScale, 50, 5).attr(mainAttrs.shapeBox);
+	var slugAttrs = Object.create(mainAttrs.palletteSlugs);
+	slugAttrs.fill = slug.color;
+	slugAttrs['stroke-width'] = slugAttrs['stroke-width']*this.slugScale/3;
+	var offset = 0;
+	this.slugShapeSet = this.paper.set();
+	for (var i = 0; i < all.currentSlug.shapes.length; i++){
+		var shape = all.currentSlug.shapes[i];
+		if (shape != currentShape){
+			all.currentSlug.currentShape = shape;
+			console.log(shape.length);
+			var transform = 't '+ ((posX) + (i-offset)*25*this.slugScale) + ',' + (this.y-50) + 's ' + (this.slugScale/3) + ',' + this.slugScale/3 + ',0,0'
+			var slugShape = all.currentSlug.draw(this.paper, 0, transform,slugAttrs , id+'_shape_'+i);	
+			slugShape[1].node.onclick = function() {
+				var shapeid = this.id[this.id.length-3];
+				var slugid = this.id[0];
+				console.log('full id ' + this.id + ' slugId: ' + slugid + ' shapeId: ' + shapeid);
+				slug = all.currentSlug;
+				slug.currentShape = slug.shapes[shapeid];
+				for (var i = 0; i < all.pallette.slugIms[slugid].length; i++){
+					all.pallette.slugIms[slugid][i].attr('path', slug.currentShape.path[i].path)
+				}	
+				all.pallette.shapesRect.remove()
+				all.pallette.slugShapeSet.remove();
+			}
+			this.slugShapeSet.push(slugShape);
+		}
+		else {offset = 1;} 
+	}
+	all.currentSlug.currentShape = currentShape;
+	
+    }
+    this.remold = function(id) {
+            // edit copy of slug on pallette.
+            //TODO DOES NOT WORK
+            var slugAttrList = [];
+            var mySlug = all.pallette.slugIms[id];
+            for (var i = 0; i < mySlug.length; i++){
+                slugAttrList[i] = this.slug[i].attrs;
+            }
+            var transform = mySlug.tData;
+            var attrs = mainAttrs.palletteSlugs;
+            attrs.color = all.currentSlug.color
+            console.log(attrs);
+            console.log(transform)
+            var id = mySlug[0].node.id.slice(1)
+            mySlug.remove();
+            
+            var newSlug = all.currentSlug.draw(all.paper,0,transform,attrs,id);
+            all.pallette.slugIms[all.currentSlug.id] = newSlug;
+            };
+
+
     this.drawSlugs();
 };
 
@@ -1161,6 +1222,7 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
         this.sound.baseFreq = freq*Math.pow(2,this.octave);
         this.sound.baseAmp = amplitude;
         this.sound.env = this.currentShape.env;
+	this.sound.duration = this.currentShape.duration;
         this.sound.refreshWaves();
         return this.sound;
     };
@@ -1238,7 +1300,7 @@ var mainAttrs ={'cellAttrs': {
             'palletteText': {
                 'font-size': 10,
                 'font-weight': 'bold',
-                'fill': '#444',
+                'fill': '#777',
                 'opacity': 1,
             },
             'topBarAttrs': {
@@ -1301,8 +1363,13 @@ var mainAttrs ={'cellAttrs': {
                             'stroke': '#184505',
                             'stroke-width': 2,
                             'cursor': 'pointer'
-                             }
- 
+                             },
+	    'shapeBox':{
+		'fill': '#23530F',
+                'stroke': '#184505',
+                'stroke-width': 2,
+
+		},
     }
     
 var namesRand = ['Billy','Tess','Barbara','Jon','Emma','Slug','Milton','Norman','Tod', 'Gary', 'Wilma'];    
@@ -1363,18 +1430,24 @@ function setup(data) {
 	    notes = [];
 	 
 	all = new main(id, length,baseFreq, sampleRate, scale, tempo, width, height, slugs, notes);
+	all.changeCurrentSlug(0);
 	
 }
 
 
 function parseSlug(slugJSON,id) {
-	sampleRate = 44100;
-	var env  = new envelope(slugJSON.shapes[0].A, slugJSON.shapes[0].D, slugJSON.shapes[0].S, slugJSON.shapes[0].R, sampleRate);
-	console.log(slugJSON.shapes[0].shape);
-	path = JSON.parse(slugJSON.shapes[0].shape);
+	var sampleRate = 44100;
+	var shapes = [];
+	for (var i = 0; i < slugJSON.shapes.length; i++){
+		var shapeJSON = slugJSON.shapes[i]
+		var env  = new envelope(shapeJSON.A, shapeJSON.D, shapeJSON.S, shapeJSON.R, sampleRate);
+		var path = JSON.parse(shapeJSON.shape);
+		var duration = shapeJSON.length
+		shapes.push({'env': env, 'path': path, 'duration': duration});
+	}
 	var soundJSON = slugJSON.sound;
 	var sound = new compoundSound(eval(soundJSON.waveForm), 330, soundJSON.amp, 0.38, sampleRate, env, JSON.parse(soundJSON.overTones), new constant(0), new constant(0), new constant(0));
-	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, [{'path': path, 'env': env}])
+	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, shapes)
 	return slug;
 	}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

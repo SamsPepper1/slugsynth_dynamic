@@ -47,9 +47,12 @@
             text-align: center;
         }
         #track {
-            border-top: 50px;
-            width: 100%;
+            background-image: url(../images/formbg.jpg); 
+            width: 80%;
+	    margin: 0 auto;
             text-align: center;
+	    border-radius: 5px;
+	    box-shadow: 0px 0px 8px #444;
         }
         #slugBoxLeft {
             position: absolute;
