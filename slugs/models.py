@@ -25,7 +25,8 @@ class Shape(models.Model):
 			'D': self.decay,
 			'S': self.sustainLevel,
 			'R': self.release,
-			'shape': self.shape}
+			'shape': self.shape,
+			'length': self.sustainLengthDefault}
 		return data
 
 

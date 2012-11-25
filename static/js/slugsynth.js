@@ -265,7 +265,14 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                     all.sideBarLeft.openSlugMolder();}
                 }
         }else{ fn = function(){}}
-        
+	if (this.pallette.shapesRect){
+		this.pallette.shapesRect.remove();
+		this.pallette.shapesRect = undefined;
+	};
+	if (this.pallette.slugShapeSet){
+		this.pallette.slugShapeSet.remove();
+		this.pallette.slugShapeSet = undefined;
+	}        
         this.pallette.text[this.currentSlug.id].animate({
                         'fill': mainAttrs.palletteText.fill,
                         'transform':''
@@ -549,7 +556,12 @@ function slugMolder(x,y,width,height,parent){
             
             this.hooks.attr('cursor', 'col-resize');
             this.hooks[2].attr('cursor', 'move')
-            
+            this.saveButton = new button(200,300,40,20,mainAttrs.buttonTextAttrs,mainAttrs.buttonAttrs,
+				 {}, 'save',function() {
+                                                    all.currentSlug.saveShape();
+                                                  }, this);
+
+
             // needs to be somehow automated to stretch/squeeze with screens.
             this.caliberate();
         }
@@ -614,7 +626,7 @@ function slugMolder(x,y,width,height,parent){
                 for (var i = 0; i < this.slug.length; i++){
                     slugAttrList[i] = this.slug[i].attrs;
                 }
-            all.currentSlug.shapes.push({'path': slugAttrList,'env': this.env })
+            all.currentSlug.shapes.push({'path': slugAttrList,'env': this.env,'duration': all.currentSlug.sound.duration })
             all.currentSlug.currentShape = all.currentSlug.shapes[all.currentSlug.shapes.length-1];
            // all.pallette.slugIms.remove();
            
@@ -996,6 +1008,13 @@ function pallette(xMargin,yMargin, parent) {
     
     }
     this.showShapes = function(id){
+	if (this.shapesRect){
+			this.shapesRect.remove();
+		}
+	if (this.slugShapeSet){
+			this.slugShapeSet.remove();
+		}
+
 	var slug = this.slugs[id];
 	var currentShape = slug.currentShape
 	var posX = id*75*this.slugScale;
@@ -1005,7 +1024,7 @@ function pallette(xMargin,yMargin, parent) {
 	slugAttrs['stroke-width'] = slugAttrs['stroke-width']*this.slugScale/3;
 	var offset = 0;
 	this.slugShapeSet = this.paper.set();
-	for (var i = 0; i < all.currentSlug.shapes.length; i++){
+	for (var i = 0; i < Math.min(all.currentSlug.shapes.length, 4); i++){
 		var shape = all.currentSlug.shapes[i];
 		if (shape != currentShape){
 			all.currentSlug.currentShape = shape;
@@ -1021,8 +1040,10 @@ function pallette(xMargin,yMargin, parent) {
 				for (var i = 0; i < all.pallette.slugIms[slugid].length; i++){
 					all.pallette.slugIms[slugid][i].attr('path', slug.currentShape.path[i].path)
 				}	
-				all.pallette.shapesRect.remove()
+				all.pallette.shapesRect.remove();
+				all.pallette.shapesRect = undefined;
 				all.pallette.slugShapeSet.remove();
+				all.pallette.slugShapeSet = undefined;
 			}
 			this.slugShapeSet.push(slugShape);
 		}
