@@ -281,7 +281,11 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 	if (this.pallette.slugShapeSet){
 		this.pallette.slugShapeSet.remove();
 		this.pallette.slugShapeSet = undefined;
-	}        
+	};        
+	if (this.pallette.shapeSetText){
+		this.pallette.shapeSetText.remove();
+		this.pallette.shapeSetTest = undefined;
+	};
         this.pallette.text[this.currentSlug.id].animate({
                         'fill': mainAttrs.palletteText.fill,
                         'transform':''
@@ -1016,9 +1020,22 @@ function pallette(xMargin,yMargin, parent) {
 		if (this.id[0] != all.currentSlug.id){
                 	all.changeCurrentSlug(this.id[0]);
 		} else {
-			all.pallette.showShapes(this.id[0]);
-		};
-            }            
+			if (all.pallette.shapesRect){
+				all.pallette.shapesRect.remove();
+				all.pallette.shapesRect = undefined;
+				if (all.pallette.slugShapeSet){
+					all.pallette.slugShapeSet.remove();
+					all.pallette.slugShapeSet = undefined;
+				};
+				if (all.pallette.shapeSetText){
+					all.pallette.shapeSetText.remove();
+					all.pallette.shapeSetText = undefined;
+				};
+			} else {
+	 			all.pallette.showShapes(this.id[0]);
+			};
+            	}
+	    };            
             //add slugIm and text to pallette.slugIms[name]
             this.slugIms.push(slugIm);
             this.text.push(text);
@@ -1027,17 +1044,31 @@ function pallette(xMargin,yMargin, parent) {
     
     }
     this.showShapes = function(id){
+	// Opens pop up box contaiing slugs saved shapes.
+	// if already present, remove them.
+
 	if (this.shapesRect){
 			this.shapesRect.remove();
 		}
 	if (this.slugShapeSet){
 			this.slugShapeSet.remove();
 		}
+	if (this.shapeSetText){
+		this.shapeSetText.remove();
+	};
 
 	var slug = this.slugs[id];
 	var currentShape = slug.currentShape
-	var posX = id*75*this.slugScale;
-	this.shapesRect = this.paper.rect(posX, this.y-50, 100*this.slugScale, 50, 5).attr(mainAttrs.shapeBox);
+	var posX = (id*75*this.slugScale);
+
+	this.shapesRect = this.paper.set();
+	this.shapesRect.push(this.paper.rect(posX, this.y-50, 80*this.slugScale, 70, 10).attr(mainAttrs.shapeBox));
+	var path = "m "+(posX+(15*this.slugScale))+','+ (this.y+18) + ' L' + (posX+(20*this.slugScale)) + ',' + (this.y+47) + ' L ' + (posX+ (25*this.slugScale)) + ',' + (this.y+18)//+ ' Z' +(posX+(40*this.slugScale))+','+this.y;
+	this.shapesRect.push(this.paper.path(path).attr(mainAttrs.shapeBox));
+
+	this.shapeSetText = this.paper.text(posX+(25*this.slugScale), this.y-35, slug.name+"'s Shapes")
+			.attr({'font-size': 15, 'fill': '#222'});
+	
 	var slugAttrs = Object.create(mainAttrs.palletteSlugs);
 	slugAttrs.fill = slug.color;
 	slugAttrs['stroke-width'] = slugAttrs['stroke-width']*this.slugScale/3;
@@ -1048,7 +1079,7 @@ function pallette(xMargin,yMargin, parent) {
 		if (shape != currentShape){
 			all.currentSlug.currentShape = shape;
 			console.log(shape.length);
-			var transform = 't '+ ((posX) + (i-offset)*25*this.slugScale) + ',' + (this.y-50) + 's ' + (this.slugScale/3) + ',' + this.slugScale/3 + ',0,0'
+			var transform = 't '+ ((posX) +5+ (i-offset)*25*this.slugScale) + ',' + (this.y-35) + 's ' + (this.slugScale/2.5) + ',' + this.slugScale/2.5 + ',0,0'
 			var slugShape = all.currentSlug.draw(this.paper, 0, transform,slugAttrs , id+'_shape_'+i);	
 			slugShape[1].node.onclick = function() {
 				var shapeid = this.id[this.id.length-3];
@@ -1063,6 +1094,8 @@ function pallette(xMargin,yMargin, parent) {
 				all.pallette.shapesRect = undefined;
 				all.pallette.slugShapeSet.remove();
 				all.pallette.slugShapeSet = undefined;
+				all.pallette.shapeSetText.remove();
+				all.pallette.shapeSetTest = undefined;
 			}
 			this.slugShapeSet.push(slugShape);
 		}
