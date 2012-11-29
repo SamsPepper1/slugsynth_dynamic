@@ -161,7 +161,7 @@ hr {
 
 }
 
-form {
+.fullpage_form {
 	width: 50%;
 	background-image: url(../images/formbg.jpg);
 	background-repeat: True;
@@ -175,7 +175,7 @@ form {
 }
 
 
-form label {
+.fullpage_form label {
 	font-weight: bolder;
 	font-size: 110%;
 	height: 1.5em;
@@ -189,7 +189,7 @@ form label {
 	text-align: right;
 }
 
-form input {
+.fullpage_form input {
 	width: 30%;
 	min-width: 200px;
 	height: 1.5em;
@@ -209,15 +209,15 @@ form input {
 
 }
 
-input::-webkit-input-placeholder {
+.fullpage_form input::-webkit-input-placeholder {
 	color: #486C62;
 	text-shadow: 0px -1px 0px #444444;
 }
-input:-moz-placeholder {
+.fullpage_form input:-moz-placeholder {
 	color: #486C62;
 	text-shadow: 0px -1px 0px #444444;
 }
-form textarea {
+.fullpage_form textarea {
 	width: 30%;
 	min-width: 200px;
 	height: 7em;
@@ -236,19 +236,19 @@ form textarea {
 	border: 1px solid #444444;
 }
 
-textarea::-webkit-input-placeholder {
+.fullpage_form textarea::-webkit-input-placeholder {
 	color: #486C62;
 	text-shadow: 0px -1px 0px #444444;
 }
 
-textarea:-moz-placeholder {
+.fullpage_form textarea:-moz-placeholder {
 	color: #486C62;
 	text-shadow: 0px -1px 0px #444444;
 }
 
-form input:focus,
-form textarea:focus,
-form input[type=submit]:hover {
+.fullpage_form input:focus,
+.fullpage_form textarea:focus,
+.fullpage_form input[type=submit]:hover {
 	background: #97c8ba;
 	background: -moz-linear-gradient(top, #97C8BA 0%, #85C8B5 20%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #97C8BA),color-stop(20%, #85C8B5)); 
@@ -257,7 +257,7 @@ form input[type=submit]:hover {
 } 
 
 
-form input[type=submit] {
+.fullpage_form input[type=submit] {
 	display: block;
 	width: 10%;
 	min-width: 100px;
@@ -526,4 +526,33 @@ form input[type=submit] {
 	width: 70%;
 	margin: 1em auto;
 	border-top: 1px dotted #888;
+}
+
+
+.slugDiv form {
+	background: none;
+	background-image: none;
+	margin: 0;
+	height: auto;
+	padding: 0;
+	box-shadow: none;
+	width: 100%;
+}
+
+.slugDiv form input[type=text] {
+	margin: 1px 0px 1px 0px;
+	padding: 0;
+	height: 21px;
+	width: 50%;
+
+}
+
+
+.slugDiv form input[type=submit],
+.slugDiv form input[type=button] {
+	width: 80px;
+	font-size: 80%;
+	padding: 0px;
+	margin: 0px auto;
+
 }

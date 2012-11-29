@@ -8,7 +8,9 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
+<script type="text/javascript" src="{{ STATIC_URL }}js/profile_edit.js"></script>
 <script type="text/javascript">
+slugIms = [];
 
 
 function getSlugs(data){
@@ -27,17 +29,86 @@ function drawSlugs(slugs){
 		outer.setAttribute('class','slugDiv');
 		var h3 = document.createElement('h3');
 		h3.innerHTML = slugs[i].name;
+		h3.setAttribute('id','slug_name_'+i);
+		h3.setAttribute('class','slug_name');
+		h3.onclick = show_editor
 		outer.appendChild(h3);
+		var form = document.createElement('form');
+		var input = document.createElement('input');
+
+
+
+		input.type = 'text';
+		input.value = slugs[i].name;
+		input.onblur = cancel_edit;
+		input.onchange = change
+		
+
+
+		
+		form.appendChild(input);
+	
+
+		form.setAttribute('id','slug_name_'+i+'_edit')
+		form.setAttribute('hidden','true');
+		outer.appendChild(form);
 		var d = document.createElement('div')
 		d.setAttribute('id','slugBox_'+i);
 		d.setAttribute('class','slugBox');
 		outer.appendChild(d);
 		document.getElementById('slugs_field').appendChild(outer);
 		var r = new Raphael(document.getElementById('slugBox_'+i),200,90);
-		slug = slugs[i].draw(r, 0, 's 2,2,0,0', mainAttrs.palletteSlugs, 'slug_'+i);
+		slug = slugs[i].draw(r, 0, 't 10,0 s 2,2,0,0', Object.create(mainAttrs.palletteSlugs), 'slug_'+i+'_shape_0');
+		slugIms.push(slug)
+		var arrowAttrs = {'fill': '#333', 'stroke': '#111','opacity': 0.5, 'cursor':'pointer'};
+		r_arrow = r.path('M 175,35 l 15,15 l -15,15, z').attr(arrowAttrs);
+		l_arrow = r.path('M 10,45 l 15,-15 l 0,30 z').attr(arrowAttrs);
+		r_arrow.hover(function(){this.attr('opacity',1)})
+		l_arrow.hover(function(){this.attr('opacity',1)})
+		r_arrow.mouseout(function(){this.attr('opacity',0.5)})
+		l_arrow.mouseout(function(){this.attr('opacity',0.5)})
+		r_arrow.node.onclick = function(){
+			var slugId = this.parentNode.parentNode.id[this.parentNode.parentNode.id.length-1]
+			switchSlug('r',slugId)
+		}
+		l_arrow.node.onclick = function(){
+			var slugId = this.parentNode.parentNode.id[this.parentNode.parentNode.id.length-1]
+			switchSlug('l',slugId);
+		}
+		
 		slug.attr('fill', slugs[i].color);
 	}
 }
+
+function switchSlug(direction,slugId){
+	var slug = slugs[slugId];
+	for (var i = 0; i < slug.shapes.length; i++){
+		if (slug.currentShape == slug.shapes[i]){
+			var id = i;
+		}
+	}
+	console.log(id);
+	var slugIm = slugIms[slugId];
+	if (direction == 'l'){	
+		var newId = (id-1);
+		if (newId < 0){newId = slug.shapes.length + newId}
+		var transform = 't 200,0 s 2,2,0,0'
+		var startPos = 't -200,0 s 2,2,0,0'
+	}else{
+		var newId = (id+1)%slug.shapes.length;
+		var transform = 't -200,0 s 2,2,0,0';
+		var startPos = 't 200,0 s 2,2,0,0';
+	}
+	slug.currentShape = slug.shapes[newId];
+	newSlugIm = slug.draw(slugIm[0].paper, 0, startPos, Object.create(mainAttrs.palletteSlugs), 'slug_'+slugId+'_shape_'+newId);
+	newSlugIm.attr('fill',slug.color);
+	slugIm.animate({'transform': transform},500, function(){this.remove()});
+	newSlugIm.animate({'transform': 't 10,0 s 2,2,0,0'},500);
+	slugIms[slugId] = newSlugIm;
+	console.log(newId);	
+}
+		
+
 
 
 window.onload = function() {
