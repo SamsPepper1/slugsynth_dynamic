@@ -119,89 +119,133 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 
 
     // Draw top controlBar
-    this.topControls = new controls(0,0,2,2,'topControl',30,[],mainAttrs.topBarAttrs,this);
+//    this.topControls = new controls(0,0,2,2,'topControl',30,[],mainAttrs.topBarAttrs,this);
 
     //ADD BUTTONS
     //TODO this is overly repetative...
     // add play button to top control bar
-    this.topControls.drawButton({'x': 200,'y':8,'width':40,'height':20, 
-        'textAttrs':mainAttrs.buttonTextAttrs, 'attrs':mainAttrs.buttonAttrs,
-        'pressAttrs': {},'text': 'play','func': function() {
-                                                    all.play();
-                                                  }});
+//    this.topControls.drawButton({'x': 200,'y':8,'width':40,'height':20, 
+//        'textAttrs':mainAttrs.buttonTextAttrs, 'attrs':mainAttrs.buttonAttrs,
+//        'pressAttrs': {},'text': 'play','func': function() {
+//                                                    all.play();
+//                                                  }});
 
     // add stop button to top control bar
-    this.topControls.drawButton({'x': 260, 'y':8, 'width': 40, 'height': 20,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'stop',
-        'func': function(){
-            all.stop();
-            all.topControls.buttonSet[1].rect.animate({                     // make button flash to indicate it has been clicked.
-                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-                    function() {all.topControls.buttonSet[1].rect.animate({
-                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
-                    )}
-                )}
-            });
-
+//    this.topControls.drawButton({'x': 260, 'y':8, 'width': 40, 'height': 20,
+//        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'stop',
+//        'func': function(){
+//            all.stop();
+//            all.topControls.buttonSet[1].rect.animate({                     // make button flash to indicate it has been clicked.
+//                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
+//                    function() {all.topControls.buttonSet[1].rect.animate({
+//                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
+//                    )}
+//                )}
+//            });
+//
     // adds calls all.clear()
-    this.topControls.drawButton({'x': 320, 'y':8, 'width': 40, 'height': 20,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'clear',
-        'func': function(){
-            all.clear();
-            all.topControls.buttonSet[2].rect.animate({
-                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-                    function() {all.topControls.buttonSet[2].rect.animate({
-                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
-                    )}
-                )}
-            });
-    
-    // add slugMold button to top Controller
-    this.topControls.drawButton({'x': 440, 'y':8, 'width': 40, 'height': 20,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'mold',
-        'func': function(){
-            all.topControls.buttonSet[3].rect.animate({
-                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-                    function() {
-                    all.topControls.buttonSet[3].rect.animate({
-                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
-                    );
-                    if (all.sideBarLeft.isIn){
-                    all.sideBarLeft.slideOut(function(){all.sideBarLeft.openSlugMolder()});
-                    } else{
-                        all.sideBarLeft.openSlugMolder();
-                    }
-                    //all.sideBarLeft.openSlugMolder();
-                    }
-                )}
-            });
-
-    // add slugView button to top Controller
-    this.topControls.drawButton({'x': 380, 'y':8, 'width': 40, 'height': 20,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'wave',
-        'func': function(){
-            all.topControls.buttonSet[4].rect.animate({
-                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-                    function() {
-                    all.topControls.buttonSet[4].rect.animate({
-                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
-                    )
-                    //if (all.sideBarLeft.isIn){
-                    //    all.sideBarLeft.slideOut(function(){all.sideBarLeft.showWave()});
-                    //} else {
-                    //    all.sideBarLeft.showWave()
-                    //}
-                    all.sideBarLeft.showWave();
-                    }
-                )}
-            });
+//    this.topControls.drawButton({'x': 320, 'y':8, 'width': 40, 'height': 20,
+//        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'clear',
+//        'func': function(){
+//            all.clear();
+//            all.topControls.buttonSet[2].rect.animate({
+//                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
+//                    function() {all.topControls.buttonSet[2].rect.animate({
+//                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
+//                    )}
+//                )}
+//            });
+//    
+//    // add slugMold button to top Controller
+//    this.topControls.drawButton({'x': 440, 'y':8, 'width': 40, 'height': 20,
+//        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'mold',
+//        'func': function(){
+//            all.topControls.buttonSet[3].rect.animate({
+//                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
+//             //                    //all.sideBarLeft.openSlugMolder();
+//                    }
+ //               )}
+//            });
+//
+//    // add slugView button to top Controller
+//    this.topControls.drawButton({'x': 380, 'y':8, 'width': 40, 'height': 20,
+//        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'wave',
+//        'func': function(){
+//            all.topControls.buttonSet[4].rect.animate({
+//                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
+                                   // )}
+//            })
 
 
     // add Pallette 
+    //add mold button
+    this.moldButton = this.paper.image(STATIC_URL+'images/mold.png',(this.pixelWidth/2)-82,7,70,40);
+
+    // add events to mold button
+    this.moldButton.node.onmouseover = function(){
+					var newHref = this.attributes.href.value.split('.')[0]+'_hover.png';
+					this.setAttribute('href',newHref);
+					}
+    this.moldButton.node.onmouseout = function(){
+					var newHref = this.attributes.href.value.split('_')[0]+'.png';
+					this.setAttribute('href',newHref);
+				}
+
+    this.moldButton.node.onclick =   function() {
+	        	            if (all.sideBarLeft.isIn){
+        	        	    all.sideBarLeft.slideOut(function(){all.sideBarLeft.openSlugMolder()});
+		                    } else{
+                		        all.sideBarLeft.openSlugMolder();
+                    			}
+				}
+
+
+
+    //add wave button
+    this.waveButton = this.paper.image(STATIC_URL+'images/wave.png',(this.pixelWidth/2)+12,7,70,40);
+
+    // add events to wave button
+    this.waveButton.node.onmouseover = function(){
+					var newHref = this.attributes.href.value.split('.')[0]+'_hover.png';
+					this.setAttribute('href',newHref);
+					}
+    this.waveButton.node.onmouseout = function(){
+					var newHref = this.attributes.href.value.split('_')[0]+'.png';
+					this.setAttribute('href',newHref);
+				}
+    this.waveButton.node.onclick = function() {
+                   	                all.sideBarLeft.showWave();
+                    		};
+
+    // Add start button
+    this.startButton = this.paper.image(STATIC_URL+'images/start.png', (this.pixelWidth/2)-25,3, 50,50)
+		.attr('cursor','pointer');
+    // add events to startbutton
+    this.startButton.node.onclick = function(){
+					if (this.attributes.href.value.split('/')[3].slice(0,4) == 'star'){
+						var newHref = STATIC_URL+'images/stop_hover.png'
+						all.play();
+					} else {
+						var newHref = STATIC_URL+'images/start_hover.png'
+						all.stop();
+					}
+					this.setAttribute('href',newHref);
+				};
+    this.startButton.node.onmouseover = function(){
+						var newHref = this.attributes.href.value.split('.')[0]+'_hover.png';
+						this.setAttribute('href',newHref)
+					}
+    this.startButton.node.onmouseout = function(){
+						var newHref = this.attributes.href.value.split('_')[0]+'.png';
+						this.setAttribute('href',newHref)
+					}
+
+
+    // Add pallette
     this.pallette = new pallette(2+(this.pixelWidth/100),2+(this.pixelHeight/100),this);
 
     // add grid
-    this.grid = new grid(0,35,1+(this.pixelWidth/150),1+(this.pixelHeight/150),this);
+    this.grid = new grid(0,50,1+(this.pixelWidth/150),1+(this.pixelHeight/150),this);
 
     // add timer
     this.timerBody = this.paper.rect(this.pixelWidth/150,0-this.palletteHeight+this.pixelHeight, 148*(this.pixelWidth/150), 8,2).attr('fill','#222');

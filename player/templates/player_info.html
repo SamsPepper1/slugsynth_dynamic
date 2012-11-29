@@ -1,0 +1,23 @@
+	<section id="profile_top">
+		<img src="{% if player.avatar %}{{ player.avatar.url }}{% else %}{{ STATIC_URL }}images/default.jpg{% endif %}" alt="profile picture"></img>
+
+		<header>
+		<div id="profile_info">			
+			<h2><a href="/user/profile/{{player.pk}}">{% if player.user = request.user %}<span class="username">My</span></a> Profile{% else %} <span class="username">{{player.user.username}}</span></a>{% endif %}</h2>
+			<h3>{{player.user.email}}</h3>
+			<ul class="numbers">
+				<li>Points<strong>{{player.points}}</strong></li>
+				<li>Slugs<strong>4</strong></li>
+				<li class="end">Songs<strong>0</strong></li>
+			</ul>
+		</div>
+		<div id="profile_about">
+			<h3><strong>About</strong>{% if request.user = player.user %} me{% else %} {{player.user.username}}{% endif %}</h3>
+			<p>{{player.bio|truncatechars:200}}</p>
+		</div>
+
+		</header>
+
+		
+	</section>
+

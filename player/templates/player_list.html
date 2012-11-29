@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Player List{% endblock %}
+
+{% block content %}
+
+<div class="player_list">
+
+	<h3>Top Players</h3>
+	<section id="left">
+		{% for player in player_list %}
+			{% include 'player_info.html'%}
+			<div class="sep"></div>
+		{% endfor %}
+	</section>
+	<section id="right">
+	</section>
+</div>
+ 
+{% endblock %}
