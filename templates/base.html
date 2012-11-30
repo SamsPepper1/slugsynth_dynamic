@@ -9,7 +9,9 @@
 
 		{% block style %}
 		{% endblock %}
+		<script>
 
+		</script>
 		{% block script %}
 		{% endblock %}
 
@@ -18,6 +20,17 @@
 	<body>
 		<header id="mainHeader">
 		<a href="/"><h1></h1></a>
+		<div id="loginBox">
+			{% if user.is_authenticated %}
+				<p>logged in as <span id="loginBox_username">{{user.username}}</span></p>
+				<a href="/user/logout">Log Out</a>
+				<img width="50" height="50" src="{% if player.avatar %}{{player.avatar.url}}{%else%}{{STATIC_URL }}images/default.jpg{%endif%}" alt="profile picture"><img> 
+							{% else %}
+			<a href="/user/login">Log In</a>
+			<a href="/user/signup">Sign Up</a>
+			{% endif %}
+
+		</div>
 		</header>
 		<nav class="mainNav">
 		
