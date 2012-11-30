@@ -26,7 +26,8 @@ class Shape(models.Model):
 			'S': self.sustainLevel,
 			'R': self.release,
 			'shape': self.shape,
-			'length': self.sustainLengthDefault}
+			'length': self.sustainLengthDefault,
+			'pk': self.pk,}
 		return data
 
 
@@ -52,6 +53,7 @@ class Slug(models.Model):
 			'color': self.color,
 			'shapes': [s.as_data() for s in self.shapes.all()],
 			'sound': self.sound.as_data(),
+			'pk': self.pk,
 			}
 		return data
 

@@ -354,7 +354,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
         var samplePos = Math.round(pos*this.noteLength);
         var amp = this.currentSlug.sound.baseAmp;
         console.log('id: '+ id+ 'amp: '+ amp+ 'frequency: '+ frequency)
-        this.notes.push({'env': Object.create(this.currentSlug.currentShape.env),'pos': pos,'amp':amp, 'note' : note, 'id': id})
+        this.notes.push({'pos': pos, 'note' : note, 'id': id, 'envpk': this.currentSlug.currentShape.pk, 'slugpk': this.currentSlug.pk})
         this.song.addNote(samplePos,this.currentSlug.getTone(frequency,amp),id)
     }
     this.clear = function() {
@@ -1305,7 +1305,7 @@ function cell(x, y, width, height,note, pos,paper, parent) {
     }
 }
 
-function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
+function slugFamily(name,id, waveTableGenerator,color, octave, shapes,pk){
 // Holds slugs sound object as well as shape information, color etc.
 // functions:
 //  slugFamily.addShape() => returns shape.id
@@ -1313,6 +1313,7 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes){
 //  slugFamily.printSlug(object, pos, transform, id) => returns Raphael.path 
 
     this.name = name;
+    this.pk = pk;
     this.id = id;
     this.sound = waveTableGenerator;
     this.color = color;
@@ -1560,13 +1561,26 @@ function parseSlug(slugJSON,id) {
 		var shapeJSON = slugJSON.shapes[i]
 		var env  = new envelope(shapeJSON.A, shapeJSON.D, shapeJSON.S, shapeJSON.R, sampleRate);
 		var path = JSON.parse(shapeJSON.shape);
-		var duration = shapeJSON.length
-		shapes.push({'env': env, 'path': path, 'duration': duration});
+		var duration = shapeJSON.length;
+		var pk = shapeJSON.pk
+		shapes.push({'env': env, 'path': path, 'duration': duration, 'pk':pk});
 	}
 	var soundJSON = slugJSON.sound;
 	var sound = new compoundSound(eval(soundJSON.waveForm), 330, soundJSON.amp, 0.38, sampleRate, env, JSON.parse(soundJSON.overTones), new constant(0), new constant(0), new constant(0));
-	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, shapes)
+	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, shapes, slugJSON.pk)
 	return slug;
 	}
+
+function saveSong(){
+    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': 'Bilios garden','scale': 'Ma'}
+    songObj.notes = all.notes;
+    Dajaxice.song.saveSong(test_callback, {'songString':JSON.stringify(songObj)});
+}
+
+function test_callback(data){
+	alert(data.name)
+}
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
