@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     #'polls',
     'player',
     'slugs',
+    'song',
     'dajaxice',
     'dajax',
     'floppyforms'
