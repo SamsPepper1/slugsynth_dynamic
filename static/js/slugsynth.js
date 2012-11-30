@@ -1517,8 +1517,8 @@ function randomSlug(id, color) {
 
     
     
-function getPlayerSlugs(fn){
-	Dajaxice.slugs.getDefaultPallette(fn);
+function getPlayerSlugs(fn, args){
+	Dajaxice.slugs.getDefaultPallette(fn, args);
 }
 
 

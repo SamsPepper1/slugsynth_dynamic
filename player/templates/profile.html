@@ -9,6 +9,35 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
 <script type="text/javascript" src="{{ STATIC_URL }}js/profile_edit.js"></script>
+<script>
+{% if player.user = request.user %}
+var editable = true;
+{% else %}
+var editable = false;
+{% endif %}
+window.onload = function() {
+	var slugs = []
+	getPlayerSlugs(getSlugs, {'playerName':'{{player.user.username}}'});
+	var clicks = document.getElementById('profile_nav').children[0].children;
+	for (var i = 0; i < clicks.length; i++){
+		click = clicks[i];
+		click.onclick = function() {
+			
+			fields = document.getElementsByClassName('field')
+			for (var ii = 0; ii < fields.length; ii++){
+				fields[ii].hidden = true;
+				var token = fields[ii].id.split('_')[0]
+				document.getElementById(token+'_choice').setAttribute('class', '');
+			}
+			this.setAttribute('class', 'sel');
+			var token = this.id.split('_')[0];	
+			console.log(token);
+			document.getElementById(token+'_field').hidden = false;
+		};
+	};
+		
+};
+</script>
 {% endblock %}
 
 {% block content %}

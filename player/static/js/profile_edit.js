@@ -63,19 +63,22 @@ function drawSlugs(slugs){
 		h3.innerHTML = slugs[i].name;
 		h3.setAttribute('id','slug_name_'+i);
 		h3.setAttribute('class','slug_name');
-		h3.onclick = show_editor
-		outer.appendChild(h3);
-		// adds edit form
-		var form = document.createElement('form');
-		var input = document.createElement('input');
-		input.type = 'text';
-		input.value = slugs[i].name;
-		input.onblur = cancel_edit;
-		input.onchange = change
-		form.appendChild(input);
-		form.setAttribute('id','slug_name_'+i+'_edit')
-		form.setAttribute('hidden','true');
-		outer.appendChild(form);
+		outer.appendChild(h3)
+		if (editable){	
+			h3.onclick = show_editor
+			// adds edit form
+			var form = document.createElement('form');
+			var input = document.createElement('input');
+			input.type = 'text';
+			input.value = slugs[i].name;
+			input.onblur = cancel_edit;
+			input.onchange = change
+			form.appendChild(input);
+			form.setAttribute('id','slug_name_'+i+'_edit')
+			form.setAttribute('hidden','true');
+			outer.appendChild(form);
+		}
+		
 		// create inner fdiv to whole svgs
 		var d = document.createElement('div')
 		d.setAttribute('id','slugBox_'+i);
@@ -186,25 +189,3 @@ function toggleWave(slugId){
  
 
 
-window.onload = function() {
-	var slugs = []
-	getPlayerSlugs(getSlugs);
-	var clicks = document.getElementById('profile_nav').children[0].children;
-	for (var i = 0; i < clicks.length; i++){
-		click = clicks[i];
-		click.onclick = function() {
-			
-			fields = document.getElementsByClassName('field')
-			for (var ii = 0; ii < fields.length; ii++){
-				fields[ii].hidden = true;
-				var token = fields[ii].id.split('_')[0]
-				document.getElementById(token+'_choice').setAttribute('class', '');
-			}
-			this.setAttribute('class', 'sel');
-			var token = this.id.split('_')[0];	
-			console.log(token);
-			document.getElementById(token+'_field').hidden = false;
-		};
-	};
-		
-};

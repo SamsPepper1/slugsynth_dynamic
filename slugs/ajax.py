@@ -3,6 +3,8 @@ from django.utils import simplejson
 from dajaxice.decorators import dajaxice_register
 from slugs.models import Slug, Shape
 from datetime import datetime
+from player.models import Player
+from django.contrib.auth.models import User
 
 
 @dajaxice_register
@@ -11,15 +13,11 @@ def returnslug(request, pk):
 	return simplejson.dumps({'slug': slug.as_json()})
 
 @dajaxice_register
-def getDefaultPallette(request):
-	if request.user.is_authenticated():
-		player = request.user.get_profile()
-		slugs = [s.as_data() for s in player.slug_set.all()]
-		return simplejson.dumps({'message': "%s's slugs"%(player.user.username),'player': player.__unicode__(),'slugs':slugs})
-	else:
-		return simplejson.dumps({'message': 'None', 'slug': None})
-
-
+def getDefaultPallette(request, playerName):
+	player = Player.objects.get(user=User.objects.get(username=playerName))
+	slugs = [s.as_data() for s in player.slug_set.all()]
+	return simplejson.dumps({'message': "%s's slugs"%(player.user.username),'player': player.__unicode__(),'slugs':slugs})
+	
 @dajaxice_register
 def saveShape(request, slugName, env):
 	if request.user.is_authenticated():
