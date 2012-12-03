@@ -65,6 +65,12 @@ class Player(models.Model):
 		sound4.save()
 		slug4.shapes.add(shape4)
 		slug4.save()
+	def slug_count(self):
+		return self.slug_set.count()
+
+	def loop_count(self):
+		return self.loop_set.count()
+
 
 
 
