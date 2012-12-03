@@ -7,11 +7,17 @@ import json
 from urllib2 import urlopen, URLError
 from BeautifulSoup import BeautifulSoup
 
+class PlayerManager(models.Manager):
+	def get_username(self, username):
+		return self.get(user=User.objects.get(username=username))
+
+
 class Player(models.Model):
 	user = models.OneToOneField(User)
 	bio = models.CharField(max_length=300)
 	points = models.IntegerField(null=True,blank=True)
 	avatar = models.ImageField(upload_to='users/avatars',null=True, blank=True)
+	objects = PlayerManager()
 	def __unicode__(self):
 		return self.user.username
 
