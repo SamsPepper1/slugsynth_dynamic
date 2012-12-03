@@ -4,6 +4,7 @@ from slugs.models import Slug, Shape
 from song.models import Loop
 from datetime import datetime
 from player.models import Player	
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -12,11 +13,21 @@ def saveSong(request,songString):
 	if request.user.is_authenticated():
 		player = request.user.get_profile()
 		songObj = simplejson.loads(songString)
-		song = Loop(creator = player,name=songObj['name'],tempo=songObj['tempo'],scale=songObj['scale'], length=songObj['length'], notes = simplejson.dumps(songObj['notes']),last_used = datetime.now())
+		song = Loop(creator = player,name=songObj['name'],tempo=songObj['tempo'],scale=songObj['scale'], length=songObj['length'], notes = simplejson.dumps(songObj['notes']),last_used = datetime.now(),public=True,public_edit = True)
 		try:
 			song.save()
 		except Loop.IntegrityError:
-			return simplejson.dumps({'name':'error saving song'})
+			return simplejson.dumps({'message':'error saving song'})
 	#	song.save()
-		return simplejson.dumps({'name':'saved song ' + songObj['name']}) 
+		return simplejson.dumps({'message':'saved song %s'% song.name}) 
 		
+
+
+@dajaxice_register
+def loadSong(request, songPK):
+	#return simplejson.dumps({'message': 'attempting to load song with pk %s'%songPK})
+	try:
+		song = Loop.public_posts.get(pk=songPK)
+	except Loop.DoesNotExist:
+		return simplejson.dumps({'message': 'cannot load song'})
+	return simplejson.dumps({'message': 'loaded song %s'% song.name})

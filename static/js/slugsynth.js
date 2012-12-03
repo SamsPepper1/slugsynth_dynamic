@@ -1515,7 +1515,7 @@ function randomSlug(id, color) {
     
 }
 
-
+// AJAX FUNCTIONS//
     
     
 function getPlayerSlugs(fn, args){
@@ -1578,9 +1578,13 @@ function saveSong(){
 }
 
 function test_callback(data){
-	console.log(data.name)
+	console.log(data.message)
 }
 
+
+function loadSong(songPK){
+	Dajaxice.song.loadSong(test_callback, {'songPK':songPK});
+}
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -3,6 +3,15 @@ from slugs.models import Shape, Slug, Sound
 from django.utils import simplejson
 from player.models import Player
 
+
+class PublicLoopManager(models.Manager):
+	def get_query_set(self):
+		return super(PublicLoopManager,self).get_query_set().filter(public=True)
+
+class PublicEditLoopManager(models.Manager):
+	def get_query_set(self):
+		return super(PublicEditLoopManager,self).get_query_set().filter(public_edit=True)
+
 # Create your models here.
 class Loop(models.Model):
 	SCALES = (
@@ -18,6 +27,12 @@ class Loop(models.Model):
 	length = models.IntegerField()
 	notes = models.TextField()
 	shapes = models.ManyToManyField(Shape)
+	public = models.BooleanField()
+	public_edit = models.BooleanField()
+
+	objects = models.Manager()
+	public_posts = PublicLoopManager()
+	public_edit_posts = PublicEditLoopManager()
 	class Meta:
 		ordering = ['last_used']
 	def __unicode__(self):
