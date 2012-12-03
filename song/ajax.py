@@ -18,5 +18,5 @@ def saveSong(request,songString):
 		except Loop.IntegrityError:
 			return simplejson.dumps({'name':'error saving song'})
 	#	song.save()
-		return simplejson.dumps({'name':str(songObj)}) 
+		return simplejson.dumps({'name':'saved song ' + songObj['name']}) 
 		

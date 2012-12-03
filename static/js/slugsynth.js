@@ -1578,7 +1578,7 @@ function saveSong(){
 }
 
 function test_callback(data){
-	alert(data.name)
+	console.log(data.name)
 }
 
 

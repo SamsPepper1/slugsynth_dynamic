@@ -14,7 +14,7 @@ function cancel_edit(){
 	var title = document.getElementById(this.parentNode.id.split('_').slice(0,3).join('_'))
 	title.hidden = false;
 	this.parentNode.hidden = true;
-	console.log('title is' + this.parentNode.id.split('_').slice(0,3).join('_'));
+	//console.log('title is' + this.parentNode.id.split('_').slice(0,3).join('_'));
 	}
 
 
@@ -22,7 +22,7 @@ function change(){
 	var newName = this.value;
 	var id = this.parentNode.id.split('_')[2];
 	var originalName = document.getElementById(this.parentNode.id.split('_').slice(0,3).join('_')).innerHTML;
-	console.log(originalName);	
+	//console.log(originalName);	
 	Dajaxice.player.changeSlugName(nameSaved, {'originalname': originalName, 'newname': newName, 'id':id});
 }
 
@@ -35,7 +35,7 @@ function nameSaved(data){
 		title.hidden = false;
 		editor.hidden = true;
 	}
-	console.log(data.message);
+	//console.log(data.message);
 }
 
 slugIms = [];
