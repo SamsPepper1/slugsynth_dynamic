@@ -627,8 +627,16 @@ ul.numbers li strong {
 
 .song_info ul.numbers {
 	float: left;
-	width: 110px;
+	width: 210px;
 }
+
+.song_info ul.numbers li {
+	height: 70px;
+}
+.song_info ul.numbers li strong {
+	vertical-align: bottom;
+}
+
 .song_info ul.tagList {
 	margin: 0;
 	list-style: none;

@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'player',
     'slugs',
     'song',
+    'rating',
     'dajaxice',
     'dajax',
     'floppyforms'

@@ -63,3 +63,9 @@ class Loop(models.Model):
 		data['length'] = self.length
 		data['name'] = self.name
 		return data
+	def average_points(self):
+		number_of_ratings = self.rating_set.count()
+		if number_of_ratings:
+			return float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings)[:4])
+		else:
+			return 0
