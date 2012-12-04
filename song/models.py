@@ -2,6 +2,8 @@ from django.db import models
 from slugs.models import Shape, Slug, Sound
 from django.utils import simplejson
 from player.models import Player
+from tagging.fields import TagField
+from tagging.models import Tag
 
 
 class PublicLoopManager(models.Manager):
@@ -33,6 +35,7 @@ class Loop(models.Model):
 	objects = models.Manager()
 	public_posts = PublicLoopManager()
 	public_edit_posts = PublicEditLoopManager()
+	tags = TagField()
 	class Meta:
 		ordering = ['last_used']
 	def __unicode__(self):
@@ -72,3 +75,5 @@ class Loop(models.Model):
 			return float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings)[:4])
 		else:
 			return 0
+	def get_tags(self):
+		return Tag.objects.get_for_object(self)

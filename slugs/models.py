@@ -2,6 +2,9 @@ from django.db import models
 from player.models import Player
 from slugs import helpers
 import json
+from tagging.fields import TagField
+from tagging.models import Tag
+
 
 class Shape(models.Model):
 	name = models.CharField(max_length=30)
@@ -12,6 +15,7 @@ class Shape(models.Model):
 	sustainLevel = models.FloatField()
 	release = models.FloatField()
 	sustainLengthDefault = models.FloatField()
+	tags = TagField()
 
 	class Meta:
 		ordering = ['-last_used']
@@ -40,6 +44,10 @@ class Shape(models.Model):
 			return float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings)[:4])
 		else:
 			return 0
+
+	def get_tags(self):
+		return Tag.objects.get_for_object(self)
+
 
 class Slug(models.Model):
 	owner = models.ForeignKey(Player)

@@ -1377,6 +1377,7 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes,pk){
 
 function savedSlug(data) {
 	console.log('saved slug');
+	all.currentSlug.currentShape.pk = data.pk;
 	all.currentSlug.shapes = [all.currentSlug.currentShape].concat(all.currentSlug.shapes);
 }
 

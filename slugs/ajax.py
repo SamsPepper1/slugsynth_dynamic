@@ -36,7 +36,7 @@ def saveShape(request, slugName, env):
 			shape.save()
 			slug.shapes.add(shape)
 			#return simplejson.dumps({'message':'slug named %s, owned by %s, has been found. shape has been saved.'%(slug, player)})
-			return simplejson.dumps({'message': str(env['shape'])})
+			return simplejson.dumps({'pk': shape.pk})
 		except Slug.DoesNotExist:
 			return simplejson.dumps({'message':'no slug names %s found for user %s'%(slugName, player)})
 	else:
