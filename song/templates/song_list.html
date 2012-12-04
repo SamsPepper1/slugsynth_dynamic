@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Song List{% endblock %}
+
+{% block content %}
+
+<div class='song_list'>
+	<h3> Top Songs </h3>
+
+	<section id="left">
+		{% for song in song_list %}
+			{% include 'song_info.html' %}
+			<div class="sep"></div>
+		{% endfor %}
+	</section>
+	<section id="right">
+	</section>
+</div>
+{% endblock %}

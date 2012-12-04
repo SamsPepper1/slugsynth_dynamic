@@ -17,7 +17,7 @@ var editable = false;
 {% endif %}
 window.onload = function() {
 	var slugs = []
-	getPlayerSlugs(getSlugs, {'playerName':'{{player.user.username}}'});
+	getDefaultPlayerSlugs(getSlugs, {'playerName':'{{player.user.username}}'});
 	var clicks = document.getElementById('profile_nav').children[0].children;
 	for (var i = 0; i < clicks.length; i++){
 		click = clicks[i];
@@ -59,9 +59,9 @@ window.onload = function() {
 				</div>
 	
 		<div class="field" id="songs_field" hidden=True>
-			<header>
-				<h3>{{player.user.username}}'s Songs</h3>
-			</header>
+			{% for song in player.loop_set.all %}
+				<div><a href="/song/load/{{song.pk}}"><h4>{{song.name}}</h4></a></div>
+			{% endfor %}
 		</div>
 
 		<div class="field" id="friends_field" hidden=True>

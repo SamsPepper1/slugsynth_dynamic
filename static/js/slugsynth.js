@@ -265,15 +265,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
         dataArray = this.song.data;
         start = 0;
         this.song.play();
-        setInterval(function() {
-                all.topControls.buttonSet[0].rect.animate({
-                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-                    function() {all.topControls.buttonSet[0].rect.animate({
-                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<')
-                    }
-                )
-       },2000)
-	
+        	
 	this.stopInt = setInterval(function(){
 					var time = (audio.mozCurrentSampleOffset()%all.songLength+5512)/all.songLength;
 					all.timer.attr('width',all.maxTimerWidth*time);
@@ -1287,13 +1279,17 @@ function cell(x, y, width, height,note, pos,paper, parent) {
     }
     this.r.node.onclick = function() {
         var cell = all.grid.cells[pos][note];
-        slug = all.currentSlug;
-        var scaleFactorY = all.grid.height/200;
+	id = String(Math.round(Math.random()*1000000));
+	cell.addNote(id);
+    }
+    this.addNote = function(id){
+        var slug = all.currentSlug;
+        var scaleFactorY = this.parent.height/200;
 	var scaleFactorX = all.pixelWidth/550;
         
-        var transform = 't '+ cell.x + ',' + (cell.y-((scaleFactorY*37)-cell.height)) + ' s '+ scaleFactorX + ',' + scaleFactorY + ',0,0';
-        var id = String(Math.round(Math.random()*1000000));
-        var slugIm = slug.draw(cell.parent.paper, 0,transform,mainAttrs.palletteSlugs,id );
+        var transform = 't '+ this.x + ',' + (this.y-((scaleFactorY*37)-this.height)) + ' s '+ scaleFactorX + ',' + scaleFactorY + ',0,0';
+       
+        var slugIm = slug.draw(this.parent.paper, 0,transform,mainAttrs.palletteSlugs,id );
         slugIm[1].node.onclick = function() {
             var id= this.id.split('_')[0];
             all.removeNote(id);
@@ -1301,8 +1297,10 @@ function cell(x, y, width, height,note, pos,paper, parent) {
         }
         slugIm.attr('fill', slug.color)
         all.addNote(pos,note,id)
-        cell.notes[id] = slugIm;
+        this.notes[id] = slugIm;
     }
+
+    
 }
 
 function slugFamily(name,id, waveTableGenerator,color, octave, shapes,pk){
@@ -1518,13 +1516,19 @@ function randomSlug(id, color) {
 // AJAX FUNCTIONS//
     
     
-function getPlayerSlugs(fn, args){
+function getDefaultPlayerSlugs(fn, args){
 	Dajaxice.slugs.getDefaultPallette(fn, args);
 }
 
+function getSongSlugs(fn, args){
+	Dajaxice.song.getSongSlugs(fn, args);
+}
 
 var returned;
 function setup(data) {
+	if (all){
+		all.clear()
+	}
 	slugs = [];
 	console.log(data.message);
 	if (data.message == 'None') {
@@ -1554,6 +1558,29 @@ function setup(data) {
 }
 
 
+function setup_load(data) {
+	if (all){
+		all.clear()
+	}
+	song = data.song;
+	slugs = [];
+	for (var i = 0; i < song.slugs.length; i++){
+		slugs.push(parseSlug(song.slugs[i], i))
+	}
+	var id = 'track'
+	    length = song.length
+	    baseFreq = 16.532
+	    scale = scales.major
+	    tempo = song.tempo
+	    width = 1000
+	    height = 500
+	    notes = []
+	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes)
+	addNotes(JSON.parse(song.notes))
+	all.changeCurrentSlug(0)
+	document.getElementsByTagName('title')[0].innerHTML = 'SlugJam | '+song.name
+}
+
 function parseSlug(slugJSON,id) {
 	var sampleRate = 44100;
 	var shapes = [];
@@ -1571,8 +1598,8 @@ function parseSlug(slugJSON,id) {
 	return slug;
 	}
 
-function saveSong(){
-    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': 'Bilios garden','scale': 'Ma'}
+function saveSong(name){
+    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': 'Ma'}
     songObj.notes = all.notes;
     Dajaxice.song.saveSong(test_callback, {'songString':JSON.stringify(songObj)});
 }
@@ -1583,8 +1610,40 @@ function test_callback(data){
 
 
 function loadSong(songPK){
-	Dajaxice.song.loadSong(test_callback, {'songPK':songPK});
+	Dajaxice.song.loadSong(setup_load, {'songPK':songPK});
+}
+function getSlugByPk(pk){
+	for (var i = 0; i < all.palletteSlugs.length; i++){
+		if (all.palletteSlugs[i].pk == pk){
+			return all.palletteSlugs[i];
+		}
+	}	
+	console.log('slug ' + pk +' not found');
+	return;
 }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getShapeByPk(pk){
+	var slug = all.currentSlug;
+	for (var i = 0; i < slug.shapes.length; i++){
+		if (slug.shapes[i].pk == pk){
+			return slug.shapes[i]
+		}
+	}
+	console.log('shape ' + pk + ' not found')
+	return;
 
+}
+
+var song;
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function addNotes(notes){
+    for (var i = 0; i < notes.length; i++){
+        var note = notes[i]
+        all.currentSlug = getSlugByPk(note.slugpk)
+        all.currentSlug.currentShape = getShapeByPk(note.envpk)
+        var id = i;
+        all.grid.cells[note.pos][note.note].addNote(id);
+    }
+}

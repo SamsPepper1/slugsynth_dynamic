@@ -40,7 +40,7 @@ var STATIC_URL = {{ STATIC_URL }};
 var player = {% if user.is_authenticated %}'{{user.username}}'{% else %}undefined;{% endif %}
 window.onload = function() {
   
-   getPlayerSlugs(setup,{'playerName': player}); 
+   loadSong({{songPK}}) 
 };
 </script>
 

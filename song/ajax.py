@@ -30,4 +30,8 @@ def loadSong(request, songPK):
 		song = Loop.public_posts.get(pk=songPK)
 	except Loop.DoesNotExist:
 		return simplejson.dumps({'message': 'cannot load song'})
-	return simplejson.dumps({'message': 'loaded song %s'% song.name})
+	slugs = [slug.as_data() for slug in song.shapes.all()]
+	return simplejson.dumps({'message': 'loaded song %s'%song.name, 'song': song.as_data()})
+
+
+#@dajaxice_register

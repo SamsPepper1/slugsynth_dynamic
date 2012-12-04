@@ -46,3 +46,20 @@ class Loop(models.Model):
 
 	def get_slugs(self):
 		return [shape.slug_set.all()[0] for shape in self.shapes.all()]		
+	def save(self):
+		super(Loop, self).save()
+		self.addShapes()
+
+	def as_data(self):
+		data = {}
+		data['slugs'] = []
+		for slug in self.get_slugs():
+			slug_data = slug.as_data()
+			slug_data['shapes'] = [shape.as_data() for shape in self.shapes.all() if shape in slug.shapes.all()]
+			data['slugs'].append(slug_data)
+		data['notes'] = self.notes
+		data['tempo'] = self.tempo
+		data['scale'] = self.scale
+		data['length'] = self.length
+		data['name'] = self.name
+		return data

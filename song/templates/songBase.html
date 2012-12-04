@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load dajaxice_templatetags %}
+
+{% block title %}New Song{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/index.css"></link>
+{% endblock %}
+
+{% block script %}
+	{% dajaxice_js_import %}
+        <script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}images/slugpaths.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/catmullRom2Bezier.js"></script>
+	<script type="text/javascript">
+	{% block initialiseScript %}    
+
+		var sampleRate = 44100
+
+
+
+
+		scales = { 
+		    'major': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
+		    'minor': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
+		    'minorPentatonic': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
+		    }
+
+       
+
+
+		var dataArray,
+		    start,
+		audio,
+		all
+		var STATIC_URL = {{ STATIC_URL }};
+
+		var player = {% if user.is_authenticated %}'{{user.username}}'{% else %}undefined;{% endif %}
+
+	{% endblock %}
+	{% block onloadScript %}
+
+
+		window.onload = function() {
+
+   			getDefaultPlayerSlugs(setup,{'playerName': player}); 
+		};
+	{% endblock %}
+</script>
+
+{% endblock %}
+     
+{% block content %}
+       <div id="controls"></div>
+        <div id="track"></div>
+        <div id="slugBoxLeft"></div>
+        <article> 
+        <p>currently only works in firefox.</p>
+        <p>VERY buggy. will update with more sensible demo soon.</p>
+            <h4>How To</h4>
+            <ul>
+                <li>click on a slug</li>
+                <li>click on grid to place</li>
+                <li> click on the slug again to remove it</li>
+                <li> click play</li>
+                <li> click on the slug on the grid to remove it</li>
+                <li>click 'Mold' to change the shape/sound envelope</li>
+                <li>click 'wave' to view the soundwave produced</li>
+                <li> click the little green arrow on the slugmold/wave panel to close it</li>
+            </ul>
+        </article>
+
+{% endblock %}

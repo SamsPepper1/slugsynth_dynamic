@@ -7,10 +7,6 @@ def home(request):
 	return render(request, 'home.html', context)
 
 
-def newsong(request):
-	context = {'title': 'New Song'}
-	return render(request, 'newsong.html', context)	
-
 
 def testAjax(request):
 	context = {}

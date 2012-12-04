@@ -296,6 +296,7 @@ hr {
 	box-shadow: 0px 0px 5px #222222;
 }
 
+.song_list,
 .player_list,
 .profile {
 
@@ -311,7 +312,7 @@ hr {
 	-webkit-box-shadow: 0px 0px 8px #666666;
 	box-shadow: 0px 0px 8px #666666;
 }
- 
+.song_list,
 .player_list {
 	height: 900px;
 }
@@ -379,8 +380,7 @@ hr {
 	color: #666666;
 	margin-top: 0.5em;
 }
-
-#profile_info ul.numbers {
+ul.numbers {
 	float: left;
 	list-style: none;
 	width: 290px;
@@ -391,7 +391,7 @@ hr {
 	
 }
 
-#profile_info ul.numbers li {
+ul.numbers li {
 	display: block;
 	float: left;
 	width: 95px;
@@ -400,10 +400,10 @@ hr {
 	text-align: center;
 }
 
-#profile_info ul.numbers li.end {
+ul.numbers li.end {
 	border-right: none;
 }
-#profile_info ul.numbers li strong {
+ul.numbers li strong {
 	display: block;
 	font-size: 200%;
 	text-align: center;
@@ -597,4 +597,44 @@ hr {
 	border-radius: 3px;
 	border: 1px dotted #666;
 	
+}
+
+
+.song_info {
+	height: 100px;
+}
+
+
+.song_info .labels {
+	margin: 0 0 0 1em;
+	width: 50%;
+	float: left;
+}
+.song_info .labels a h4 {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	font-size: 120%;
+}
+
+.song_info .labels a:hover {
+	color: #111;
+}
+
+.song_info .labels p {
+	margin: 0px;
+}
+
+.song_info ul.numbers {
+	float: left;
+	width: 110px;
+}
+.song_info ul.tagList {
+	margin: 0;
+	list-style: none;
+	float: left;
+}
+.song_info .labels ul.tagList li {
+	float: left;
+	margin: 0 1em 0 1em;
 }

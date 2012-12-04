@@ -56,6 +56,10 @@ class Slug(models.Model):
 			'pk': self.pk,
 			}
 		return data
+	def as_data_song(self, song):
+		data = self.as_data()
+		data['shapes'] = [s.as_data() for s in song.shapes.all() if s in this.shapes.all()]
+		return data
 
 	def as_json(self):
 		return json.dumps(self.as_data())
