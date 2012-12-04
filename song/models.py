@@ -49,6 +49,9 @@ class Loop(models.Model):
 	def save(self):
 		super(Loop, self).save()
 		self.addShapes()
+		player = self.creator
+		player.points += 5
+		player.save()
 
 	def as_data(self):
 		data = {}

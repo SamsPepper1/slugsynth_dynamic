@@ -36,7 +36,7 @@ class Rating(models.Model):
 			rated = self.song.creator
 			rated.points += self.points
 			rated.save()
-		elif self.model = 'shape':
+		elif self.model == 'shape':
 			rated = self.shape.slug_set.all()[0].owner
 			rated.points += self.points
 			rated.save()

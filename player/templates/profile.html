@@ -61,6 +61,7 @@ window.onload = function() {
 		<div class="field" id="songs_field" hidden=True>
 			{% for song in player.loop_set.all %}
 				{% include 'song_info.html' %}
+				<div class='sep'></div>
 			{% endfor %}
 		</div>
 

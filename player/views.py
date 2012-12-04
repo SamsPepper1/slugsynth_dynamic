@@ -40,7 +40,7 @@ def SignUp(request):
 
 def LogInRequest(request):
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/user/profile/')
+		return HttpResponseRedirect('/user/myprofile/')
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():

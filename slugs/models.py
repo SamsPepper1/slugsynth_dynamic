@@ -33,7 +33,13 @@ class Shape(models.Model):
 
 	def as_json(self):
 		return json.dumps(self.as_data())
-
+	
+	def average_points(self):
+		number_of_ratings = self.rating_set.count()
+		if number_of_ratings:
+			return float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings)[:4])
+		else:
+			return 0
 
 class Slug(models.Model):
 	owner = models.ForeignKey(Player)
@@ -64,6 +70,13 @@ class Slug(models.Model):
 	def as_json(self):
 		return json.dumps(self.as_data())
 	
+	def average_points(self):
+		rated_shapes = [s for s in self.shapes.all() if s.rating_set.count() > 0]
+		if rated_shapes:
+			return float(str(sum([s.average_points() for s in rated_shapes])/len(rated_shapes))[:4])
+		else:
+			return 0
+
 class Sound(models.Model):
 	WAVEFORM_CHOICES = (
 		('si', 'sine'),
