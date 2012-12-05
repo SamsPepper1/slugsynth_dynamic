@@ -16,4 +16,14 @@ window.onload = function() {
 	<h3>loading song...</h3>
 	<p></p>
 </div>
+
+{% if not mySong %}
+	<div id="rateSong">
+		<p> Rate this song </p>
+	
+			<input type="range"   value="2" />
+
+	
+	</div>
+{% endif %}
 {% endblock %}

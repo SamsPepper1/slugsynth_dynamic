@@ -1578,7 +1578,9 @@ function setup_load(data) {
 	    notes = []
 	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes)
 	addNotes(JSON.parse(song.notes))
-	all.changeCurrentSlug(0)
+	if (all.palletteSlugs){
+		all.changeCurrentSlug(0)
+	}
 	document.getElementsByTagName('title')[0].innerHTML = 'SlugJam | '+song.name;
 	document.getElementById('songHeader').children[0].innerHTML = song.name;
 	document.getElementById('songHeader').children[1].innerHTML = 'by ' +song.creator;
