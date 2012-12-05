@@ -23,8 +23,8 @@ class Rating(models.Model):
 	POINTS = [(i,i) for i in range(6)]
 	model = models.CharField(max_length = 5, choices = MODELS)
 	points = models.PositiveSmallIntegerField(choices=POINTS)
-	song = models.ForeignKey(Loop, null=True)
-	shape = models.ForeignKey(Shape, null=True)
+	song = models.ForeignKey(Loop, null=True,blank=True)
+	shape = models.ForeignKey(Shape, null=True, blank=True)
 	player = models.ForeignKey(Player)
 	comment = models.TextField()
 

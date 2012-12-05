@@ -48,7 +48,7 @@ class Loop(models.Model):
 				self.shapes.add(shape)
 
 	def get_slugs(self):
-		return [shape.slug_set.all()[0] for shape in self.shapes.all()]		
+		return set([shape.slug_set.all()[0] for shape in self.shapes.all()])
 	def save(self):
 		super(Loop, self).save()
 		self.addShapes()
