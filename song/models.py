@@ -68,6 +68,7 @@ class Loop(models.Model):
 		data['scale'] = self.scale
 		data['length'] = self.length
 		data['name'] = self.name
+		data['creator'] = self.creator.__unicode__()
 		return data
 	def average_points(self):
 		number_of_ratings = self.rating_set.count()

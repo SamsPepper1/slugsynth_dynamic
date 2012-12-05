@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 def SignUp(request):
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/user/profile/')
+		return HttpResponseRedirect('/user/myprofile/')
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():

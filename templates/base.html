@@ -21,6 +21,7 @@
 		<header id="mainHeader">
 		<a href="/"><h1></h1></a>
 		<div id="loginBox">
+
 			{% if user.is_authenticated %}
 				<p>logged in as <span id="loginBox_username">{{user.username}}</span></p>
 				<a class="text" href="/user/logout">Log Out</a>
@@ -31,6 +32,9 @@
 			{% endif %}
 
 		</div>
+		{% block header_block %}
+		{% endblock %}	
+
 		</header>
 		<nav class="mainNav">
 		
