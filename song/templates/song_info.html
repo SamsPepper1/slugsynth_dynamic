@@ -1,12 +1,17 @@
 <section class="song_info">
 	<div class="labels">
-	<a href="/song/load/{{song.pk}}"><h4>{{song.name}}</h4></a>
-	<p>by <a href="/user/profile/{{song.creator.pk}}">{{song.creator}}</a></p>
-	<p>Tags:</p>
-	<ul class="tagList">
-		<li>Raggae</li>
-		<li>funk</li>
-	</ul>
+		<a href="/song/load/{{song.pk}}"><h4>{{song.name}}</h4></a>
+		<div class="creator">
+			<p>by <a href="/user/profile/{{song.creator.pk}}">{{song.creator}}</a></p>
+		</div>
+		<div class="tagBlock">
+			<p>Tags:</p>
+			<ul class="tagList">
+				{% for tag in song.get_tags %}
+					<li>{{tag}}</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 	<ul class="numbers">
 		<li>Ratings<strong>{{song.rating_set.count}}</strong></li>

@@ -41,5 +41,5 @@ class Rating(models.Model):
 			rated.points += self.points
 			rated.save()
 		super(Rating, self).save()
-
+		self.song.update_average_points()	
 		

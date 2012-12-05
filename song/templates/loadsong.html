@@ -19,10 +19,39 @@ window.onload = function() {
 
 {% if not mySong %}
 	<div id="rateSong">
-		<p> Rate this song </p>
-	
-			<input type="range"   value="2" />
+		<h4 id="ratingHeader"> Rate this song </h4>
+			<form method="post" action="rate/">
+				{% csrf_token %}
+				<div class="radioInput">	
+					<input type="radio" id="radio_0" name="rating" value="0"/>
+					<label for="radio_0">0</label>
+				</div>
+				<div class="radioInput">	
+					<input type="radio" id="radio_1" name="rating" value="1"/>
+					<label for="radio_1">1</label>
+				</div>
+				<div class="radioInput">	
+					<input type="radio" id="radio_2" name="rating" value="2"/>
+					<label for="radio_2">2</label>
+				</div>
+				<div class="radioInput">	
+					<input type="radio" id="radio_3" name="rating" value="3"/>
+					<label for="radio_3">3</label>
+				</div>
+				<div class="radioInput">	
+					<input type="radio" id="radio_4" name="rating" value="4"/>
+					<label for="radio_4">4</label>
+				</div>
+				<div class="radioInput">	
+					<input type="radio" id="radio_5" name="rating" value="5"/>
+					<label for="radio_5">5</label>
+				</div>
+				<div class="ratingSubmit">
+					<input type="submit" name="Rate" value="rate" >
+				</div>
+						
 
+			</form>
 	
 	</div>
 {% endif %}

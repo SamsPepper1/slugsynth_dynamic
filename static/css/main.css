@@ -646,14 +646,29 @@ ul.numbers li strong {
 	vertical-align: bottom;
 }
 
-.song_info ul.tagList {
+.song_info .creator {
+	width: 200px;
+	float: left;
+}
+
+.song_info .tagBlock {
+	width: 200px;
+	float: left;
+}
+.song_info .tagBlock p {
+	width: 50px;
+}
+
+.song_info .tagBlock ul.tagList {
+	
 	margin: 0;
 	list-style: none;
 	float: left;
 }
-.song_info .labels ul.tagList li {
+.song_info .tagBlock  ul.tagList li {
 	float: left;
 	margin: 0 1em 0 1em;
+	padding: 0;
 }
 
 .song_info a img {
@@ -670,4 +685,62 @@ ul.numbers li strong {
 	opacity: 1;
 }
 
+#rateSong {
+	
+	background-image: url(../images/formbg.jpg);
+	border-radius: 5px;
+	width: 200px;
+	height: 70px;
+	float: right;
+	margin: 0.75em 1em 0 0;
+	text-align: center;
+	color: #bbb;
+}
 
+#rateSong #ratingHeader {
+	color: #bbb;
+	font-size: 120%;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+#rateSong form {
+	margin: 0 auto;
+	
+}
+
+#rateSong form .radioInput {
+	
+	width: 1.5em;
+	height: 2em;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+#rateSong form label {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+
+.coverall {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:  0;
+	left: 0;
+	background-color: black;
+	opacity: 0.8;
+}
+
+
+#saveForm {
+	position: absolute;
+	top: 50%;
+	left: 33%;
+	z-index: -200;
+	display: none;
+}

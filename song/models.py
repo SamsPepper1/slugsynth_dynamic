@@ -31,13 +31,14 @@ class Loop(models.Model):
 	shapes = models.ManyToManyField(Shape)
 	public = models.BooleanField()
 	public_edit = models.BooleanField()
+	avScore = models.FloatField(default=0)
 
 	objects = models.Manager()
 	public_posts = PublicLoopManager()
 	public_edit_posts = PublicEditLoopManager()
 	tags = TagField()
 	class Meta:
-		ordering = ['last_used']
+		ordering = ['-avScore']
 	def __unicode__(self):
 		return self.name
 	def addShapes(self):
@@ -70,11 +71,18 @@ class Loop(models.Model):
 		data['name'] = self.name
 		data['creator'] = self.creator.__unicode__()
 		return data
-	def average_points(self):
+	def update_average_points(self):
 		number_of_ratings = self.rating_set.count()
 		if number_of_ratings:
-			return float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings)[:4])
+			self.avScore = float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings))
+			super(Loop,self).save()
 		else:
-			return 0
+			pass
+	def average_points(self):
+		return float(str(self.avScore)[:4])
+		
 	def get_tags(self):
 		return Tag.objects.get_for_object(self)
+
+	def set_tags(self, tags):
+		Tag.objects.update_tags(self, tags)

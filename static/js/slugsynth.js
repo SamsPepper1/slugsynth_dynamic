@@ -119,7 +119,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 
 
     // Draw top controlBar
-//    this.topControls = new controls(0,0,2,2,'topControl',30,[],mainAttrs.topBarAttrs,this);
+    this.topControls = new controls(0,0,2,2,'topControl',30,[],mainAttrs.topBarAttrs,this);
 
     //ADD BUTTONS
     //TODO this is overly repetative...
@@ -131,30 +131,30 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 //                                                  }});
 
     // add stop button to top control bar
-//    this.topControls.drawButton({'x': 260, 'y':8, 'width': 40, 'height': 20,
-//        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'stop',
-//        'func': function(){
-//            all.stop();
-//            all.topControls.buttonSet[1].rect.animate({                     // make button flash to indicate it has been clicked.
-//                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-//                    function() {all.topControls.buttonSet[1].rect.animate({
-//                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
-//                    )}
-//                )}
-//            });
+    this.topControls.drawButton({'x': 260, 'y':8, 'width': 40, 'height': 20,
+        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'clear',
+        'func': function(){
+            all.clear();
+            all.topControls.buttonSet[0].rect.animate({                     // make button flash to indicate it has been clicked.
+                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
+                    function() {all.topControls.buttonSet[0].rect.animate({
+                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
+                    )}
+                )}
+            });
 //
     // adds calls all.clear()
-//    this.topControls.drawButton({'x': 320, 'y':8, 'width': 40, 'height': 20,
-//        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'clear',
-//        'func': function(){
-//            all.clear();
-//            all.topControls.buttonSet[2].rect.animate({
-//                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
-//                    function() {all.topControls.buttonSet[2].rect.animate({
-//                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
-//                    )}
-//                )}
-//            });
+    this.topControls.drawButton({'x': 320, 'y':8, 'width': 40, 'height': 20,
+        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'save',
+        'func': function(){
+            all.save();
+            all.topControls.buttonSet[1].rect.animate({
+                    'fill': mainAttrs.buttonPressAttrs.fill},500,'<',
+                    function() {all.topControls.buttonSet[1].rect.animate({
+                        'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
+                    )}
+                )}
+            });
 //    
 //    // add slugMold button to top Controller
 //    this.topControls.drawButton({'x': 440, 'y':8, 'width': 40, 'height': 20,
@@ -372,6 +372,26 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                 delete this.grid.cells[note.pos][note.note].notes[note.id];
             }
         }
+    }
+    this.save = function() {
+	var p = document.createElement('div');
+	p.setAttribute('class','coverall');
+
+	document.body.appendChild(p);
+	var saveForm = document.getElementById('saveForm');
+	saveForm.style.display = 'block';
+	saveForm.style.zIndex = 100;
+	saveForm.children[2].onclick = function(){
+		var saveForm = this.parentNode;
+		var title = saveForm.children[0].value;
+		var tags = saveForm.children[1].value;
+		saveSong(title, tags);	
+		saveForm.style.zIndex = -1000;
+		document.body.removeChild(document.getElementsByClassName('coverall')[0]);
+	}
+	
+	
+
     }
     
 
@@ -1603,8 +1623,8 @@ function parseSlug(slugJSON,id) {
 	return slug;
 	}
 
-function saveSong(name){
-    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': 'Ma'}
+function saveSong(name, tags){
+    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': 'Ma', 'tags': tags}
     songObj.notes = all.notes;
     Dajaxice.song.saveSong(test_callback, {'songString':JSON.stringify(songObj)});
 }

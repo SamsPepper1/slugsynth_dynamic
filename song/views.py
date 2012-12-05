@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from song.models import Loop 
-
+from django.template import RequestContext
+from rating.models import Rating
 
 
 
@@ -23,4 +24,13 @@ def loadSong(request,songPK):
 	context['title']= 'Loading Song...'
 	return render(request, 'loadsong.html', context)	
 
-  
+def rateSong(request, songPK):
+	if request.method=='POST':
+		if request.user.is_authenticated():
+			song = Loop.objects.get(pk=songPK)
+			points = request.POST['rating']
+			r = Rating(model='song', points=int(points), song = song, player = request.user.get_profile(), comment='')
+			r.save()
+			return HttpResponseRedirect('/song/list/page1')
+	else:
+		return HttpResponseRedirect('/')
