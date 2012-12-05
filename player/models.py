@@ -21,7 +21,13 @@ class Player(models.Model):
 	def __unicode__(self):
 		return self.user.username
 
-
+	def save(self, *args, **kwargs):
+		try:
+			existing = Player.objects.get(user=self.user)
+			self.id = existing.id
+		except Player.DoesNotExist:
+			pass
+		models.Model.save(self, *args, **kwargs)
 
 	def getStarterPallette(self):
 
