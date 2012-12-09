@@ -381,10 +381,14 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 	var saveForm = document.getElementById('saveForm');
 	saveForm.style.display = 'block';
 	saveForm.style.zIndex = 100;
-	saveForm.children[2].onclick = function(){
+	saveForm.children[5].onclick = function(){
+		document.body.removeChild(document.getElementsByClassName('coverall')[0]);
+		document.getElementById('saveForm').style.zIndex = -1000;
+	}
+	saveForm.children[4].onclick = function(){
 		var saveForm = this.parentNode;
-		var title = saveForm.children[0].value;
-		var tags = saveForm.children[1].value;
+		var title = saveForm.children[1].value;
+		var tags = saveForm.children[2].value;
 		saveSong(title, tags);	
 		saveForm.style.zIndex = -1000;
 		document.body.removeChild(document.getElementsByClassName('coverall')[0]);

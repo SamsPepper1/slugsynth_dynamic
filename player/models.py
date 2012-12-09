@@ -18,6 +18,8 @@ class Player(models.Model):
 	points = models.IntegerField(null=True,blank=True)
 	avatar = models.ImageField(upload_to='users/avatars',null=True, blank=True)
 	objects = PlayerManager()
+	class Meta:
+		ordering = ['-points']
 	def __unicode__(self):
 		return self.user.username
 

@@ -46,9 +46,9 @@ def LogInRequest(request):
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password']
-			player = authenticate(username=username, password=password)	
-			if player is not None:
-				login(request, player)
+			user = authenticate(username=username, password=password)	
+			if user is not None:
+				login(request, user)
 				return HttpResponseRedirect('/user/myprofile/')
 			else:
 				return	render_to_response('login.html', {'form': form, 'title': 'Log In'}, context_instance=RequestContext(request))

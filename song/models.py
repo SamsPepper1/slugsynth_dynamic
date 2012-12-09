@@ -86,3 +86,6 @@ class Loop(models.Model):
 
 	def set_tags(self, tags):
 		Tag.objects.update_tags(self, tags)
+
+	def already_rated(self):
+		return [p.player for p in self.rating_set.all()]

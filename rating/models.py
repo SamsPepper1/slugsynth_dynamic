@@ -27,6 +27,11 @@ class Rating(models.Model):
 	shape = models.ForeignKey(Shape, null=True, blank=True)
 	player = models.ForeignKey(Player)
 	comment = models.TextField()
+	def __unicode__(self):
+		if self.model == 'song':
+			return "%s gave %s %s points."%(self.player, self.song, self.points)
+		elif self.model == 'shape':
+			return "%s gave %s %s points."(self.player, self.shape, self.points)
 
 	def save(self):
 		rater = self.player

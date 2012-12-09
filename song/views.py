@@ -12,13 +12,18 @@ def newSong(request):
 
 def loadSong(request,songPK):
 	song = Loop.objects.get(pk=songPK)
-	context = {'songPK': songPK}
+	context = {'songPK': songPK, 'song': song}
 	if request.user.is_authenticated():
 		player = request.user.get_profile()
 		if song.creator == player:
 			context['mySong'] = True
 		else:
 			context['mySong'] = False
+			if player in song.already_rated():
+				context['alreadyRated'] = True
+				context['myRating'] = song.rating_set.get(player=player).points
+			else:
+				context['alreadyRated'] = False
 	else:
 		context['mySong'] = False
 	context['title']= 'Loading Song...'

@@ -35,4 +35,6 @@ def loadSong(request, songPK):
 	return simplejson.dumps({'message': 'loaded song %s'%song.name, 'song': song.as_data()})
 
 
-#@dajaxice_register
+@dajaxice_register
+def test(request):
+	return simplejson.dumps([[1,2,3],[3,2,1],[2,3,4]])
