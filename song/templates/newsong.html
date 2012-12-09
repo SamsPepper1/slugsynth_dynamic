@@ -1,2 +1,84 @@
 {% extends 'songBase.html' %}
+{% block initialiseScript %}    
+		var sampleRate = 44100
 
+
+	scales = { 
+	    'Ma': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
+	    'Mi': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
+	    'mPent': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
+	    }
+       
+
+	var dataArray,
+	    start,
+	audio,
+	all
+	var STATIC_URL = {{ STATIC_URL }};
+	var player = {% if user.is_authenticated %}'{{user.username}}'{% else %}undefined;
+{% endif %}
+{% endblock %}
+{% block onloadScript %}
+
+	window.onload = function() {
+			
+   			};
+{% endblock %}
+
+{% block header_block %}
+<div id="songHeader">
+	<h3>loading song...</h3>
+	<p></p>
+</div>
+{% endblock %}
+
+
+{% block extra_content %}
+<div class="coverall " id="songOptionsBgrnd">
+	<div id="songOptions">
+
+		<div class="songOptionField">
+			<label for="title">Title</label>
+			<input id="titleInput" name="title" type="text">
+		</div>	
+
+		<div class="songOptionField">
+			<label for="tempo">Tempo</label>
+			<input id="tempoInput" name="tempo" type="text">
+		</div>
+
+		<div class="songOptionField">
+			<label for="scale">Scale</label>
+			<select id="scaleInput" name="scale">
+				<option value="Ma">Major</option>
+				<option value="Mi">Minor</option>
+				<option value="mPent">Minor Pentatonic</option>
+			</select>
+		</div>
+
+		<div class="songOptionField">
+			<label for="baseFreq">Key</label>
+			<select id="baseFreqInput" name="baseFreq">
+				<option value="16.523">C</option>
+			</select>
+		</div>
+
+
+		<div class="songOptionField">
+			<label for="length">Length</label>
+			<select id="lengthInput" name="length">
+				<option>8</option>
+				<option>9</option>
+				<option>12</option>
+				<option>16</option>
+				<option>24</option>
+				<option>32</option>
+			</select>
+		</div>
+
+
+		<input type="button" value="GO!" onclick="getDefaultPlayerSlugs(newSong,{'playerName': player})"; 
+>
+	</div>
+</div>
+{% endblock %}

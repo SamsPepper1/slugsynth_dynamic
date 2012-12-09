@@ -1,5 +1,23 @@
 {% extends 'songBase.html' %}
 
+{% block initialiseScript %}
+sampleRate = 44100;
+scales = { 
+	    'Ma': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
+	    'Mi': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
+	    'mPent': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
+	    }
+       
+
+	var dataArray,
+	    start,
+	audio,
+	all
+	var STATIC_URL = {{ STATIC_URL }};
+	var player = {% if user.is_authenticated %}'{{user.username}}'{% else %}undefined;
+{% endif %}
+{% endblock %}
+
 
 {% block onloadScript %}
 window.onload = function() {

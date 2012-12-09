@@ -17,37 +17,8 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/catmullRom2Bezier.js"></script>
 	<script type="text/javascript">
 	{% block initialiseScript %}    
-
-		var sampleRate = 44100
-
-
-
-
-		scales = { 
-		    'major': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
-		    'minor': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
-		    'minorPentatonic': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
-		    }
-
-       
-
-
-		var dataArray,
-		    start,
-		audio,
-		all
-		var STATIC_URL = {{ STATIC_URL }};
-
-		var player = {% if user.is_authenticated %}'{{user.username}}'{% else %}undefined;{% endif %}
-
 	{% endblock %}
 	{% block onloadScript %}
-
-
-		window.onload = function() {
-
-   			getDefaultPlayerSlugs(setup,{'playerName': player}); 
-		};
 	{% endblock %}
 </script>
 
@@ -60,6 +31,9 @@
        <div id="controls"></div>
         <div id="track"></div>
         <div id="slugBoxLeft"></div>
+	{% block extra_content %}
+
+	{% endblock %}
         <article> 
         <p>currently only works in firefox.</p>
         <p>VERY buggy. will update with more sensible demo soon.</p>

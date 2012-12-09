@@ -72,7 +72,7 @@
 
 //GUI OBJECTS
 function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pixelHeight,
-               palletteSlugs, notes){
+               palletteSlugs, notes,title){
     //  main Raphael container.
     // contains grid of cells representing a sequencer
     // also containe pallette object
@@ -92,6 +92,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     // GUI initialising //
     
     this.id = id;//html element id for new Raphael()
+    this.title = title;
     this.gridLength = gridLength; // length of sequencer grid in cells
     this.pixelWidth = pixelWidth;   // length of this in pixels
     this.pixelHeight = pixelHeight; // height in pixels
@@ -376,13 +377,15 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     this.save = function() {
 	var p = document.createElement('div');
 	p.setAttribute('class','coverall');
+	p.setAttribute('id', 'saveFormBgrnd');
 
 	document.body.appendChild(p);
 	var saveForm = document.getElementById('saveForm');
 	saveForm.style.display = 'block';
+	saveForm.children[1].value = this.title;
 	saveForm.style.zIndex = 100;
 	saveForm.children[5].onclick = function(){
-		document.body.removeChild(document.getElementsByClassName('coverall')[0]);
+		document.body.removeChild(document.getElementById('saveFormBgrnd'));
 		document.getElementById('saveForm').style.zIndex = -1000;
 	}
 	saveForm.children[4].onclick = function(){
@@ -391,7 +394,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 		var tags = saveForm.children[2].value;
 		saveSong(title, tags);	
 		saveForm.style.zIndex = -1000;
-		document.body.removeChild(document.getElementsByClassName('coverall')[0]);
+		document.body.removeChild(document.getElementById('saveFormBgrnd'));
 	}
 	
 	
@@ -1550,7 +1553,7 @@ function getSongSlugs(fn, args){
 }
 
 var returned;
-function setup(data) {
+function setup(data,title, baseFreq, length, scale, tempo) {
 	if (all){
 		all.clear()
 	}
@@ -1569,19 +1572,34 @@ function setup(data) {
 	}
 	
 	var id = 'track',
-	    length = 16,
-	    baseFreq = 16.532,
-	    scale = scales.major,
-	    tempo = 240
+	    length = length,
+	    baseFreq = baseFreq,
+	    scale = scale,
+	    tempo = tempo,
 	    width = 1000,
 	    height = 500,
 	    notes = [];
 	 
-	all = new main(id, length,baseFreq, sampleRate, scale, tempo, width, height, slugs, notes);
+	all = new main(id, length,baseFreq, sampleRate, scale, tempo, width, height, slugs, notes,title);
 	all.changeCurrentSlug(0);
 	
 }
 
+function newSong(data){
+	var title = document.getElementById('titleInput').value;
+	var tempo = parseInt(document.getElementById('tempoInput').value);
+	scaleString = document.getElementById('scaleInput').value;
+	var scale = scales[scaleString];
+	var baseFreq = parseInt(document.getElementById('baseFreqInput').value);
+	var length = parseInt(document.getElementById('lengthInput').value);
+	console.log('title: '+title+' tempo: ' + tempo + ' Scale: '+scale+'baseFreq: '+baseFreq+'length: ' + length)
+	setup(data, title, baseFreq, length, scale, tempo);
+	document.getElementById('songOptionsBgrnd').hidden = true;
+	document.getElementsByTagName('title')[0].innerHTML = 'SlugJam | '+title;
+	document.getElementById('songHeader').children[0].innerHTML = title;
+
+
+}
 
 function setup_load(data) {
 	if (all){
@@ -1592,15 +1610,16 @@ function setup_load(data) {
 	for (var i = 0; i < song.slugs.length; i++){
 		slugs.push(parseSlug(song.slugs[i], i))
 	}
+	scaleString = song.scale;
 	var id = 'track'
 	    length = song.length
 	    baseFreq = 16.532
-	    scale = scales.major
+	    scale = scales[scaleString]
 	    tempo = song.tempo
 	    width = 1000
 	    height = 500
 	    notes = []
-	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes)
+	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes,song.name)
 	addNotes(JSON.parse(song.notes))
 	if (all.palletteSlugs){
 		all.changeCurrentSlug(0)
@@ -1628,7 +1647,7 @@ function parseSlug(slugJSON,id) {
 	}
 
 function saveSong(name, tags){
-    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': 'Ma', 'tags': tags}
+    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': scaleString, 'tags': tags}
     songObj.notes = all.notes;
     Dajaxice.song.saveSong(test_callback, {'songString':JSON.stringify(songObj)});
 }
