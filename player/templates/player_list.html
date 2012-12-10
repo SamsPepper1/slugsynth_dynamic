@@ -5,13 +5,17 @@
 {% block content %}
 
 <div class="player_list">
-
-	<h3>Top Players</h3>
 	<section id="left">
+		{% include 'pagination.html' with baseUrl='/user/list/' %}
+		<div class="sep"></div>
+		<h3>Top Players</h3>
+	
 		{% for player in player_list %}
 			{% include 'player_info.html'%}
 			<div class="sep"></div>
 		{% endfor %}
+		<div class="sep"></div>
+		{% include 'pagination.html' with baseUrl='/user/list/' %}
 	</section>
 	<section id="right">
 	</section>

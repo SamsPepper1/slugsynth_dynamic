@@ -16,6 +16,6 @@ urlpatterns = patterns('',
 	url(r'^list/page(?P<page>[0-9]+)/$', ListView.as_view(
 				queryset = Player.objects.order_by('-points'),
 				context_object_name='player_list',
-				paginate_by=5,
+				paginate_by=3,
 				template_name='player_list.html')),
 )

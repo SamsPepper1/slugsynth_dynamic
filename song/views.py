@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from song.models import Loop 
 from django.template import RequestContext
 from rating.models import Rating
+from django.views.generic import ListView
 
 
 
@@ -39,3 +40,10 @@ def rateSong(request, songPK):
 			return HttpResponseRedirect('/song/list/page1')
 	else:
 		return HttpResponseRedirect('/')
+
+
+class songList(ListView):
+	model = Loop
+	template_name = 'song_list.html'
+	context_object_name = 'song_list'
+	paginate_by = 5

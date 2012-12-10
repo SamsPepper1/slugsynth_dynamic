@@ -9,7 +9,7 @@ urlpatterns = patterns('',
 	url('^load/(?P<songPK>[\d]+)/rate/$', rateSong),
 	url('^list/page(?P<page>[0-9]+)/$', ListView.as_view(
 				queryset = Loop.public_posts.all(),
-				context_object_name='song_list',
+				context_object_name='song_list',	
 				paginate_by=5,
 				template_name='song_list.html')),
 )

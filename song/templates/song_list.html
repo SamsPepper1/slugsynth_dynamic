@@ -5,15 +5,20 @@
 {% block content %}
 
 <div class='song_list'>
-	<h3> Top Songs </h3>
-
 	<section id="left">
+		{% include 'pagination.html' with baseUrl='/song/list/' %}	
+		<div class="sep"></div>
+		<h3> Top Songs </h3>
+		
 		{% for song in song_list %}
 			{% include 'song_info.html' %}
 			<div class="sep"></div>
 		{% endfor %}
+		<div class="sep"></div>
+		{% include 'pagination.html' with baseUrl='/song/list/' %}
 	</section>
 	<section id="right">
 	</section>
 </div>
+
 {% endblock %}

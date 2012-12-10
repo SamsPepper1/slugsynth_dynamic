@@ -820,3 +820,9 @@ ul.numbers li strong {
 .ratingBox p {
 	margin: 0px;
 }
+
+.pagination {
+	font-size: 80%;
+	margin: 1em auto 1em auto;
+	text-align: center;
+}
