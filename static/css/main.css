@@ -743,20 +743,11 @@ ul.numbers li strong {
 	opacity: 1;
 }
 
+#saveFormBgrnd{
 
-#saveForm {
-	background-image: url(../images/navbg.jpg);
-	height: 150px;
-	width: 250px;
-	position: absolute;
-	top: 30%;
-	left: 40%;
-	z-index: -200;
-	display: none;
-	padding: 1em;
-	border-radius: 5px;
-	text-align: center;
+
 }
+
 #songOptions input,
 #songOptions select,
 #saveForm input{
@@ -786,25 +777,37 @@ ul.numbers li strong {
 .opaque {
 	opacity: 1
 }
-
+#saveForm,
 #songOptions {
 	background-image: url(../images/navbg.jpg);
 	width: 320px;
-	border-radius: 5px;
-	padding: 2em;
+	border-radius: 10px;
+	padding: 1em 2em 1em 2em;
 	opacity: 1;
 	margin: 0 auto;	
 	margin-top: 200px;
+	box-shadow: 1px 1px 2px 5px #111;
+	color: #444;
 }
 
-#songOption .songOptionField {
+
+#saveForm h3,
+#songOptions h3 {
+	margin: 0 0 1em 0;
+	text-align: center;
+
+} 
+#saveForm .saveFormField,
+#songOptions .songOptionField {
 	height: 40px;
 	text-align: left;
 	vertical-align: bottom;
 }
 
+#saveForm .saveFormField label,
 #songOptions .songOptionField label {
 	height: 100%;
+	font-weight: bold;
 	vertical-align: text-bottom;
 	float: left;
 	width: 100px;
