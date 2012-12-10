@@ -375,26 +375,24 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
         }
     }
     this.save = function() {
-	var p = document.createElement('div');
-	p.setAttribute('class','coverall');
-	p.setAttribute('id', 'saveFormBgrnd');
-
-	document.body.appendChild(p);
+	var p = document.getElementById('saveFormBgrnd');
+	p.hidden = false;
+	
 	var saveForm = document.getElementById('saveForm');
-	saveForm.style.display = 'block';
-	saveForm.children[1].value = this.title;
-	saveForm.style.zIndex = 100;
+	var titleField = document.getElementById('saveFormTitle');
+	titleField.value = this.title;
+	
 	saveForm.children[5].onclick = function(){
-		document.body.removeChild(document.getElementById('saveFormBgrnd'));
-		document.getElementById('saveForm').style.zIndex = -1000;
+		document.getElementById('saveFormBgrnd').hidden = true;
+
 	}
 	saveForm.children[4].onclick = function(){
 		var saveForm = this.parentNode;
-		var title = saveForm.children[1].value;
-		var tags = saveForm.children[2].value;
+		var title = document.getElementById('saveFormTitle').value;
+		var tags = document.getElementById('saveFormTags').value;
 		saveSong(title, tags);	
-		saveForm.style.zIndex = -1000;
-		document.body.removeChild(document.getElementById('saveFormBgrnd'));
+		document.getElementById('saveFormBgrnd').hidden = true;
+
 	}
 	
 	
