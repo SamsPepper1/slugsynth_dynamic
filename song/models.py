@@ -50,12 +50,15 @@ class Loop(models.Model):
 
 	def get_slugs(self):
 		return set([shape.slug_set.all()[0] for shape in self.shapes.all()])
-	def save(self):
-		super(Loop, self).save()
-		self.addShapes()
-		player = self.creator
-		player.points += 5
-		player.save()
+
+
+	def re_save(self):
+		tags = ' '.join([tag.__unicode__() for tag in self.get_tags()])
+		self.save()
+		self.set_tags(tags)
+
+				
+
 
 	def as_data(self):
 		data = {}
@@ -75,7 +78,7 @@ class Loop(models.Model):
 		number_of_ratings = self.rating_set.count()
 		if number_of_ratings:
 			self.avScore = float(str(1.0*sum([rating.points for rating in self.rating_set.all()])/number_of_ratings))
-			super(Loop,self).save()
+			self.re_save()
 		else:
 			pass
 	def average_points(self):
