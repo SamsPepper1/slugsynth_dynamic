@@ -52,11 +52,17 @@ header h1 {
 #songHeader {
 	float: left;
 	text-align: center;
-	width: 400px;
+	width: 300px;
 	margin: 0 0 0 240px;
+	color: #444;
 }
 
 #songHeader h3 {
+	color: #444;
+	margin: 1em;
+}
+#songHeader p {
+	margin: 0 auto;
 }
 nav {
 	width: 100%;
@@ -695,6 +701,7 @@ ul.numbers li strong {
 	margin: 0.75em 1em 0 0;
 	text-align: center;
 	color: #bbb;
+	box-shadow: 0px 0px 2px 2px #222;
 }
 
 #rateSong #ratingHeader {
@@ -801,4 +808,11 @@ ul.numbers li strong {
 	vertical-align: text-bottom;
 	float: left;
 	width: 100px;
+}
+
+
+.ratingBox {
+	float: left;
+	width: 200px;
+	margin: 0 1em 0 0;
 }
