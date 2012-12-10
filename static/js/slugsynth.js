@@ -959,7 +959,7 @@ function slugMolder(x,y,width,height,parent){
             for (var i = 1; i < 5;i++) { //iterate through hooks
                 var newPosX = ((hooks[i-1].attr('cx')-this.x)/7)
                 if (path[i][5] != newPosX){// if position of hook is not position of node:
-                    var diffX = path[i][5] - newPosX; //get difference on X axis
+                    var diffX = roundNumber(path[i][5] - newPosX, 3); //get difference on X axis
                     for (var ii=1; ii < path[i].length; ii += 2){
                         path[i][ii] -= diffX;
                     }     
@@ -971,15 +971,15 @@ function slugMolder(x,y,width,height,parent){
                         
                     };
                     if (i==3){// if sustain node, shift angles of control points around
-                    path[3][2] = (path[3][6]);
-                    path[3][1] = (path[3][5]+path[2][5])/2
-                    path[3][4]= (path[3][6]);
-                    path[4][2] = (path[3][6] + path[4][6])/2
+                    path[3][2] = roundNumber(path[3][6], 3);
+                    path[3][1] = roundNumber((path[3][5]+path[2][5])/2, 3)
+                    path[3][4]= roundNumber(path[3][6], 3);
+                    path[4][2] = roundNumber((path[3][6] + path[4][6])/2,3)
                     }
                 }// calculate difference on y-asix
                 var newPosY = ((hooks[i-1].attr('cy')-(this.y+this.parent.y-20))/7)
                 if (path[i][6] != newPosY){;// if different:
-                    var diffY = path[i][6] - newPosY;// get difference
+                    var diffY = roundNumber(path[i][6] - newPosY, 3);// get difference
                     for (var ii=2; ii < path[i].length; ii += 2){// shift
                         path[i][ii] -= diffY;
                     };            
@@ -1647,6 +1647,7 @@ function parseSlug(slugJSON,id) {
 function saveSong(name, tags){
     var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': scaleString, 'tags': tags}
     songObj.notes = all.notes;
+    songObj.svg = document.getElementById('track').innerHTML
     Dajaxice.song.saveSong(test_callback, {'songString':JSON.stringify(songObj)});
 }
 
@@ -1693,3 +1694,6 @@ function addNotes(notes){
         all.grid.cells[note.pos][note.note].addNote(id);
     }
 }
+
+
+function roundNumber(number, decimals){return parseFloat(new Number(number+'').toFixed(parseInt(decimals)))}
