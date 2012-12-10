@@ -814,5 +814,9 @@ ul.numbers li strong {
 .ratingBox {
 	float: left;
 	width: 200px;
-	margin: 0 1em 0 0;
+	margin: 1em 1em 0 0;
+}
+
+.ratingBox p {
+	margin: 0px;
 }
