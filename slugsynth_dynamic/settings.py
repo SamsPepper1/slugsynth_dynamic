@@ -155,7 +155,10 @@ INSTALLED_APPS = (
     'dajaxice',
     'dajax',
     'floppyforms',
-    'tagging'
+    'tagging',
+    'djcelery',
+    'kombu.transport.django'
+    
 )
 
 # A sample logging configuration. The only tangible logging
@@ -186,3 +189,8 @@ LOGGING = {
         },
     }
 }
+
+
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'django://'

@@ -5,6 +5,7 @@ from song.models import Loop
 from datetime import datetime
 from player.models import Player	
 from django.core.exceptions import ObjectDoesNotExist
+from song import tasks
 
 
 
@@ -23,6 +24,7 @@ def saveSong(request,songString):
 		except Loop.IntegrityError:
 			return simplejson.dumps({'message':'error saving song'})
 	#	song.save()
+		tasks.drawSongTask.delay(song)
 		return simplejson.dumps({'message':'saved song %s'% song.name}) 
 		
 

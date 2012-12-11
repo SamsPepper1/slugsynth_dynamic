@@ -6,6 +6,8 @@ from slugs.models import Shape
 import os
 from time import sleep
 import simplejson
+from django.core.files import File
+
 
 THUMB_PATH = 'media/songs/thumbnails/'
 
@@ -62,9 +64,14 @@ def drawSong(loop):
 	#save and convert
 	svg.save()
 	sleep(5)
-	subprocess.Popen(['inkscape','-f','temp.svg','-w','200','-h','100','-e',THUMB_PATH+loop.name+'.png'])
+	subprocess.Popen(['inkscape','-f','temp.svg','-w','200','-h','100','-e','temp.png'])
 	sleep(5)
 	os.remove('temp.svg')
+	tags = ' '.join([tag.__unicode__() for tag in loop.get_tags()])
+	loop.thumbnail.save(THUMB_PATH+loop.name +'.svg', File(open('temp.png')))
+	loop.save()
+	loop.set_tags(tags)
+	os.remove('temp.png')
 		
 
 def drawShape(shape,svg, scale=(1,1), translate=(0,0)):
