@@ -7,6 +7,8 @@ import os
 from time import sleep
 import simplejson
 
+THUMB_PATH = 'media/songs/thumbnails/'
+
 def raphaelPath2String(raphael_object):
 	return " ".join([a[0] + ' ' + ','.join([str(e) for e in a[1:]]) for a in raphael_object['path']])
 
@@ -60,7 +62,7 @@ def drawSong(loop):
 	#save and convert
 	svg.save()
 	sleep(5)
-	subprocess.Popen(['inkscape','-f','temp.svg','-w','200','-h','100','-e','temp.png'])
+	subprocess.Popen(['inkscape','-f','temp.svg','-w','200','-h','100','-e',THUMB_PATH+loop.name+'.png'])
 	sleep(5)
 	os.remove('temp.svg')
 		

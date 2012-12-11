@@ -17,5 +17,5 @@
 		<li>Ratings<strong>{{song.rating_set.count}}</strong></li>
 		<li class="end">Average Points<strong>{{song.average_points}}</strong></li>
 	</ul>
-	<a href="/song/load/{{song.pk}}"><img src="{{ STATIC_URL }}images/songDefault.png" alt="song_picture"></img></a>
+	<a href="/song/load/{{song.pk}}"><img src={% if song.thumbnail %}"{{ song.thumbnail.url }}"{% else %}"{{ STATIC_URL }}images/songDefault.png"{% endif %} alt="song_picture"></img></a>
 </section>

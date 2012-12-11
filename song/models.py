@@ -32,6 +32,7 @@ class Loop(models.Model):
 	public = models.BooleanField()
 	public_edit = models.BooleanField()
 	avScore = models.FloatField(default=0)
+	thumbnail = models.ImageField(upload_to='songs/thumbnails',null=True,blank=True)
 
 	objects = models.Manager()
 	public_posts = PublicLoopManager()
