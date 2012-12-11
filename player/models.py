@@ -38,7 +38,7 @@ class Player(models.Model):
 		names = randomNames()
 		shape1 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now())
 		shape1.save()
-		slug1 = Slug(owner = self, name=names[0], birthday = datetime.now(), color = random.randint(0,180))
+		slug1 = Slug(owner = self, name=names[0], birthday = datetime.now(), color = random.randint(0,255))
 		slug1.save()
 		sound1 = Sound(waveForm = 'sine', amp=0.2, overTones = "[[1,1]]", noise=0,slug=slug1)
 		sound1.save()

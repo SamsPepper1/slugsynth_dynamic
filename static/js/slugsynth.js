@@ -1640,7 +1640,7 @@ function parseSlug(slugJSON,id) {
 	}
 	var soundJSON = slugJSON.sound;
 	var sound = new compoundSound(eval(soundJSON.waveForm), 330, soundJSON.amp, 0.38, sampleRate, env, JSON.parse(soundJSON.overTones), new constant(0), new constant(0), new constant(0));
-	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/180+",0.5,0.5)", 4, shapes, slugJSON.pk)
+	var slug = new slugFamily(slugJSON.name, id, sound, "hsb("+slugJSON.color/255+",0.5,0.5)", 4, shapes, slugJSON.pk)
 	return slug;
 	}
 
