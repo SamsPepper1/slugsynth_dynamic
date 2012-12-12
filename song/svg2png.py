@@ -68,7 +68,7 @@ def drawSong(loop):
 	sleep(5)
 	os.remove('temp.svg')
 	tags = ' '.join([tag.__unicode__() for tag in loop.get_tags()])
-	loop.thumbnail.save(THUMB_PATH+loop.name +'.svg', File(open('temp.png')))
+	loop.thumbnail.save(THUMB_PATH+loop.name +'.png', File(open('temp.png')))
 	loop.save()
 	loop.set_tags(tags)
 	os.remove('temp.png')
@@ -85,5 +85,5 @@ def drawShape(shape,svg, scale=(1,1), translate=(0,0)):
 		svg.add(elem)
 
 
-SCALE_HEIGHTS = {'Ma': 9, 'Mi': 9, 'mPent':11}
+SCALE_HEIGHTS = {'Ma': 8, 'Mi': 8, 'mPent':11}
 
