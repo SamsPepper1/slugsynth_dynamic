@@ -39,7 +39,7 @@ class Loop(models.Model):
 	public_edit_posts = PublicEditLoopManager()
 	tags = TagField()
 	class Meta:
-		ordering = ['-avScore']
+		ordering = ['-avScore', '-last_used']
 	def __unicode__(self):
 		return self.name
 	def addShapes(self):

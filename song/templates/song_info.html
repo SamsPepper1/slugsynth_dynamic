@@ -1,15 +1,12 @@
 <section class="song_info">
 	<div class="labels">
-		<a href="/song/load/{{song.pk}}"><h4>{{song.name}}</h4></a>
+		<a href="/song/load/{{song.pk}}" title="{{song.name}}"><h4>{{song.name|truncatechars:22}}</h4></a>
 		<div class="creator">
-			<p>by <a href="/user/profile/{{song.creator.pk}}">{{song.creator}}</a></p>
+			<p>Submitted by <a href="/user/profile/{{song.creator.pk}}" title="{{song.creator}}'s profile">{{song.creator}}</a> on <span class="date">{{song.last_used|date:"F j, Y"}}.</span></p>
+		<div class="thinSep"></div>
 		</div>
 		<div class="tagBlock">
-			<p>Tags:</p>
-			<ul class="tagList">
-				{% for tag in song.get_tags %}
-					<li>{{tag}}</li>
-				{% endfor %}
+			<p>Tags: {% for tag in song.get_tags %}<span class="tag">{{tag}},</span>{% endfor %}</p>
 			</ul>
 		</div>
 	</div>

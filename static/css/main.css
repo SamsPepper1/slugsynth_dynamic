@@ -543,6 +543,13 @@ ul.numbers li strong {
 	border-top: 1px dotted #888;
 }
 
+.thinSep {
+	height: 1px;
+	width: 70%;
+	margin: 0.2em auto;
+	border-top: 1px dotted #888;
+}
+
 
 .slugDiv form {
 	background: none;
@@ -662,7 +669,12 @@ ul.numbers li strong {
 	float: left;
 }
 .song_info .tagBlock p {
-	width: 50px;
+	width: 100%;
+	font-size: 80%;
+}
+
+.song_info .tagBlock .tag {
+	font-weight: bold;
 }
 
 .song_info .tagBlock ul.tagList {
@@ -828,4 +840,10 @@ ul.numbers li strong {
 	font-size: 80%;
 	margin: 1em auto 1em auto;
 	text-align: center;
+}
+
+
+.date {
+	font-size: 80%;
+	font-weight: bold;
 }
