@@ -1,6 +1,8 @@
 <section class="song_info">
 	<div class="labels">
-		<a href="/song/load/{{song.pk}}" title="{{song.name}}"><h4>{{song.name|truncatechars:22}}</h4></a>
+		<header>
+			<a href="/song/load/{{song.pk}}" title="{{song.name}}"><h4>{{song.name|truncatechars:22}}</h4></a>{% if song.parent %}<span class="parentText"><p> remix of <a href="/song/load/{{song.parent.pk}}">{{song.parent}}</a></span></p>{% endif %}
+		</header>
 		<div class="creator">
 			<p>Submitted by <a href="/user/profile/{{song.creator.pk}}" title="{{song.creator}}'s profile">{{song.creator}}</a> on <span class="date">{{song.last_used|date:"F j, Y"}}.</span></p>
 		<div class="thinSep"></div>

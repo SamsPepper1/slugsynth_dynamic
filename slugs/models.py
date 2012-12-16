@@ -15,6 +15,7 @@ class Shape(models.Model):
 	sustainLevel = models.FloatField()
 	release = models.FloatField()
 	sustainLengthDefault = models.FloatField()
+	octave = models.IntegerField()
 	tags = TagField()
 
 	class Meta:
@@ -31,6 +32,7 @@ class Shape(models.Model):
 			'R': self.release,
 			'shape': self.shape,
 			'length': self.sustainLengthDefault,
+			'octave': self.octave,
 			'pk': self.pk,}
 		return data
 

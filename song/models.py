@@ -33,6 +33,7 @@ class Loop(models.Model):
 	public_edit = models.BooleanField()
 	avScore = models.FloatField(default=0)
 	thumbnail = models.ImageField(upload_to='songs/thumbnails',null=True,blank=True)
+	parent = models.OneToOneField('self', parent_link=True,null=True, blank=True)
 
 	objects = models.Manager()
 	public_posts = PublicLoopManager()
@@ -74,6 +75,10 @@ class Loop(models.Model):
 		data['length'] = self.length
 		data['name'] = self.name
 		data['creator'] = self.creator.__unicode__()
+		if self.parent:
+			data['parentSong'] = self.parent.__unicode__()
+		else: 
+			data['parentSong'] = 0
 		return data
 	def update_average_points(self):
 		number_of_ratings = self.rating_set.count()

@@ -30,7 +30,7 @@ function loop(duration, sampleRate) {
     this.notes = {}
     
     this.addNote = function (start, wave,id) {
-        console.log('adding note..' + id)
+        console.log('adding note..' + id + ' Frequency of ' + wave.baseFreq)
         wave.pos = 0;
         var sample = wave.writeNext();
         var i = 0;
@@ -44,7 +44,7 @@ function loop(duration, sampleRate) {
             i++;
         };
         // wave write position is reset
-        console.log(start);
+        //console.log(start);
         wave.pos = 0;
         // sound is added to this.notes
         var env = [wave.env.AttackSeconds,wave.env.DecaySeconds,wave.env.S,wave.env.ReleaseSeconds]
@@ -79,7 +79,7 @@ function loop(duration, sampleRate) {
             i++;
         }
         note.removed = true;
-        console.log('finished ewmoving note. edited ' + i + ' samples');
+        //console.log('finished ewmoving note. edited ' + i + ' samples');
         console.log(wave)
     }
     this.play = function() {       
@@ -264,12 +264,17 @@ function compoundSound(waveShape, baseFreq, baseAmp,duration, sampleRate, env, o
 }
 
 
-function envelope(A,D,S,R, sampleRate) {
+function envelope(A,D,S,R, sampleRate, octave) {
     // constructor for envelope generator
     // takes attack, decay,and release values in seconds
     //TODO A,D,S,R could all be signal generators.
     // this will be especially useful when logarithmic
     // and exponential signalsGenerators are added
+    if (octave == undefined){
+	this.octave = 4;
+    }else{
+	this.octave = octave;
+    }
     this.sampleRate = sampleRate;
     this.AttackSeconds = A
     this.A = A*this.sampleRate;

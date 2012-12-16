@@ -1,6 +1,7 @@
 {% extends 'songBase.html' %}
 
 {% block initialiseScript %}
+currentSong = {{songPK}};
 sampleRate = 44100;
 scales = { 
 	    'Ma': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
@@ -33,6 +34,9 @@ window.onload = function() {
 <div id="songHeader">
 	<h3>loading song...</h3>
 	<p></p>
+	<div id="parentInfo">
+		<p></p>
+	</div>
 </div>
 
 {% if not mySong %}

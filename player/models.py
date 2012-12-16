@@ -36,7 +36,7 @@ class Player(models.Model):
 		from slugs.models import Shape, Slug, Sound
 
 		names = randomNames()
-		shape1 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now())
+		shape1 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now(), octave=4)
 		shape1.save()
 		slug1 = Slug(owner = self, name=names[0], birthday = datetime.now(), color = random.randint(0,255))
 		slug1.save()
@@ -45,7 +45,7 @@ class Player(models.Model):
 		slug1.shapes.add(shape1)
 		slug1.save()
 
-		shape2 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now())
+		shape2 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now(), octave= 4)
 		shape2.save()
 		slug2 = Slug(owner = self, name=names[1], birthday = datetime.now(), color = random.randint(0,180))
 		slug2.save()
@@ -55,7 +55,7 @@ class Player(models.Model):
 		slug2.save()
 
 	
-		shape3 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now())
+		shape3 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now(), octave=4)
 		shape3.save()
 		slug3 = Slug(owner = self, name=names[2], birthday = datetime.now(), color = random.randint(0,180))
 		slug3.save()
@@ -65,7 +65,7 @@ class Player(models.Model):
 		slug3.save()
 
 
-		shape4 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now())
+		shape4 = Shape(attack=0.06, decay= 0.08, sustainLevel=0.71, sustainLengthDefault=17180, release=0.1,shape=DEFAULT_SLUG_PATH, name='shape', last_used = datetime.now(), octave=3)
 		shape4.save()
 		slug4 = Slug(owner = self, name=names[3], birthday = datetime.now(), color = random.randint(0,180))
 		slug4.save()

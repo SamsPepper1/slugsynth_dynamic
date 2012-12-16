@@ -343,7 +343,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
     
         // TODO rewrite. sort out frequency confusion( with slug object)
         var frequency = this.baseFreq*scale[(scale.length-note)-1];
-        console.log(frequency)
+        //console.log(frequency)
         var samplePos = Math.round(pos*this.noteLength);
         var amp = this.currentSlug.sound.baseAmp;
         console.log('id: '+ id+ 'amp: '+ amp+ 'frequency: '+ frequency)
@@ -594,6 +594,7 @@ function slugMolder(x,y,width,height,parent){
         this.nodeKeys = ['attack','decay','sustainLevel','release'];
         this.slugScaleX = 7
         this.slugScaleY = 7
+	this.octave = all.currentSlug.currentShape.env.octave;
         
         //FUNCTIONS//
         this.initialise = function() {
@@ -636,11 +637,11 @@ function slugMolder(x,y,width,height,parent){
                                                   }, this);
 	    this.octaveUpButton = new button(this.width-55, 30, 80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Octave Up', function() {
-					all.currentSlug.octave += 1;
+					all.sideBarLeft.slugMold.octave += 1;
 					}, this);
             this.octaveUpButton = new button(this.width-55, 60, 80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Octave Down', function() {
-					all.currentSlug.octave -= 1;
+					all.sideBarLeft.slugMold.octave -= 1;
 					}, this);
 
 
@@ -689,6 +690,7 @@ function slugMolder(x,y,width,height,parent){
             var R = durationScaler(this.hooks[3].attr('cx')-this.hooks[2].attr('cx'));
             // duration is the time until the end of the sustain period 
             var duration = A + D + S;
+            var octave = this.octave;		
             
             // update UI text with values
             // could be made more interesting.
@@ -700,7 +702,7 @@ function slugMolder(x,y,width,height,parent){
             
             //update actual envelope with new values.
             // will be changed to change only slug.shape.x.sound            
-            this.env = new envelope(A,D,Sl,R, all.sampleRate);
+            this.env = new envelope(A,D,Sl,R, all.sampleRate, octave);
             //convert duration to samples
             all.currentSlug.sound.duration = Math.round(duration*all.sampleRate);
             this.save()
@@ -1360,7 +1362,7 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes,pk){
         return slug;
     }
     this.getTone = function(freq,amplitude) {
-        this.sound.baseFreq = freq*Math.pow(2,this.octave);
+        this.sound.baseFreq = freq*Math.pow(2,this.currentShape.env.octave);
         this.sound.baseAmp = amplitude;
         this.sound.env = this.currentShape.env;
 	this.sound.duration = this.currentShape.duration;
@@ -1384,7 +1386,8 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes,pk){
 		'S':this.currentShape.env.S,
 		'R':this.currentShape.env.ReleaseSeconds,
 		'shape':this.currentShape.path,
-		'duration': this.sound.duration
+		'duration': this.sound.duration,
+		'octave': this.currentShape.env.octave
 	};
 	Dajaxice.slugs.saveShape(savedSlug, {'slugName': this.name, 'env':JSON.stringify(envhash)});
 	}
@@ -1625,6 +1628,10 @@ function setup_load(data) {
 	document.getElementsByTagName('title')[0].innerHTML = 'SlugJam | '+song.name;
 	document.getElementById('songHeader').children[0].innerHTML = song.name;
 	document.getElementById('songHeader').children[1].innerHTML = 'by ' +song.creator;
+	if (data.parentSong != 0) {
+		console.log('parent Song :' + data.parentSong)
+		document.getElementById('parentInfo').children[0].innerHTML = 'remix of ' + data.parentSong;
+	}
 }
 
 function parseSlug(slugJSON,id) {
@@ -1632,7 +1639,7 @@ function parseSlug(slugJSON,id) {
 	var shapes = [];
 	for (var i = 0; i < slugJSON.shapes.length; i++){
 		var shapeJSON = slugJSON.shapes[i]
-		var env  = new envelope(shapeJSON.A, shapeJSON.D, shapeJSON.S, shapeJSON.R, sampleRate);
+		var env  = new envelope(shapeJSON.A, shapeJSON.D, shapeJSON.S, shapeJSON.R, sampleRate, shapeJSON.octave);
 		var path = JSON.parse(shapeJSON.shape);
 		var duration = shapeJSON.length;
 		var pk = shapeJSON.pk
@@ -1647,6 +1654,11 @@ function parseSlug(slugJSON,id) {
 function saveSong(name, tags){
     var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': scaleString, 'tags': tags}
     songObj.notes = all.notes;
+    if (currentSong){
+	songObj.songPK = currentSong;
+    }else {
+	songObj.songPK = 0;
+    }
     songObj.svg = document.getElementById('track').innerHTML
     Dajaxice.song.saveSong(test_callback, {'songString':JSON.stringify(songObj)});
 }
