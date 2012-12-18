@@ -156,6 +156,18 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                     )}
                 )}
             });
+    this.topControls.drawButton({'x': 400, 'y':8, 'width': 40, 'height': 20,
+        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'toggle view',
+        'func': function(){
+			if (all.sideBarLeft.isIn){
+				all.sideBarLeft.slideOut();
+			}
+			else {
+			all.sideBarLeft.slideIn();
+			}
+		}		
+           });
+
 //    
 //    // add slugMold button to top Controller
 //    this.topControls.drawButton({'x': 440, 'y':8, 'width': 40, 'height': 20,
@@ -415,20 +427,20 @@ function sideBarLeft(id,x,y,width,height,parent) {
     this.waveViewOpen = false;
     this.slugMoldOpen = false;
     this.id = id;
-    this.x = x;
-    this.y = y;
+    this.x = this.parent.grid.x;
+    this.y = this.parent.grid.y;
     this.startWidth = 20;
-    this.width = width;
-    this.height = height;
-    this.paper = new Raphael(document.getElementById(this.id),this.width,height);
+    this.width = this.parent.grid.width;
+    this.height = this.parent.grid.height;
+    this.paper = this.parent.paper;
     this.panel = this.paper.set();
-    this.contentBar = this.paper.rect(x-800,y+10,width-5,height-15,5).attr(mainAttrs.sideBarMain);
-    this.topBar = this.paper.rect(x-800,y,width,20,5).attr(mainAttrs.sideBarTop);
-    this.closeButton =  this.paper.circle(x+10, y+10, 12).attr(mainAttrs.closeButton);
-    this.phantomButton = parent.paper.circle(x+10, y+10,12).attr({'opacity': 0, 'cursor': 'pointer'});
-    this.arrow = this.paper.path('M ' + (x + 8) + ','+ (y+5) + 'L' + (x+15)+','+(y+10)+' L'+(x+8) + ',' + (y+15)).attr(mainAttrs.buttonArrow)
-    this.panel.push(this.closeButton);
-    this.panel.push(this.arrow)
+    this.contentBar = this.paper.rect(this.x, this.y,0,this.height, 5).attr(mainAttrs.sideBarMain);
+
+
+
+
+
+
     
     
     
@@ -442,18 +454,18 @@ function sideBarLeft(id,x,y,width,height,parent) {
         // slide bar out
         // move to front by setting zIndex to 1000
         // set sideBarLeft.isIn to false
-        console.log('slugMoldOpen: '+ this.slugMoldOpen + ' waveViewOpen: ' + this.waveViewOpen)
+        //console.log('slugMoldOpen: '+ this.slugMoldOpen + ' waveViewOpen: ' + this.waveViewOpen)
         if (fn == undefined){
-            fn = function(){};
+            var fn = function(){};
         };
         if (this.isIn){
-        console.log(fn);
-        this.panel.animate({
-            'transform': 't 600,0'},1000,'<');
-            setTimeout(fn,1100);
-            document.getElementById(this.id).style.zIndex = 1000;
-            all.sideBarLeft.arrow.attr('path','M ' + (x + 15) + ','+ (y+5) + 'L' + (x+8)+','+(y+10)+' L'+(x+15) + ',' + (y+15) )
+            console.log(fn);
+	    this.contentBar.toFront();
+            this.contentBar.animate({
+		width: this.parent.grid.width+5,	
+	    },300);
             this.isIn = false;
+	    fn();
         } else {return}
     };
     
@@ -462,65 +474,70 @@ function sideBarLeft(id,x,y,width,height,parent) {
         // move to back by setting zIndex to -1
         // remove information from sideBar
         // set sideBarLeft.isIn to true,
-        if (this.slugMoldOpen){
-            this.slugMoldOpen = false;
-            this.slugMold.close();
-            this.slugMold = false;
-        };
-        if (this.waveViewOpen){
-            this.waveViewOpen = false;
-            this.wavePath.remove();
-        }
-        this.isIn = true;
-        this.panel.animate({
-            'transform': ''},1000,
-            function() {});
-        all.sideBarLeft.arrow.attr('path', 'M ' + (x + 8) + ','+ (y+5) + 'L' + (x+15)+','+(y+10)+' L'+(x+8) + ',' + (y+15));
-        setTimeout(function() { document.getElementById(all.sideBarLeft.id).style.zIndex = -1;}, 1000)
-        this.waveViewOpen = false;
+        
+        if (!this.isIn){
+		if (this.waveViewOpen){
+			this.closeWave()
+		}
+		if (this.slugMoldOpen){
+			this.slugMold.close();
+		}
+	        this.contentBar.animate({
+			width: 0
+		}, 300);
+		this.isIn = true;
+
+	} else {
+		return;
+	}
+
         ;
     };
     
     this.showWave = function() { 
+	if (this.waveViewOpen){
+		this.closeWave();
+	};
         if (this.slugMoldOpen){
             this.slugMold.close();
-            this.slugMoldOpen = false;
-            this.slugMold = false;
+            //this.slugMoldOpen = false;
+            //this.slugMold = false;
         }
     // draws wave on to sideBar
-    // if sideBarLeft.isIn = true calls sideBarLeft.slideOut
-        this.wavePath.remove()
-        this.drawWave();            
+    // if sideBarLeft.isIn = true calls sideBarLeft.slideOut 
         if (this.isIn) {
             this.slideOut();
         };
+	this.drawWave();            
         this.waveViewOpen = true;
     }
-    
-    
-    this.closeButton.node.onclick = function(){all.sideBarLeft.togglePath();}
-    this.arrow.node.onclick = function(){all.sideBarLeft.togglePath();}
-    this.phantomButton.node.onclick = function(){all.sideBarLeft.togglePath();x}
-    this.togglePath = function() {
-    // temporary function
-    // toggles waveView
-        if (all.sideBarLeft.isIn) {
-            all.sideBarLeft.showWave();
-        } else {
-            all.sideBarLeft.slideIn();
-        }
+    this.closeWave = function(){
+	this.wavePath.remove();
+	this.waveViewOpen = false;
     }
     
     
     
-    this.panel.push(this.topBar);
-    this.panel.push(this.contentBar)
+   // this.togglePath = function() {
+    // temporary function
+    // toggles waveView
+   //     if (all.sideBarLeft.isIn) {
+           // all.sideBarLeft.showWave();
+    //    } else {
+       //     all.sideBarLeft.slideIn();
+     //   }
+   // }
+    
+    
+    
+   // this.panel.push(this.topBar);
+    //this.panel.push(this.contentBar)
     
     this.getWave = function() {
         // calls drawWave function from newWave.js
         // returns set of samples as a string of x,y values
         // seperated by commas (svg bezier hack)
-        var wave = drawWave(all.currentSlug.sound, this.width-250, this.height/5,100,x-580,y+120)
+        var wave = drawWave(all.currentSlug.sound, this.width*0.75, this.height/5,150,this.x+20,(this.height/2))
         return wave
     }
     
@@ -537,16 +554,16 @@ function sideBarLeft(id,x,y,width,height,parent) {
         // first, check to see if windows are open etc.
         if (this.waveViewOpen){return};
         if (this.slugMoldOpen){this.slugMold.close();}
-        var transform = this.isIn ? '' : 't 600,0';
+       
         
         // draw wave and background
         var slug = all.currentSlug;
-        var screen = this.paper.rect(x-580,y+30,this.width- 250, this.height/1.5,4)
+        var screen = this.paper.rect(this.x+20,this.y+30,this.width*0.75, this.height-60,5)
             .attr(mainAttrs.sideBarScreen)
-            .transform(transform);
+      
         var wave = this.paper.path(this.getWave())
             .attr({'stroke':all.currentSlug.color, 'stroke-width': 4})
-            .transform(transform)
+     
             
        // add to sets etc
        this.wavePath = this.paper.set();
@@ -562,7 +579,7 @@ function sideBarLeft(id,x,y,width,height,parent) {
             return;
         } else{
             console.log('running new slugMolder command')
-            this.slugMold = new slugMolder(20,30,this.width-250, this.height/1.5, this);
+            this.slugMold = new slugMolder(this.x,this.y,this.width, this.height, this);
        }
     };
 }
@@ -576,8 +593,7 @@ function slugMolder(x,y,width,height,parent){
         //}
         console.log('opened slug Molder');
         if (parent.waveViewOpen){
-            parent.wavePath.remove();
-            parent.waveViewOpen = false;
+            parent.closeWave();
         }
         if (parent.slugMoldOpen){
             return;
@@ -601,10 +617,10 @@ function slugMolder(x,y,width,height,parent){
             // draws everything onto the screen etc.
            
             // TODO this needs to be automated and calculated
-            var slugTransform = 't '+ this.x + ',' + (this.y+this.parent.y-20) + '  s '+ this.slugScaleX + ',' + this.slugScaleY +  ',0,0';
+            var slugTransform = 't '+ this.x + ',' + (this.y+30) + '  s '+ this.slugScaleX + ',' + this.slugScaleY +  ',0,0';
             
             
-            this.screen = this.paper.rect(this.x,(this.y+ this.parent.y), this.width, this.height,3)
+            this.screen = this.paper.rect(this.x+30,this.y+60, this.width*0.75, this.height-90,3)
                 .attr(mainAttrs.sideBarScreen)
                 
             // draws current slug in current shape as Raphael element            
@@ -631,21 +647,25 @@ function slugMolder(x,y,width,height,parent){
             
             this.hooks.attr('cursor', 'col-resize');
             this.hooks[2].attr('cursor', 'move')
+	    this.buttons = []
             this.saveButton = new button(this.width-55,300,80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Save Shape',function() {
                                                     all.currentSlug.saveShape();
                                                   }, this);
+	    this.buttons.push(this.saveButton);
 	    this.octaveUpButton = new button(this.width-55, 30, 80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Octave Up', function() {
 					all.sideBarLeft.slugMold.octave += 1;
 					}, this);
-            this.octaveUpButton = new button(this.width-55, 60, 80,20,mainAttrs.buttonTextAttrs,
+	    this.buttons.push(this.octaveUpButton)
+            this.octaveDownButton = new button(this.width-55, 60, 80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Octave Down', function() {
 					all.sideBarLeft.slugMold.octave -= 1;
 					}, this);
 
-
-
+	    this.buttons.push(this.octaveDownButton);
+	
+	    
 
             // needs to be somehow automated to stretch/squeeze with screens.
             this.caliberate();
@@ -655,6 +675,11 @@ function slugMolder(x,y,width,height,parent){
             this.slugMold.remove();
             this.text.remove();
             this.hooks.remove();
+	    for (var i = 0; i < this.buttons.length; i++){
+		this.buttons[i].rect.remove();
+		this.buttons[i].textObj.remove();
+	    }
+	    this.saveButton.rect.remove();
             this.parent.slugMoldOpen = false;
         }
         this.caliberate = function() {
@@ -731,7 +756,7 @@ function slugMolder(x,y,width,height,parent){
                 var x = path[i][5];
                 var y = path[i][6];
                 //get raphael circle as hook
-                var hook = this.paper.circle((x*7)+this.x,(y*7)+this.y+this.parent.y-20,6)
+                var hook = this.paper.circle((x*this.slugScaleX)+this.x,(this.slugScaleY*y)+this.y +30,6)
                     .attr(mainAttrs.hookAttrs);
                 this.hooks.push(hook);
                 hook.node.id = String(i)+'_node';
@@ -959,7 +984,7 @@ function slugMolder(x,y,width,height,parent){
             var hooks = this.hooks; 
             temp.remove();
             for (var i = 1; i < 5;i++) { //iterate through hooks
-                var newPosX = ((hooks[i-1].attr('cx')-this.x)/7)
+                var newPosX = ((hooks[i-1].attr('cx')-this.x)/this.slugScaleX)
                 if (path[i][5] != newPosX){// if position of hook is not position of node:
                     var diffX = roundNumber(path[i][5] - newPosX, 3); //get difference on X axis
                     for (var ii=1; ii < path[i].length; ii += 2){
@@ -979,7 +1004,7 @@ function slugMolder(x,y,width,height,parent){
                     path[4][2] = roundNumber((path[3][6] + path[4][6])/2,3)
                     }
                 }// calculate difference on y-asix
-                var newPosY = ((hooks[i-1].attr('cy')-(this.y+this.parent.y-20))/7)
+                var newPosY = ((hooks[i-1].attr('cy')-(this.y)-30)/this.slugScaleY)
                 if (path[i][6] != newPosY){;// if different:
                     var diffY = roundNumber(path[i][6] - newPosY, 3);// get difference
                     for (var ii=2; ii < path[i].length; ii += 2){// shift
@@ -1463,10 +1488,10 @@ var mainAttrs ={'cellAttrs': {
                 'stroke-width': 2,
             },
             'sideBarMain': {
-                'fill': '#8FBF7B',
-                'opacity': 0.8,
-                'stroke': '#8FBF7B',
-                'stroke-width': 1,
+                'fill': '#4F7ABA',
+                'opacity': 0.6,
+                'stroke': '#2D5898',
+                'stroke-width': 2,
             },
             'sideBarScreen': {
                 'fill': '#444',
@@ -1578,7 +1603,7 @@ function setup(data,title, baseFreq, length, scale, tempo) {
 	    scale = scale,
 	    tempo = tempo,
 	    width = 1000,
-	    height = 500,
+	    height = 550,
 	    notes = [];
 	 
 	all = new main(id, length,baseFreq, sampleRate, scale, tempo, width, height, slugs, notes,title);
@@ -1618,7 +1643,7 @@ function setup_load(data) {
 	    scale = scales[scaleString]
 	    tempo = song.tempo
 	    width = 1000
-	    height = 500
+	    height = 700
 	    notes = []
 	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes,song.name)
 	addNotes(JSON.parse(song.notes))
