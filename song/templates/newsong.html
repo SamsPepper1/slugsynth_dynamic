@@ -4,10 +4,12 @@
 
 currentSong = false;
 	scales = { 
-	    'Ma': [1, 9.0/8, 5.0/4,4.0/3,3.0/2, 5.0/3, 15.0/8, 2], 
-	    'Mi': [1, (9/8), 6/5, 4/3, 3/2, 8/5, 9/5, 2],
-	    'mPent': [1,6/5,4/3,3/2,9/5,2,12/5,8/3,3,18/5,4],
+	    'Ma': [1, 9.0/8, 5.0/4.0, 4.0/3.0, 3.0/2.0, 5.0/3, 15.0/8, 2.0], 
+	    'Mi': [1, 9.0/8.0, 6.0/5.0, 4.0/3.0, 3.0/2.0, 8.0/5.0, 9.0/5.0, 2.0],
+	    'mPent': [1, 6.0/5.0, 4.0/3.0, 3.0/2.0, 9.0/5.0, 2.0, 12.0/5.0, 8.0/3.0 ,3.0, 18.0/5.0, 4.0],
+	    'MPent': [1, 9.0/8.0, 5.0/4.0, 3.0/2.0, 5.0/3.0, 2.0, 9.0/4.0, 5.0/2.0, 3.0, 10.0/3.0, 4.0]
 	    }
+
        
 
 	var dataArray,
@@ -52,6 +54,7 @@ currentSong = false;
 				<select id="scaleInput" name="scale">
 					<option value="Ma">Major</option>
 					<option value="Mi">Minor</option>
+					<option value="MPent">Major Pentatonic</option>
 					<option value="mPent">Minor Pentatonic</option>
 				</select>
 			</div>
@@ -85,6 +88,7 @@ currentSong = false;
 					<option>24</option>
 					<option>32</option>
 					<option>40</option>
+					<option>48</option>
 					<option>64</option>
 				</select>
 			</div>
