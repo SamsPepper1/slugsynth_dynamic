@@ -16,7 +16,9 @@ class Shape(models.Model):
 	release = models.FloatField()
 	sustainLengthDefault = models.FloatField()
 	octave = models.IntegerField()
+	favorite = models.BooleanField(default=False)
 	tags = TagField()
+	
 
 	class Meta:
 		ordering = ['-last_used']
@@ -67,7 +69,7 @@ class Slug(models.Model):
 			'name': self.name,
 			'birthday': self.birthday.ctime(),
 			'color': self.color,
-			'shapes': [s.as_data() for s in self.shapes.all()],
+			'shapes': [s.as_data() for s in self.my_shapes()],
 			'sound': self.sound.as_data(),
 			'pk': self.pk,
 			}
@@ -86,6 +88,9 @@ class Slug(models.Model):
 			return float(str(sum([s.average_points() for s in rated_shapes])/len(rated_shapes))[:4])
 		else:
 			return 0
+
+	def my_shapes(self):
+		return self.shapes.all().filter(favorite=True)
 
 class Sound(models.Model):
 	WAVEFORM_CHOICES = (

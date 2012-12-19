@@ -33,7 +33,9 @@ def saveShape(request, slugName, env):
 				sustainLevel = env['S'],
 				release = env['R'],
 				sustainLengthDefault=env['duration'],
-				octave = env['octave'])
+				octave = env['octave'],
+				favorite = env['favorite'])
+				
 			shape.save()
 			slug.shapes.add(shape)
 			#return simplejson.dumps({'message':'slug named %s, owned by %s, has been found. shape has been saved.'%(slug, player)})

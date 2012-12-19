@@ -85,5 +85,5 @@ def drawShape(shape,svg, scale=(1,1), translate=(0,0)):
 		svg.add(elem)
 
 
-SCALE_HEIGHTS = {'Ma': 8, 'Mi': 8, 'mPent':11}
+SCALE_HEIGHTS = {'Ma': 8, 'Mi': 8, 'mPent':11, 'MPent':11}
 

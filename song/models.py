@@ -19,7 +19,8 @@ class Loop(models.Model):
 	SCALES = (
 		('Ma','Major'),
 		('Mi','Minor'),
-		('mPent','Minor Pentatonic')
+		('mPent','Minor Pentatonic'),
+		('MPent','Major Pentatonic'),
 		)
 	creator = models.ForeignKey(Player)
 	name = models.CharField(max_length=60)

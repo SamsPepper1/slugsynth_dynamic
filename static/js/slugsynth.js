@@ -1433,7 +1433,8 @@ function slugFamily(name,id, waveTableGenerator,color, octave, shapes,pk){
 		'R':this.currentShape.env.ReleaseSeconds,
 		'shape':this.currentShape.path,
 		'duration': this.sound.duration,
-		'octave': this.currentShape.env.octave
+		'octave': this.currentShape.env.octave,
+		'favorite': true
 	};
 	Dajaxice.slugs.saveShape(savedSlug, {'slugName': this.name, 'env':JSON.stringify(envhash)});
 	}
@@ -1664,7 +1665,7 @@ function setup_load(data) {
 	    scale = scales[scaleString]
 	    tempo = song.tempo
 	    width = 1000
-	    height = 700
+	    height = 550
 	    notes = []
 	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes,song.name)
 	addNotes(JSON.parse(song.notes))
