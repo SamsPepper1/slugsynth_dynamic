@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from home.storymaker import getRandomStoryWords
 
 # Home view (for address '/')
 def home(request):
@@ -14,3 +15,11 @@ def testAjax(request):
 
 def about(request):
 	return render(request,'about.html')
+
+
+def story(request):
+	storyWords = getRandomStoryWords()
+	return render(request, 'story.html', storyWords)
+
+
+

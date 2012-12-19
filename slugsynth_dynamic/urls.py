@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from home.views import home, testAjax, about
+from home.views import home, testAjax, about, story
 from django.contrib import admin
 from dajaxice.core import dajaxice_autodiscover
 import settings 
@@ -10,6 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	url(r'^$', home),
 	url(r'^about/$', about),
+	url(r'^story/$',story),
 	url(r'^testajax$',testAjax),
 	url(r'^song/', include('song.urls')),
 	#url(r'^poll/(\d+)/$', poll),

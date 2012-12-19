@@ -862,3 +862,9 @@ ul.numbers li strong {
 	font-size: 80%;
 	font-weight: bold;
 }
+
+
+span.help {
+	font-weight: bold;
+	cursor: pointer;
+}

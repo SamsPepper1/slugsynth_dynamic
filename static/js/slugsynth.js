@@ -655,12 +655,12 @@ function slugMolder(x,y,width,height,parent){
 	    this.buttons.push(this.saveButton);
 	    this.octaveUpButton = new button(this.width-55, 30, 80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Octave Up', function() {
-					all.sideBarLeft.slugMold.octave += 1;
+					all.sideBarLeft.slugMold.changeOctave(1);
 					}, this);
 	    this.buttons.push(this.octaveUpButton)
             this.octaveDownButton = new button(this.width-55, 60, 80,20,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Octave Down', function() {
-					all.sideBarLeft.slugMold.octave -= 1;
+					all.sideBarLeft.slugMold.changeOctave(0);
 					}, this);
 
 	    this.buttons.push(this.octaveDownButton);
@@ -970,7 +970,28 @@ function slugMolder(x,y,width,height,parent){
             this.moveMouth(diffX, path);
         }
         
-        
+       	this.changeOctave = function(up){
+		if (up){
+			var move = -2;
+			this.octave += 1;
+		}
+		else {
+			var move = 2;
+			this.octave -= 1;
+		}
+		var path1 = JSON.parse(JSON.stringify(this.slug[0].attr('path')));
+		var path2  = JSON.parse(JSON.stringify(this.slug[2].attr('path')));
+		for (var i = 1; i < 6; i++){
+			for (var ii = 2; ii < path1[i].length; ii+=2){
+				path1[i][ii] += move;
+			}
+			for (var ii = 2; ii < path2[i].length; ii+=2){
+				path2[i][ii] += move;
+			}
+		this.slug[0].animate({'path': path1}, 200)
+		this.slug[2].animate({'path': path2}, 200)
+		}	
+	} 
         this.warpSlug = function() {
             // calculates all changes
             // TODO
