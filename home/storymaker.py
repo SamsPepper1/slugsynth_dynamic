@@ -27,7 +27,7 @@ new_creature = lambda : random.choice(CREATURE_PHYSICAL_ADJ) + ' ' + random.choi
 
 def getRandomStoryWords():
 	info = {}
-	info['slug'] = random.choice(Slug.objects.all())
+	info['slug'] = str(random.choice(Slug.objects.all()))
 	info['instructor'] = random.choice(['introductor', 'introducer', 'guide','story-teller','biggle-fibber', 'historian','educationist','yarn-spinner', 'explainorator'])
 	now = datetime.now()
 	if random.random() > 0.4:
@@ -63,5 +63,8 @@ def getRandomStoryWords():
 	info['creatures_general'] = random.choice(CREATURES_GENERAL)
 	info['creature_1'] = new_creature()
 	info['creature_2'] = new_creature()
+	info['creature_3'] = new_creature()
+	for key in info.keys():
+		info[key] = "<span class='randomWords'>" + info[key] + "</span>"
 	return info
 	

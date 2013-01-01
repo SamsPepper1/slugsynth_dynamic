@@ -7,7 +7,7 @@ import os
 from time import sleep
 import simplejson
 from django.core.files import File
-
+import cairosvg
 
 THUMB_PATH = 'media/songs/thumbnails/'
 
@@ -57,15 +57,20 @@ def drawSong(loop):
 	
 	# draw pallette
 	offset = 0
-	for shape in loop.shapes.all():
+	for slug in loop.get_slugs():
+		shape = slug.shapes.all()[0]
 		drawShape(shape, svg, scale=(0.8,0.8), translate=(offset, 80))
 		offset += 50*(1/0.8)
 
 	#save and convert
 	svg.save()
-	sleep(5)
-	subprocess.Popen(['inkscape','-f','temp.svg','-w','200','-h','100','-e','temp.png'])
-	sleep(5)
+#	sleep(5)
+#	subprocess.Popen(['inkscape','-f','temp.svg','-w','200','-h','100','-e','temp.png'])
+#	sleep(5)
+	svg = open('temp.svg').read()
+	fout = open('temp.png','w')
+	cairosvg.svg2png(bytestring=svg,write_to=fout)
+	fout.close()
 	os.remove('temp.svg')
 	tags = ' '.join([tag.__unicode__() for tag in loop.get_tags()])
 	loop.thumbnail.save(THUMB_PATH+loop.name +'.png', File(open('temp.png')))

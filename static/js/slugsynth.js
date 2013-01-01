@@ -192,17 +192,17 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 
     // add Pallette 
     //add mold button
-    this.moldButton = this.paper.image(STATIC_URL+'images/mold.png',(this.pixelWidth/2)-82,7,70,40);
+    this.moldButton = this.paper.image(STATIC_URL+'images/button_green.png',(this.pixelWidth/2)-82,7,70,40);
 
     // add events to mold button
-    this.moldButton.node.onmouseover = function(){
-					var newHref = this.attributes.href.value.split('.')[0]+'_hover.png';
-					this.setAttribute('href',newHref);
-					}
-    this.moldButton.node.onmouseout = function(){
-					var newHref = this.attributes.href.value.split('_')[0]+'.png';
-					this.setAttribute('href',newHref);
-				}
+    //this.moldButton.node.onmouseover = function(){
+//					var newHref = this.attributes.href.value.split('.')[0]+'_hover.png';
+//					this.setAttribute('href',newHref);
+//					}
+//    this.moldButton.node.onmouseout = function(){
+//					var newHref = this.attributes.href.value.split('_')[0]+'.png';
+//					this.setAttribute('href',newHref);
+//				}
 
     this.moldButton.node.onclick =   function() {
 	        	            if (all.sideBarLeft.isIn){

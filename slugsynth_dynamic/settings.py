@@ -157,7 +157,8 @@ INSTALLED_APPS = (
     'floppyforms',
     'tagging',
     'djcelery',
-    'kombu.transport.django'
+    'kombu.transport.django',
+    'django_extensions',
     
 )
 

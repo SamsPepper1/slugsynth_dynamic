@@ -8,6 +8,7 @@
 			<h2>What's the story?</h2>
 		</header>
 		<article>
+			{% autoescape off %}
 			<p> Hey! my name is {{ slug.name }} and I am your {{ instructor }} for this {{ time }}. 
 
 			<p> So, you want to {{ learn }} about the {{ adjective1 }} {{ historysyn }} of our {{ adjective2 }} sluggy kind? I'll tell you what <span title="Everyslugs version of events is different, sometimes because we see things differently, sometimes becasue we forget, and sometimes because we just make things up. Remember never to take anything a slug tells you too seriously!!" class="help">I {{ know }}</span>.</p>
@@ -18,7 +19,8 @@
 			<p>Our experiments with genetics worked out even better than expected, however, and very quickly we not only had language and voices, but we evolved telepathy. Telepathy is a bit like having the internet in your head. This was {{ great }}, but it made our newly-invented voice-boxes a bit pointless for simple communicating. We decided that we would use our voices to sing, and spent {{ timespan2 }} perfecting the art of music.</p>
 			<p> Sadly, however, there was nobody on earth to listen to our songs so we decided that we would leave earth and wander the galaxy, finding other species to share songs with. We constructed a {{ spaceship }} out of {{ materials }} in which we could embark on our adventure great unknown. We wanted to leave a parting gift to earth, to thank it for being our home and playground for so long, so before we left we invented dinosaurs, expecting that by the time we returned they would have evolved intelligence, like ourselves, and would have some songs for us.</p>
 
-			<p>For {{ timespan3 }} we {{ movement }} the galaxy, tracking down intelligent life, teaching them our songs and learning theirs. We met all sorts of {{creatures_adjectives}} {{ creatures_general }}, from {{creature_1}} to {{creature_2}}. </p>
+			<p>For {{ timespan3 }} we {{ movement }} the galaxy, tracking down intelligent life, teaching them our songs and learning theirs. We met all sorts of {{creatures_adjectives}} {{ creatures_general }} on our adventures from {{creature_1}} to {{creature_2}} to {{creature_3}}. </p>
+		{% endautoescape %}
 		</article>
 	</div>
 {% endblock %}
