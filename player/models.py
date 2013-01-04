@@ -5,7 +5,7 @@ from slugs.slugMaker import makeStarterPallette
 
 class PlayerManager(models.Manager):
 	def get_username(self, username):
-		return self.get(user=User.objects.get(username=username))
+		return self.get(user__username=username)
 
 
 class Player(models.Model):
@@ -38,7 +38,7 @@ class Player(models.Model):
 
 
 def create_player_user_callback(sender, instance, **kwargs):
-	player, new = Player.objects.get_or_create(user=instance, points = 17)
+	player, new = Player.objects.get_or_create(user=instance)
 
 post_save.connect(create_player_user_callback, User)
 

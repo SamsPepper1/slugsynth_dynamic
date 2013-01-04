@@ -2,7 +2,7 @@ from django.utils import simplejson
 from dajaxice.decorators import dajaxice_register
 from slugs.models import Slug, Shape
 from song.models import Loop
-from datetime import datetime
+from home.helpers import tDate
 from player.models import Player	
 from django.core.exceptions import ObjectDoesNotExist
 from song import tasks
@@ -15,7 +15,7 @@ def saveSong(request,songString):
 		player = request.user.get_profile()
 		songObj = simplejson.loads(songString)
 		
-		song = Loop(creator = player,name=songObj['name'],tempo=songObj['tempo'],scale=songObj['scale'], length=songObj['length'], notes = simplejson.dumps(songObj['notes']),last_used = datetime.now(),public=True,public_edit = True)
+		song = Loop(creator = player,name=songObj['name'],tempo=songObj['tempo'],scale=songObj['scale'], length=songObj['length'], notes = simplejson.dumps(songObj['notes']),last_used = tDate(),public=True,public_edit = True)
 		try:
 			if songObj['songPK']:
 				song.parent = Loop.objects.get(pk=songObj['songPK'])

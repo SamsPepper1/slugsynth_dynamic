@@ -1,8 +1,7 @@
-
 from django.utils import simplejson
 from dajaxice.decorators import dajaxice_register
 from slugs.models import Slug, Shape
-from datetime import datetime
+from home.helpers import tDate
 from player.models import Player
 from django.contrib.auth.models import User
 
@@ -26,7 +25,7 @@ def saveShape(request, slugName, env):
 			slug = player.slug_set.get(name=slugName)
 			env = simplejson.loads(env)
 			shape = Shape(name="none", 
-				last_used=datetime.now(), 
+				last_used=tDate(), 
 				shape = simplejson.dumps(env['shape']), 
 				attack = env['A'],
 				decay = env['D'],
