@@ -82,7 +82,7 @@ def MyProfile(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('/')
 	player = request.user.get_profile()
-	context = {'player': player}
+	context = {'player': player, 'edit': True}
 	context['imageForm'] = ImageForm
 	return render_to_response('profile.html', context,context_instance = RequestContext(request))
 

@@ -105,11 +105,11 @@ function drawSlugs(slugs){
 		r_arrow.mouseout(function(){this.attr('opacity',0.5)})
 		l_arrow.mouseout(function(){this.attr('opacity',0.5)})
 		r_arrow.node.onclick = function(){
-			var slugId = this.parentNode.parentNode.id[this.parentNode.parentNode.id.length-1]
+			var slugId = this.parentNode.parentNode.id.split('_')[1];
 			switchSlug('r',slugId)
 		}
 		l_arrow.node.onclick = function(){
-			var slugId = this.parentNode.parentNode.id[this.parentNode.parentNode.id.length-1]
+			var slugId = this.parentNode.parentNode.id.split('_')[1];
 			switchSlug('l',slugId);
 		}
 		// add waveView toggle
@@ -118,13 +118,13 @@ function drawSlugs(slugs){
 		waveToggle.push(r.path('M 85,17 L 90,24 L 100,9 L 110,24 L 115,17')
 			.attr({'stroke': slugs[i].color,
 				'stroke-width': 1.5}));
-		waveToggle.push(slugs[i].draw(r,0,'t 85 10, s 0.5,0.5,0,0', Object.create(mainAttrs.palletteSlugs), 'waveToggle_slug_'+i).attr('opacity', 0))
+		waveToggle.push(slugs[i].draw(r,0,'t 85 10, s 0.5,0.5,0,0', Object.create(mainAttrs.palletteSlugs), 'waveToggle_slug_'+id).attr('opacity', 0))
 		waveToggle[2].attr('fill',slugs[i].color);
 		waveToggle[0].hover(function(){this.attr('opacity',1)});
 		waveToggle[0].mouseout(function(){this.attr('opacity',0.5)});
-		waveToggle[1].node.setAttribute('id', 'waveToggle_'+i);
+		waveToggle[1].node.setAttribute('id', 'waveToggle_'+id);
 		waveToggle.click(function() {
-			var slugId = this.node.parentNode.parentNode.id[this.node.parentNode.parentNode.id.length-1];
+			var slugId = this.node.id.split('_')[1];
 			toggleWave(slugId);
 			console.log('clicked waveToggle '+ slugId);
 		})
@@ -132,6 +132,7 @@ function drawSlugs(slugs){
 }
 
 function switchSlug(direction,slugId){
+	console.log(slugId);
 	var slug = slugs[slugId];
 	for (var i = 0; i < slug.shapes.length; i++){
 		if (slug.currentShape == slug.shapes[i]){
@@ -189,4 +190,6 @@ function toggleWave(slugId){
 }	
  
 
-
+function showImageForm(){
+	document.getElementById('image_form').hidden = false;
+}

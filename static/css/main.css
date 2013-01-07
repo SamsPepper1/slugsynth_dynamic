@@ -435,7 +435,7 @@ label.errors {
 	
 }
 
-#profile_top img {
+#profile_top img.avatar {
 	display: inline;
 	height: 100px;
 	width: 100px;
@@ -446,6 +446,32 @@ label.errors {
 	margin: 0.5em 1em 0em 0em;	
 	border: 1px solid #444;
 	box-shadow: 0px 0px 5px #222222;
+}
+
+.avatarBox {
+	float: left;
+	display: block;
+	padding: 0;
+	margin: 0;
+	width: 130px;
+	height: 130px;
+}
+#avatar_edit {
+	position: relative;
+	top: -33px;
+	left: 89px;
+	margin: 0;
+	padding: 0;	
+	cursor: pointer;
+	border-radius: 3px 0 0 0;
+	background: #444;
+	margin: 2px;
+	border: 2px solid #454;
+	opacity: 0.5;
+}
+
+#avatar_edit:hover {
+	opacity: 1;
 }
 
 #profile_info h2,

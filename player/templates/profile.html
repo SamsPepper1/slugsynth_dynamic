@@ -49,7 +49,7 @@ window.onload = function() {
 		{% include 'player_info.html' %}
 	<section id="profile_content">
 	{% if imageForm %}
-		<form method=POST action="/user/imageChange/" enctype=multipart/form-data>
+		<form method=POST action="/user/imageChange/" enctype=multipart/form-data hidden=true id="image_form">
 			{% csrf_token %}
 			{{ imageForm }}
 			<input type="submit" title="submit"/>

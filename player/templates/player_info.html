@@ -1,6 +1,10 @@
 	<section id="profile_top">
-		<img src="{% if player.avatar %}{{ player.avatar.url }}{% else %}{{ STATIC_URL }}images/default.jpg{% endif %}" alt="profile picture"></img>
-
+		<div class="avatarBox">
+			<img src="{% if player.avatar %}{{ player.avatar.url }}{% else %}{{ STATIC_URL }}images/default.jpg{% endif %}" alt="profile picture" class="avatar"></img>
+			{% if edit %}
+				<img src="{{ STATIC_URL }}images/edit.png" width="16px" height="16px" id="avatar_edit" onclick="showImageForm()" title="Change Profile Picture."></img>
+			{% endif %}
+		</div>
 		<header>
 		<div id="profile_info">			
 			<h2><a href="/user/profile/{{player.pk}}">{% if player.user = request.user %}<span class="username">My</span></a> Profile{% else %} <span class="username">{{player.user.username}}</span></a>{% endif %}</h2>
