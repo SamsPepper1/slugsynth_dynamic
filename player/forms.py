@@ -54,3 +54,7 @@ class LoginForm(forms.Form):
 							attrs={'placeholder': 'your username'},))
 	password	=	forms.CharField(label=(u'Password'), widget=PlaceholderPassword(render_value=False, attrs={'placeholder': 'your password'},))
 
+
+
+class ImageForm(forms.Form):
+	image		=	forms.ImageField(label=(u'Image'))
