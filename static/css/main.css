@@ -299,7 +299,7 @@ label.errors {
 	-moz-box-shadow: inset 0px 0px 10px #222222;
 	-webkit-box-shadow: inset 0px 0px 10px #222222;
 	box-shadow: inset 0px 0px 10px #222222;
-	font-size: 110%
+	font-size: 110%;
 	text-shadow: 1px 1px 0px #666666;
 	border: 1px solid #444444;
 
@@ -364,7 +364,7 @@ label.errors {
 	-moz-box-shadow:inset 0px 0px 10px #222222;
 	-webkit-box-shadow:inset 0px 0px 10px #222222;
 	box-shadow: inset 0px 0px 10px #222222;
-	border: 1px solid #486C62;
+	border: 1px solid #44444;
 
 
 }
@@ -374,7 +374,7 @@ label.errors {
 	width: 80%;
 	margin: 0 auto;
 	padding: 0.2em 0.5em;
-	border: 1px solid #550000;
+
 	border-radius: 1em;
 	background: url(../images/navbg.jpg);
 	box-shadow: 0px 0px 5px 5px #552222;

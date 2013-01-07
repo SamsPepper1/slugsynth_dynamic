@@ -54,14 +54,15 @@ function getSlugs(data){
 function drawSlugs(slugs){
 	// Creates div for each slug in users pallette
 	for (var i = 0; i < slugs.length; i++){
+		var id = slugs[i].pk
 		// creates outer div
 		var outer = document.createElement('div');
-		outer.setAttribute('id','slugDiv_'+i);
+		outer.setAttribute('id','slugDiv_'+id);
 		outer.setAttribute('class','slugDiv');
 		// creates header. if logged in, this should be editable
 		var h3 = document.createElement('h3');
 		h3.innerHTML = slugs[i].name;
-		h3.setAttribute('id','slug_name_'+i);
+		h3.setAttribute('id','slug_name_'+id);
 		h3.setAttribute('class','slug_name');
 		outer.appendChild(h3)
 		if (editable){	
@@ -74,22 +75,22 @@ function drawSlugs(slugs){
 			input.onblur = cancel_edit;
 			input.onchange = change
 			form.appendChild(input);
-			form.setAttribute('id','slug_name_'+i+'_edit')
+			form.setAttribute('id','slug_name_'+id+'_edit')
 			form.setAttribute('hidden','true');
 			outer.appendChild(form);
 		}
 		
 		// create inner fdiv to whole svgs
 		var d = document.createElement('div')
-		d.setAttribute('id','slugBox_'+i);
+		d.setAttribute('id','slugBox_'+id);
 		d.setAttribute('class','slugBox');
 		outer.appendChild(d);
 
 		// adds whole lot to document
 		document.getElementById('slugs_field').appendChild(outer);
 		//draws first slug shape onto slugBox div
-		var r = new Raphael(document.getElementById('slugBox_'+i),200,90);
-		slug = slugs[i].draw(r, 0, 't 10,0 s 2,2,0,0', Object.create(mainAttrs.palletteSlugs), 'slug_'+i+'_shape_0');
+		var r = new Raphael(document.getElementById('slugBox_'+id),200,90);
+		slug = slugs[i].draw(r, 0, 't 10,0 s 2,2,0,0', Object.create(mainAttrs.palletteSlugs), 'slug_'+id+'_shape_0');
 		slug.attr('fill', slugs[i].color);
 
 		// adds slug image to slugIms for easy dom-access

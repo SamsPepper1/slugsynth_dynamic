@@ -38,7 +38,7 @@ class RegistrationForm(ModelForm):
 			return username
 		raise forms.ValidationError("That username is already taken, please select, another")
 
-	def clean(self):
+	def clean_passwordB(self):
 		try:
 			password = self.cleaned_data['password']
 			passwordB = self.cleaned_data['passwordB']
@@ -46,7 +46,7 @@ class RegistrationForm(ModelForm):
 			raise forms.ValidationError("you left a field blank..")
 		if password != passwordB:
 			raise forms.ValidationError("The passwords did not match. Please try again.")
-		return self.cleaned_data
+		return passwordB 
 
 
 class LoginForm(forms.Form):

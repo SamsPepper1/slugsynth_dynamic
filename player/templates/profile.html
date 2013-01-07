@@ -65,6 +65,10 @@ window.onload = function() {
 			{% for song in player.loop_set.all %}
 				{% include 'song_info.html' %}
 				<div class='sep'></div>
+			{% empty %}
+				<div class="empty">
+					<p> You don't have any songs yet. Why not make one? <a href="/song/new/">Click Here!!</a></p>
+				</div>
 			{% endfor %}
 		</div>
 
@@ -73,6 +77,7 @@ window.onload = function() {
 			<header>
 				<h3>{{player.user.username}}'s Friends</h3>
 			</header>
+			<p> This feature is coming soon! Hang around a while, soon you will be able to import your friends from facebook.</p>
 		</div>
 
 	</section>

@@ -12,7 +12,7 @@ def changeSlugName(request, originalname,newname, id):
 
 
 		try:
-			slug = player.slug_set.get(name=originalname)
+			slug = player.slug_set.get(pk=id)
 		except Slug.DoesNotExist:
 			return simplejson.dumps({'message':'Something has gone wrong. According to my records, %s does not own a slug names %s'%(player.user.username, originalname)})
 		slug.name = newname
