@@ -177,6 +177,11 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.logger.LoggingPanel',
 )
 
+
+DEBUG_TOOLBAR_CONFIG =  {
+	'INTERCEPT_REDIRECTS': False,
+}
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

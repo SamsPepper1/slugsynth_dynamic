@@ -5,15 +5,15 @@
 {% block content %}
 <form method='post' action='' class ='fullpage_form' >
 		{% csrf_token %}
-		{% if form.errors %} <p> Please correct these errors: </p>{% endif %}
+		{% if error %} <p class="error">Your password and/or username are incorrect.. Please try again. :)</p>{% endif %}
 		
-		{% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{% endif %}
+
 		<div class="register_div">
 			<p><label for="username" {% if form.username.errors %} class="errors"{% endif %}>Username:</p>
 			<p>{{form.username}}</p>
 		</div>
 
-		{% if form.password.errors %}<p class="error">{{ form.password.errors }}</p>{% endif %}
+
 		<div class="register_div">
 			<p><label for="password" {% if form.password.errors %} class="errors"{% endif %}>Password:</p>
 			<p>{{form.password}}</p>

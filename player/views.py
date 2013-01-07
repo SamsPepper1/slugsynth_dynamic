@@ -47,7 +47,7 @@ def LogInRequest(request):
 			username = form.cleaned_data['username']
 			password = form.cleaned_data['password']
 			user = authenticate(username=username, password=password)
-			player = user.get_profile()	
+
 			if user is not None:
 				try:
 					login(request, user)
@@ -55,9 +55,9 @@ def LogInRequest(request):
 					return HttpResponseRedirect('/user/login/')
 				return HttpResponseRedirect('/user/myprofile/')
 			else:
-				return	render_to_response('login.html', {'form': form, 'title': 'Log In'}, context_instance=RequestContext(request))
+				return	render_to_response('login.html', {'form': form,'error':True, 'title': 'Log In'}, context_instance=RequestContext(request))
 		else:
-			return return_to_response('login.html', {'form': form, 'title': 'Log In'}, context_instance=RequestContext(request))
+			return return_to_response('login.html', {'form': form,'error': True, 'title': 'Log In'}, context_instance=RequestContext(request))
 
 	else:
 		''' user is not submitting the form, show login form '''
