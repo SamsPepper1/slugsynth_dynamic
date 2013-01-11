@@ -2,7 +2,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.template import RequestContext
-from player.forms import RegistrationForm, LoginForm, ImageForm
+from player.forms import RegistrationForm, LoginForm, ImageForm,AboutForm
 from player.models import Player
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -82,8 +82,8 @@ def MyProfile(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('/')
 	player = request.user.get_profile()
-	context = {'player': player, 'edit': True}
-	context['imageForm'] = ImageForm
+	context = {'player': player, 'edit': True, 'imageForm': ImageForm, 'aboutForm': AboutForm}
+
 	return render_to_response('profile.html', context,context_instance = RequestContext(request))
 
 
@@ -99,3 +99,18 @@ def imageChange(request):
 		player.save()
 		return HttpResponseRedirect('/user/myprofile/')
 	return HttpResponseRedirect('/user/myprofile/')
+
+
+@login_required
+def aboutChange(request):
+	if not request.user.is_authenticated() or not request.method == 'POST':
+		return HttpResponseRedirect('/')
+	player = request.user.get_profile()
+	form = AboutForm(request.POST)
+	if form.is_valid():
+		about = form.cleaned_data['about']	
+		player.bio = about
+		player.save()
+		return HttpResponseRedirect('/user/myprofile/')
+	return HttpResponseRedirect('/user/myprofile/')
+

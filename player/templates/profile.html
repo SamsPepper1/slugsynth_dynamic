@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'baseTwoColumn.html' %}
 {% load dajaxice_templatetags %}
 
 {% block title %}{{player.user.username}}'s Profile{% endblock %}
@@ -6,55 +6,47 @@
 
 
 {% block script %}
-{% dajaxice_js_import %}
-<script type="text/javascript" src="{{ STATIC_URL }}js/riffwave.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
-<script type="text/javascript" src="{{ STATIC_URL }}js/profile_edit.js"></script>
-<script>
-{% if player.user = request.user %}
-var editable = true;
-{% else %}
-var editable = false;
-{% endif %}
-window.onload = function() {
-	var slugs = []
-	getDefaultPlayerSlugs(getSlugs, {'playerName':'{{player.user.username}}'});
-	var clicks = document.getElementById('profile_nav').children[0].children;
-	for (var i = 0; i < clicks.length; i++){
-		click = clicks[i];
-		click.onclick = function() {
-			
-			fields = document.getElementsByClassName('field')
-			for (var ii = 0; ii < fields.length; ii++){
-				fields[ii].hidden = true;
-				var token = fields[ii].id.split('_')[0]
-				document.getElementById(token+'_choice').setAttribute('class', '');
-			}
-			this.setAttribute('class', 'sel');
-			var token = this.id.split('_')[0];	
-			//console.log(token);
-			document.getElementById(token+'_field').hidden = false;
+	{% dajaxice_js_import %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/riffwave.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
+	<script type="text/javascript" src="{{ STATIC_URL }}js/profile_edit.js"></script>
+	<script>
+		{% if edit %}
+			var editable = true;
+		{% else %}
+			var editable = false;
+		{% endif %}
+		window.onload = function() {
+			console.log('loading Slugs');
+			var slugs = []
+			getDefaultPlayerSlugs(getSlugs, {'playerName':'{{player.user.username}}'});
+			var clicks = document.getElementById('profile_nav').children[0].children;
+			for (var i = 0; i < clicks.length; i++){
+				click = clicks[i];
+				click.onclick = function() {		
+					fields = document.getElementsByClassName('field')
+					for (var ii = 0; ii < fields.length; ii++){
+						fields[ii].hidden = true;
+						var token = fields[ii].id.split('_')[0]
+						document.getElementById(token+'_choice').setAttribute('class', '');
+					}
+					this.setAttribute('class', 'sel');
+					var token = this.id.split('_')[0];	
+					//console.log(token);
+					document.getElementById(token+'_field').hidden = false;
+				};
+			};		
 		};
-	};
-		
-};
-</script>
+	</script>
 {% endblock %}
 
 {% block content %}
-<div class="profile">
+
 	<section id="left">
 		{% include 'player_info.html' %}
 	<section id="profile_content">
-	{% if imageForm %}
-		<form method=POST action="/user/imageChange/" enctype=multipart/form-data hidden=true id="image_form">
-			{% csrf_token %}
-			{{ imageForm }}
-			<input type="submit" title="submit"/>
-		</form>
-	{% endif %}
 
 
 	<nav id="profile_nav">
@@ -90,9 +82,7 @@ window.onload = function() {
 
 	</section>
 	</section>
-	<section id="right">
+	{{ block.super }}	
 
-	</section>
-</div>
 {% endblock %}
 

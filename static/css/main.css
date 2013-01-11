@@ -35,7 +35,7 @@ should go here */
 
 #mainHeader {
 	
-	width: 80%;
+	width: 960px;
 	margin: 0 auto;
 	height: 100px;
 }
@@ -141,7 +141,7 @@ nav {
 }
 
 nav ul {
-	width: 75%;
+	width: 960px;
 	list-style: none;
 	padding: 0;
 	margin: 0 auto;
@@ -183,7 +183,8 @@ header h3 {
 
 .main {
 	
-	width: 80%;
+	width: 960px;
+	height: 1100px;
 	min-height: 300px;
 	margin:  1em auto;
 	padding: 1em;
@@ -200,7 +201,7 @@ header h3 {
 
 
 .main article {
-	width: 60%;
+	width: 90%;
 
 	text-align: justify;
 }
@@ -230,7 +231,7 @@ footer {
 
 
 footer ul {
-	width: 80%;
+	width: 960px;
 	list-style: none;
 	font-size: 70%;
 	color: #444;
@@ -389,14 +390,14 @@ label.errors {
 
 #left {
 	float: left;
-	width: 70%;
+	width: 75%;
 	
 }
 #right {
 	float: right;
-	width: 25%;
+	width: 20%;
 	margin: 1em 0em 1em 1em;
-	padding: 1em;
+	padding: 0em 1em;
 	min-height: 400px;
 	border-radius: 5px;
 	background-image: url(../images/formbg.jpg);
@@ -407,7 +408,7 @@ label.errors {
 .player_list,
 .profile {
 
-	width: 80%;
+	width: 960px;
 	height: auto;
 	min-height: 600px;
 	margin: 0 auto;
@@ -423,6 +424,10 @@ label.errors {
 .player_list {
 	height: 900px;
 }
+
+
+/* PROFILE */
+
 #profile_top {
 	padding: 10px;
 	margin: 0px;
@@ -456,23 +461,35 @@ label.errors {
 	width: 130px;
 	height: 130px;
 }
-#avatar_edit {
+
+.editButton {
 	position: relative;
-	top: -33px;
-	left: 89px;
-	margin: 0;
-	padding: 0;	
+	margin: 2px;
+	padding: 0;
 	cursor: pointer;
 	border-radius: 3px 0 0 0;
 	background: #444;
-	margin: 2px;
 	border: 2px solid #454;
 	opacity: 0.5;
 }
 
-#avatar_edit:hover {
+.editButton:hover {
 	opacity: 1;
 }
+
+#avatar_edit {
+	top: -33px;
+	left: 89px;
+}
+
+#about_edit {
+	top: 40px;
+	left: 200px;
+}
+
+
+
+
 
 #profile_info h2,
 #profile_info h3 {
@@ -549,7 +566,7 @@ ul.numbers li strong {
 #profile_about {
 	clear: none;
 	float: left;
-	width: 250px;
+	width: 200px;
 	max-height: 100px;
 	padding: 0.5em;
 
@@ -589,7 +606,7 @@ ul.numbers li strong {
 	margin-left: 1em;
 }
 
-.profile nav {
+#profile_nav {
 	background-image: url(../images/formbg.jpg);
 	border-radius: 5px;
 	color: #99bca0;
@@ -599,7 +616,7 @@ ul.numbers li strong {
 	box-shadow: 0px 0px 5px #222222;
 }
 
-.profile nav ul li {
+#profile_nav ul li {
 	vertical-align: middle;
 
 	cursor: pointer;
@@ -608,7 +625,7 @@ ul.numbers li strong {
 }
 
 
-.profile nav ul li:hover {
+#profile_nav ul li:hover {
 	
 	text-shadow: 0px 1px 5px #99bca0;
 }
@@ -955,4 +972,52 @@ span.help {
 .small {
 	width: 600px;
 	margin: 0 auto;
+}
+
+
+/* SIDEBAR */
+
+.twitter-timeline {
+	color: #99bca0;
+	position: relative;
+	top: 8px;
+
+}
+
+.twitter-timeline:hover {
+	color: #ccc;
+}
+
+.twitterFiller {
+	color: #444444;	
+	max-height: 400px;
+	overflow: hidden;
+	border-radius: 0.5em;
+	box-shadow: inset 0 0 8px 2px #444;
+	border: 1px solid #444;
+/*	background: url(../images/navbg.jpg);*/
+	background: url(../images/redbg.jpg);
+}	
+
+.twitterFiller ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.twitterFiller ul li {
+	width: 80%;
+	font-size: 80%;
+	margin: 1em auto;
+	border-bottom:1px dotted #444;
+}
+
+
+#donate {
+	margin: 1em;
+	color: #99BCA0;
+}
+
+#donate a {
+	color: #99BCA0;
 }

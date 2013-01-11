@@ -98,7 +98,9 @@ function drawSlugs(slugs){
 		//add arrows to scroll between shapes
 		var arrowAttrs = {'fill': '#333', 'stroke': '#111','opacity': 0.5, 'cursor':'pointer'};
 		r_arrow = r.path('M 175,35 l 15,15 l -15,15, z').attr(arrowAttrs);
+		r_arrow.node.setAttribute('id','lArrow_'+id);
 		l_arrow = r.path('M 10,45 l 15,-15 l 0,30 z').attr(arrowAttrs);
+		l_arrow.node.setAttribute('id','rArrow_'+id);
 		//add events to scroll arrows
 		r_arrow.hover(function(){this.attr('opacity',1)})
 		l_arrow.hover(function(){this.attr('opacity',1)})
@@ -118,12 +120,14 @@ function drawSlugs(slugs){
 		waveToggle.push(r.path('M 85,17 L 90,24 L 100,9 L 110,24 L 115,17')
 			.attr({'stroke': slugs[i].color,
 				'stroke-width': 1.5}));
-		waveToggle.push(slugs[i].draw(r,0,'t 85 10, s 0.5,0.5,0,0', Object.create(mainAttrs.palletteSlugs), 'waveToggle_slug_'+id).attr('opacity', 0))
+		waveToggle.push(slugs[i].draw(r,0,'t 85 5, s 0.5,0.5,0,0', Object.create(mainAttrs.palletteSlugs), 'waveToggle_slug_'+id).attr('opacity', 0))
 		waveToggle[2].attr('fill',slugs[i].color);
 		waveToggle[0].hover(function(){this.attr('opacity',1)});
 		waveToggle[0].mouseout(function(){this.attr('opacity',0.5)});
 		waveToggle[1].node.setAttribute('id', 'waveToggle_'+id);
-		waveToggle.click(function() {
+		waveToggle[0].node.setAttribute('id','waveToggleRect_'+id);
+		
+		waveToggle.click(function() {	
 			var slugId = this.node.id.split('_')[1];
 			toggleWave(slugId);
 			console.log('clicked waveToggle '+ slugId);
@@ -133,14 +137,19 @@ function drawSlugs(slugs){
 
 function switchSlug(direction,slugId){
 	console.log(slugId);
-	var slug = slugs[slugId];
+	for (var i = 0; i < slugs.length; i++){
+		if (slugs[i].pk == parseInt(slugId)){
+			var slug = slugs[i];
+			var ind = i;
+		}
+	}
 	for (var i = 0; i < slug.shapes.length; i++){
 		if (slug.currentShape == slug.shapes[i]){
 			var id = i;
 		}
 	}
-	console.log(id);
-	var slugIm = slugIms[slugId];
+	console.log(ind);
+	var slugIm = slugIms[ind];
 	if (direction == 'l'){	
 		var newId = (id-1);
 		if (newId < 0){newId = slug.shapes.length + newId}
@@ -156,14 +165,20 @@ function switchSlug(direction,slugId){
 	newSlugIm.attr('fill',slug.color);
 	slugIm.animate({'transform': transform},500, function(){this.remove()});
 	newSlugIm.animate({'transform': 't 10,0 s 2,2,0,0'},500);
-	slugIms[slugId] = newSlugIm;
+	slugIms[ind] = newSlugIm;
 	console.log(newId);	
 }
 		
 
 function toggleWave(slugId){
-	var slug = slugs[slugId]
-	var slugIm = slugIms[slugId]
+	console.log(slugId)
+	for (var i = 0; i < slugs.length; i++){
+		if (slugs[i].pk == parseInt(slugId)){
+			var slug = slugs[i]
+			var ind = i
+		}
+	}
+	var slugIm = slugIms[ind]
 	if (document.getElementById('wave_'+slugId)){
 		var wave = document.getElementById('wave_'+slugId);
 		wave.parentNode.removeChild(wave);
@@ -172,8 +187,11 @@ function toggleWave(slugId){
 		for (var i = 0; i < 5; i++){
 			document.getElementById('waveToggle_slug_'+slugId+'_'+i).style.opacity = 0;
 		}
+		document.getElementById('lArrow_'+slugId).style.display = 'block';
+		document.getElementById('rArrow_'+slugId).style.display = 'block';
+
 	} else{
-		var path = drawWave(slug.sound, 200, 20,100,0,-80)	
+		var path = drawWave(slug.sound, 200, 20,200,0,-80)	
 		var wave = slugIm[0].paper.path(path)
 				.attr({'stroke':slug.color,
 					'stroke-width': 2}); 
@@ -185,6 +203,9 @@ function toggleWave(slugId){
 			document.getElementById('waveToggle_slug_'+slugId+'_'+i).style.opacity = 1;
 		
 		}
+		document.getElementById('lArrow_'+slugId).style.display = 'none';
+		document.getElementById('rArrow_'+slugId).style.display = 'none';
+
 	}
 
 }	
@@ -192,4 +213,9 @@ function toggleWave(slugId){
 
 function showImageForm(){
 	document.getElementById('image_form').hidden = false;
+}
+
+
+function showAboutForm(){
+	document.getElementById('about_form').hidden = false;
 }

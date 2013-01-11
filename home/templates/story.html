@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'baseTwoColumn.html' %}
 
 {% block title%}Whats the story?{% endblock %}
 
 {% block content %}
-	<div class="main">
+	<section id="left">
 		<header>
 			<h2>What's the story?</h2>
 		</header>
@@ -22,5 +22,6 @@
 			<p>For {{ timespan3 }} we {{ movement }} the galaxy, tracking down intelligent life, teaching them our songs and learning theirs. We met all sorts of {{creatures_adjectives}} {{ creatures_general }} on our adventures from {{creature_1}} to {{creature_2}} to {{creature_3}}. </p>
 		{% endautoescape %}
 		</article>
-	</div>
+	</section>
+	{{ block.super }}
 {% endblock %}

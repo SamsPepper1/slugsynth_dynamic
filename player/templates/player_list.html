@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'baseTwoColumn.html' %}
 
 {% block title %}Player List{% endblock %}
 
 {% block content %}
 
-<div class="player_list">
+
 	<section id="left">
 		{% include 'pagination.html' with baseUrl='/user/list/' %}
 		<div class="sep"></div>
@@ -17,8 +17,7 @@
 		<div class="sep"></div>
 		{% include 'pagination.html' with baseUrl='/user/list/' %}
 	</section>
-	<section id="right">
-	</section>
-</div>
+
+	{{ block.super }}
  
 {% endblock %}

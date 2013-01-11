@@ -161,6 +161,7 @@ INSTALLED_APPS = (
     'kombu.transport.django',
     'django_extensions',
     'debug_toolbar',
+    'south',
     
 )
 

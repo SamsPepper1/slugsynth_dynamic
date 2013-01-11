@@ -22,4 +22,5 @@ def story(request):
 	return render(request, 'story.html', storyWords)
 
 
-
+def donate(request):
+	return render(request, 'donate.html')

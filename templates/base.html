@@ -25,21 +25,10 @@
 	</div>
 	{% block header_block %}
 	{% endblock %}	
-	<div id="loginBox">
 
-
-		{% if user.is_authenticated %}
-			<p>logged in as <span id="loginBox_username">{{user.username}}</span></p>
-			<a class="text" href="/user/logout">Log Out</a>
-			<a title="My Profile" href="/user/myprofile/"><img width="50" height="50" src="{% if player.avatar %}{{player.avatar.url}}{%else%}{{STATIC_URL }}images/default.jpg{%endif%}" alt="profile picture"></img></a>
-
-		{% else %}
-			<a class="text" href="/user/login">Log In</a>
-			<a class="text" href="/user/signup">Sign Up</a>
-		{% endif %}
-
-	</div>
+	{% include 'loginBox.html' with player=user.get_profile %}
 </header>	
+
 
 		<nav class="mainNav">
 		
@@ -53,11 +42,12 @@
 			{% endblock %}
 		
 		</nav>
-		
-		
-			{% block content %}
+			{% block main %}		
+			<div class="main">		
+				{% block content %}
+				{% endblock %}
+			</div>
 			{% endblock %}
-		
 	
 		<footer class="mainFooter">
 		

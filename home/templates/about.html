@@ -1,19 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'baseTwoColumn.html' %}
 
 {% block title %}About{% endblock %}
 
 {% block content %}
 
-
-<div class="main">
-<header>
-	<h2>About SlugJam</h2>
-</header>
-
-
-<article>
+<section id="left">
 
 	<section id="intro_block">
+		<h3> What is this all about, then?</h3>
 
 		<p>SlugJam is (<em>probably<a id="footnote_1_pos" href="#footnote_1">*</a></em>) the first slug-based=synthesiser on earth in around 300 million years.</p>
 
@@ -45,6 +39,7 @@
 			<li id="footnote_1">1<a href="#footnote_1_pos">^</a>. "<em>Probably</em>" meaning to the best of our extremely large, but not infinite, knowledge.</li>
 		</ul>
 	</section>
-</article>
-</div>
+</section>
+{{ block.super }}
+
 {% endblock %}

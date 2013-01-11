@@ -58,3 +58,8 @@ class LoginForm(forms.Form):
 
 class ImageForm(forms.Form):
 	image		=	forms.ImageField(label=(u'Image'))
+
+
+class AboutForm(forms.Form):
+	about		=	forms.CharField(label=(u"About Me"),widget=PlaceholderTextArea(
+							attrs={'placeholder':'tell us a little something about yourself'},))
