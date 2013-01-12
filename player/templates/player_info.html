@@ -6,27 +6,34 @@
 			{% endif %}
 		</div>
 		<header>
-		<div id="profile_info">			
-			<h2><a href="/user/profile/{{player.pk}}">{% if edit %}<span class="username">My</span></a> Profile{% else %} <span class="username">{{player.user.username}}</span></a>{% endif %}</h2>
-			<h3>{{player.user.email}}</h3>
-			<ul class="numbers">
-				<li>Points<strong>{{player.points}}</strong></li>
-				<li>Slugs<strong>{{player.slug_count}}</strong></li>
-				<li class="end">Songs<strong>{{player.loop_count}}</strong></li>
-			</ul>
-		</div>
-		<div id="profile_about">
-			<h3><strong>About</strong>{% if edit %} me{% else %} {{player.user.username}}{% endif %}</h3>
-			<p>{{player.bio|truncatechars:200}}</p>
-			{% if edit %}
-			<img src="{{ STATIC_URL }}images/edit.png" width="16px" height="16px" id="about_edit" class="editButton"  onclick="showAboutForm()" title="Change personal info"></img>
-			<form method=POST action="/user/aboutChange/" hidden=True id="about_form">
-				{% csrf_token %}
-				{{ aboutForm }}
-				<input type="submit" value="submit"/>
-			</form>
-			{% endif %}
-		</div>
+			<div id="profile_info">			
+				<h2>
+					<a href="/user/profile/{{player.pk}}">
+						{% if edit %}<span class="username">My</span>
+					</a> Profile
+						{% else %} <span class="username">{{player.user.username}}</span>
+					</a>{% endif %}
+				</h2>
+				<h3>{{player.user.email}}</h3>
+				<ul class="numbers">
+					<li>Points<strong>{{player.points}}</strong></li>
+					<li>Slugs<strong>{{player.slug_count}}</strong></li>
+					<li class="end">Songs<strong>{{player.loop_count}}</strong></li>
+				</ul>
+			</div>
+			<div id="profile_about">
+				<h3><strong>About</strong>{% if edit %} me{% else %} {{player.user.username}}{% endif %}</h3>
+				<p>{{player.bio|truncatechars:200}}</p>
+				{% if edit %}
+					<img src="{{ STATIC_URL }}images/edit.png" width="16px" height="16px" id="about_edit" class="editButton"  
+								onclick="showAboutForm()" title="Change personal info"></img>
+					<form method=POST action="/user/aboutChange/" hidden=True id="about_form">
+						{% csrf_token %}
+						{{ aboutForm }}
+						<input type="submit" value="submit"/>
+					</form>
+				{% endif %}
+			</div>
 
 		</header>
 

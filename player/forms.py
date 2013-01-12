@@ -61,5 +61,5 @@ class ImageForm(forms.Form):
 
 
 class AboutForm(forms.Form):
-	about		=	forms.CharField(label=(u"About Me"),widget=PlaceholderTextArea(
+	about		=	forms.CharField(label=(u"About Me"),widget=forms.Textarea(
 							attrs={'placeholder':'tell us a little something about yourself'},))

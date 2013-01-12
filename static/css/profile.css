@@ -1,0 +1,287 @@
+/* PROFILE */
+
+#profile_top {
+	padding: 10px;
+	margin: 0px;
+}
+
+#profile_top header {
+	width: 100%;
+	height: 130px;	
+	
+	
+}
+
+#profile_top img.avatar {
+	display: inline;
+	height: 100px;
+	width: 100px;
+	padding: 10px;
+	float: left;
+	border-radius: 5px;
+	background-image: url(../images/formbg.jpg);
+	margin: 0.5em 1em 0em 0em;	
+	border: 1px solid #444;
+	box-shadow: 0px 0px 5px #222222;
+}
+
+.avatarBox {
+	float: left;
+	display: block;
+	padding: 0;
+	margin: 0;
+	width: 130px;
+	height: 130px;
+}
+
+.editButton {
+	position: relative;
+	margin: 2px;
+	padding: 0;
+	cursor: pointer;
+	border-radius: 3px 0 0 0;
+	background: #444;
+	border: 2px solid #454;
+	opacity: 0.5;
+}
+
+.editButton:hover {
+	opacity: 1;
+}
+
+#avatar_edit {
+	top: -33px;
+	left: 89px;
+}
+
+#about_edit {
+	top: 40px;
+	left: 200px;
+}
+
+
+
+
+
+#profile_info h2,
+#profile_info h3 {
+
+	float: left;
+	clear: none;
+	width: 200px;
+	padding: 0px;
+	margin: 0em 0em 0em 1em;
+	font-size: 70%;
+	text-transform: lowercase;
+	vertical-align: font-top;
+	line-height: 80%;
+}
+
+#profile_top header h2 a span {
+	font-size: 230%;
+	text-transform: uppercase;
+	
+}
+
+
+#profile_top p {
+	border: 0;
+	padding: 0;
+}
+
+#profile_info {
+	width: 300px;
+	height: 100px;
+	clear: none;
+	float: left;
+	padding: 1em 0.25em 0 1em;
+	border-right: 1px dotted #888;
+}
+
+#profile_info h3 {
+	color: #666666;
+	margin-top: 0.5em;
+}
+ul.numbers {
+	float: left;
+	list-style: none;
+	width: 290px;
+	margin: none;
+	padding:0.5em 0 0 0;
+	border-top: 1px dotted #888;
+	text-align: center;
+	
+}
+
+ul.numbers li {
+	display: block;
+	float: left;
+	width: 95px;
+	text-transform: uppercase;
+	border-right: 1px dotted #888;
+	text-align: center;
+}
+
+ul.numbers li.end {
+	border-right: none;
+}
+ul.numbers li strong {
+	display: block;
+	font-size: 200%;
+	text-align: center;
+}	
+
+.infoDiv {
+	display: inline;
+}
+
+#profile_about {
+	clear: none;
+	float: left;
+	width: 200px;
+	max-height: 100px;
+	padding: 0.5em;
+
+
+}
+
+#profile_about h3 {
+	font-size: 70%;
+	margin: 0;
+	line-height: 1.2em;
+	
+}
+
+#profile_about h3 strong {
+	font-size: 170%;
+	font-weight: bold;
+}
+
+#profile_about p {
+	max-height: 100px;
+	margin: 0.25em 0 0.25em 0;
+	text-align: justify;
+	font-size: 80%;
+	text-overflow: hidden;
+}
+.label {
+	display: inline;	
+	width: 180px;
+	font-weight: bold;
+	margin: 1em 0px 0px 0px;
+}
+
+.info {
+	display: inline;
+	width: 200px;
+
+	margin-left: 1em;
+}
+
+#profile_nav {
+	background-image: url(../images/formbg.jpg);
+	border-radius: 5px;
+	color: #99bca0;
+	height: 2em;
+	-moz-box-shadow: 0px 0px 5px #222222;
+	-webkit-box-shadow: 0px 0px 5px #222222;
+	box-shadow: 0px 0px 5px #222222;
+}
+
+#profile_nav ul li {
+	vertical-align: middle;
+
+	cursor: pointer;
+	font-weight: bold;
+	
+}
+
+
+#profile_nav ul li:hover {
+	
+	text-shadow: 0px 1px 5px #99bca0;
+}
+
+.sel {
+
+	font-weight: bolder;
+	color: #4F7ABA;
+	
+}
+
+.sel :hover {
+	font-weight: bolder;
+	color: #4F7ABA !important;
+}
+
+.slugDiv {
+	float: left;
+	padding: 5px;
+	height: 130px;
+	width: 210px;
+}
+.slugDiv h3 {
+	margin: 0px 0px 3px 5px;
+	padding: 0px;
+}
+
+.slugBox {
+	display: block;
+	height: 90px;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	float: left;
+	background-image: url(../images/formbg.jpg);
+	border-top: 2px solid #444444;
+	border-left:2px solid #444444;
+	border-radius: 10px;
+	-moz-box-shadow: 0px 0px 5px #222222;
+	-webkit-box-shadow: 0px 0px 5px #222222;
+	box-shadow: 0px 0px 5px #222222;
+}
+
+
+.sep {
+	height: 1px;
+	
+	width: 70%;
+	margin: 1em auto;
+	border-top: 1px dotted #888;
+}
+
+.thinSep {
+	height: 1px;
+	width: 70%;
+	margin: 0.2em auto;
+	border-top: 1px dotted #888;
+}
+
+
+.slugDiv form {
+	background: none;
+	background-image: none;
+	margin: 0;
+	height: auto;
+	padding: 0;
+	box-shadow: none;
+	width: 100%;
+}
+
+.slugDiv form input[type=text] {
+	margin: 1px 0px 1px 0px;
+	padding: 0;
+	height: 21px;
+	width: 50%;
+
+}
+
+
+.slugDiv form input[type=submit],
+.slugDiv form input[type=button] {
+	width: 80px;
+	font-size: 80%;
+	padding: 0px;
+	margin: 0px auto;
+
+}

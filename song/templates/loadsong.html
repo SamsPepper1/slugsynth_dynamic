@@ -32,12 +32,12 @@ window.onload = function() {
 
 {% block header_block %}
 
-	{% include 'song_info_small.html' %}
-
-	
-{% if not mySong %}
-	{% if not alreadyRated %}
-		{% include 'rateForm.html' %}
+<div id="header_songinfo">
+	{% if not mySong %}
+		{% if not alreadyRated %}
+			{% include 'rateForm.html' %}
+		{% endif %}
 	{% endif %}
-{% endif %}
+</div>
+
 {% endblock %}

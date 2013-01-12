@@ -3,7 +3,12 @@
 
 {% block title %}{{player.user.username}}'s Profile{% endblock %}
 
+{% block style %}
 
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/profile.css"></link>
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/songList.css"></link>
+
+{% endblock %}
 
 {% block script %}
 	{% dajaxice_js_import %}
@@ -46,10 +51,10 @@
 
 	<section id="left">
 		{% include 'player_info.html' %}
-	<section id="profile_content">
+		<section id="profile_content">
 
 
-	<nav id="profile_nav">
+			<nav id="profile_nav">
 		<ul>
 			<li id="slugs_choice" class="sel" >slugs</li>
 			<li id="songs_choice" >songs</li>
@@ -57,11 +62,11 @@
 		</ul>
 	</nav>
 
-	<div class="field" id="slugs_field">
+			<div class="field" id="slugs_field">
 
 				</div>
 	
-		<div class="field" id="songs_field" hidden=True>
+			<div class="field" id="songs_field" hidden=True>
 			{% for song in player.loop_set.all %}
 				{% include 'song_info.html' %}
 				<div class='sep'></div>
@@ -72,7 +77,7 @@
 			{% endfor %}
 		</div>
 
-		<div class="field" id="friends_field" hidden=True>
+			<div class="field" id="friends_field" hidden=True>
 
 			<header>
 				<h3>{{player.user.username}}'s Friends</h3>
@@ -80,7 +85,7 @@
 			<p> This feature is coming soon! Hang around a while, soon you will be able to import your friends from facebook.</p>
 		</div>
 
-	</section>
+		</section>
 	</section>
 	{{ block.super }}	
 
