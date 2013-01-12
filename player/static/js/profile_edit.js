@@ -43,10 +43,12 @@ slugIms = [];
 
 
 function getSlugs(data){
-	slugs = []
+	console.log(data.message);
+	slugs = [];
 	for (var i = 0; i < data.slugs.length; i++){
 		slugs.push(parseSlug(data.slugs[i], i));
 	};
+	console.log('got slugs')
 	drawSlugs(slugs);
 	
 
