@@ -1674,7 +1674,7 @@ function setup_load(data) {
 	}
 	document.getElementsByTagName('title')[0].innerHTML = 'SlugJam | '+song.name;
 	document.getElementById('songHeader').children[0].innerHTML = song.name;
-	document.getElementById('songHeader').children[1].innerHTML = 'by ' +song.creator;
+	document.getElementById('songHeader').children[1].innerHTML = 'by ' + song.creator;
 	if (data.parentSong != 0) {
 		console.log('parent Song :' + data.parentSong)
 		document.getElementById('parentInfo').children[0].innerHTML = 'remix of ' + data.parentSong;

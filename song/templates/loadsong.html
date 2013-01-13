@@ -30,14 +30,3 @@ window.onload = function() {
 {% endblock %}
 
 
-{% block header_block %}
-
-<div id="header_songinfo">
-	{% if not mySong %}
-		{% if not alreadyRated %}
-			{% include 'rateForm.html' %}
-		{% endif %}
-	{% endif %}
-</div>
-
-{% endblock %}

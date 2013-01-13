@@ -25,7 +25,7 @@
 
 {% endblock %}
 {% block header_block %}
-<p> hello world </p>
+{% include 'songHeader.html' %}
 {% endblock %}
      
 {% block main %}
@@ -35,21 +35,6 @@
 	{% block extra_content %}
 
 	{% endblock %}
-        <article> 
-        <p>currently only works in firefox.</p>
-        <p>VERY buggy. will update with more sensible demo soon.</p>
-            <h4>How To</h4>
-            <ul>
-                <li>click on a slug</li>
-                <li>click on grid to place</li>
-                <li> click on the slug again to remove it</li>
-                <li> click play</li>
-                <li> click on the slug on the grid to remove it</li>
-                <li>click 'Mold' to change the shape/sound envelope</li>
-                <li>click 'wave' to view the soundwave produced</li>
-                <li> click the little green arrow on the slugmold/wave panel to close it</li>
-            </ul>
-        </article>
 	<div class="coverall" id="saveFormBgrnd" hidden="true">
 	<div id="saveForm">
 		<h3>Save your Song</h3>

@@ -1,0 +1,19 @@
+<div id="header_songinfo">
+	<header id="songHeader">
+		<h2>{{ title }}</h2>
+		<p></p>
+	</header>
+	{% if song %}
+		<div id="songScore">		
+			<p> Score:<strong> {{song.average_points}}</strong></p>
+		</div>
+
+		{% if not mySong %}
+	
+			{% if not alreadyRated %}
+				{% include 'rateForm.html' %}
+			{% endif %}
+		{% endif %}
+	{% endif %}
+</div>
+
