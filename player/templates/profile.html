@@ -4,15 +4,14 @@
 {% block title %}{{player.user.username}}'s Profile{% endblock %}
 
 {% block style %}
-
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/songlist.css"></link>
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/profile.css"></link>
-	<link rel="stylesheet" href="{{ STATIC_URL }}css/songList.css"></link>
 
 {% endblock %}
 
 {% block script %}
 	{% dajaxice_js_import %}
-	<script type="text/javascript" src="{{ STATIC_URL }}js/riffwave.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/mainAttrs.js"></script>	
 	<script type="text/javascript" src="{{ STATIC_URL }}js/raphael-min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/newWave.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
