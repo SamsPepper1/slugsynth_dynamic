@@ -128,6 +128,15 @@
 	width: 100px;
 }
 
+#songOptions .tooltip {
+	width: 1.5em;
+	height: 1.5em;
+	cursor: pointer;
+
+	
+}
+
+
 
 .ratingBox {
 	float: left;

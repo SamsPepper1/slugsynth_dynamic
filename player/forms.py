@@ -59,7 +59,11 @@ class LoginForm(forms.Form):
 class ImageForm(forms.Form):
 	image		=	forms.ImageField(label=(u'Image'))
 
+class SecretTextarea(forms.Textarea):
+	cols = 30
+	rows = 5
+
 
 class AboutForm(forms.Form):
-	about		=	forms.CharField(label=(u"About Me"),widget=forms.Textarea(
-							attrs={'placeholder':'tell us a little something about yourself'},))
+	about		=	forms.CharField(label=(u"About Me"),widget=SecretTextarea(
+				attrs={'placeholder':'tell us a little something about yourself'},))

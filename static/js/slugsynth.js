@@ -133,7 +133,7 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 
     // add stop button to top control bar
     this.topControls.drawButton({'x': 160, 'y':12, 'width': 60, 'height': 30,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'clear',
+        'textAttrs': mainAttrs.buttonTextAttrs, 'attrs': mainAttrs.buttonAttrs, 'pressAttrs': {}, 'text': 'clear',
         'func': function(){
             all.clear();
             all.topControls.buttonSet[0].rect.animate({                     // make button flash to indicate it has been clicked.
@@ -141,12 +141,12 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                     function() {all.topControls.buttonSet[0].rect.animate({
                         'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
                     )}
-                )}
-            });
+                )},
+            'title': 'clear all notes and start afresh.'});
 //
     // adds calls all.clear()
     this.topControls.drawButton({'x': 260, 'y':12, 'width': 60, 'height': 30,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'save',
+        'textAttrs': mainAttrs.buttonTextAttrs, 'attrs': mainAttrs.buttonAttrs, 'pressAttrs': {}, 'text': 'save',
         'func': function(){
             all.save();
             all.topControls.buttonSet[1].rect.animate({
@@ -154,8 +154,8 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                     function() {all.topControls.buttonSet[1].rect.animate({
                         'fill': mainAttrs.buttonAttrs.fill}, 500, '<'
                     )}
-                )}
-            });
+                )},
+             'title':'Save this song and share with others.'});
 //    this.topControls.drawButton({'x': 360, 'y':16, 'width': 60, 'height': 30,
 //        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'toggle view',
 //        'func': function(){
@@ -171,25 +171,25 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
 //    
 //    // add slugMold button to top Controller
     this.topControls.drawButton({'x': 360, 'y':12, 'width': 60, 'height': 30,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'mold',
+        'textAttrs': mainAttrs.buttonTextAttrs, 'attrs': mainAttrs.buttonAttrs, 'pressAttrs': {}, 'text': 'mold',
         'func': function() {
      	            if (all.sideBarLeft.isIn){
 	            	    all.sideBarLeft.slideOut(function(){all.sideBarLeft.openSlugMolder()});
                     } else{
 	      		    all.sideBarLeft.openSlugMolder();
             		}
-		}
-	});
+		},
+		'title':'Mold your slugs into new and wonderful shapes to create new sounds.'});
 
 
 
     // add slugView button to top Controller
     this.topControls.drawButton({'x': 560, 'y':12, 'width': 60, 'height': 30,
-        'textAttrs': {}, 'attrs': {}, 'pressAttrs': {}, 'text': 'wave',
+        'textAttrs': mainAttrs.buttonTextAttrs, 'attrs': mainAttrs.buttonAttrs, 'pressAttrs': {}, 'text': 'wave',
         'func': function() {
                    	                all.sideBarLeft.showWave();
-                   		}
-		});	
+                   		},
+		'title': 'View the soundwaves made by your slugs.'});	
 
 
     // add Pallette 
@@ -458,6 +458,12 @@ function sideBarLeft(id,x,y,width,height,parent) {
             this.contentBar.animate({
 		width: this.parent.grid.width+5,	
 	    },300);
+	    this.closeButton = this.paper.set()
+	    this.closeButton.push(this.paper.rect(this.width-45,55, 40,40, 5).attr(mainAttrs.buttonAttrs));
+	    var path = 'M' + (this.width-40) + ',' + 60 +' l30,30 m 0,-30 l-30,30' 
+	    this.closeButton.push(this.paper.path(path).attr(mainAttrs.closeButtonPath));
+	    this.closeButton.attr('title', 'Close Slug View.');
+	    this.closeButton.click(function(){all.sideBarLeft.slideIn()});
             this.isIn = false;
 	    fn();
         } else {return}
@@ -476,6 +482,7 @@ function sideBarLeft(id,x,y,width,height,parent) {
 		if (this.slugMoldOpen){
 			this.slugMold.close();
 		}
+		this.closeButton.remove();
 	        this.contentBar.animate({
 			width: 0
 		}, 300);
@@ -649,19 +656,19 @@ function slugMolder(x,y,width,height,parent){
             this.saveButton = new button(this.width-200,315,130,30,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Save Shape',function() {
                                                     all.currentSlug.saveShape();
-                                                  }, this);
+                                                  }, this, 'Save this shape for later use.');
 	    this.buttons.push(this.saveButton);
 
 
 	    this.octaveUpButton = new button(150, 120, 50,30,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Up', function() {
 					all.sideBarLeft.slugMold.changeOctave(1);
-					}, this);
+					}, this,'Move this shape up an octave. this will make it a higher pitch noise.');
 	    this.buttons.push(this.octaveUpButton)
-            this.octaveDownButton = new button(150, 160, 50,30,mainAttrs.buttonTextAttrs,
+            this.octaveDownButton = new button(150, 150, 50,30,mainAttrs.buttonTextAttrs,
 				mainAttrs.buttonAttrs,{}, 'Down', function() {
 					all.sideBarLeft.slugMold.changeOctave(0);
-					}, this);
+					}, this,'Move this shape down an octave. This will make a lower pitch noise.');
 
 	    this.buttons.push(this.octaveDownButton);
 	
@@ -1261,37 +1268,40 @@ function controls(x,y,xMargin, yMargin,id,height, buttons, barAttrs,parent){
         var aButton = aButton;
             this.buttonSet.push(new button(aButton.x,aButton.y, aButton.width, 
                 aButton.height, aButton.textAttrs,aButton.attrs,aButton.pressAttrs,
-                aButton.text, aButton.func,this.parent))
+                aButton.text, aButton.func,this.parent, aButton.title))
             //this.button = thisButton
     }
 }
 
-function button(x, y,width,height,textAttrs, attrs, pressAttrs, text, fn,parent) {
+function button(x, y,width,height,textAttrs, attrs, pressAttrs, text, fn,parent, title) {
     this.parent = parent;
     this.paper = this.parent.paper;
+    this.title = title;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.attrs = Object.create(attrs);
+    this.attrs = attrs;
+    this.attrs.title = this.title
     this.pressAttrs = Object.create(pressAttrs);
-    this.textAttrs = Object.create(textAttrs)
+    this.textAttrs = textAttrs
+    this.textAttrs.title = this.title;
     this.text = text;
     this.fn = fn;
     //this.set = this.paper.set()
-    this.rect = this.paper.rect(this.x,this.y,this.width,this.height,5);
+    this.rect = this.paper.rect(this.x,this.y,this.width,this.height,5).attr(this.attrs)
+    //this.rect.attr('title',this.title)
     this.rect.node.setAttribute('id','button_'+this.text);
-    this.rect.attr(mainAttrs.buttonAttrs);
     this.rect.hover(function(){	
-			this.attr(mainAttrs.buttonHoverAttrs);
+			this.attr('fill',mainAttrs.buttonHoverAttrs.fill);
 		},
 		function(){
-			this.attr(mainAttrs.buttonAttrs);
+			this.attr('fill',mainAttrs.buttonAttrs.fill);
 		})
 
     this.textObj = this.paper.text(this.x+ this.width/2,this.y+this.height/2,this.text)
     this.textObj.node.setAttribute('id','buttonText_'+this.text);
-    this.textObj.attr(mainAttrs.buttonTextAttrs)
+    this.textObj.attr(this.textAttrs);
     this.textObj.hover(function(){
 			console.log(this.attrs.text);
 			document.getElementById('button_'+this.attrs.text).setAttribute('fill',mainAttrs.buttonHoverAttrs.fill);
@@ -1299,6 +1309,8 @@ function button(x, y,width,height,textAttrs, attrs, pressAttrs, text, fn,parent)
 		function(){
 			document.getElementById('button_'+this.attrs.text).setAttribute('fill',mainAttrs.buttonAttrs.fill);
 		});
+    //this.rect.attr('title', this.title)
+    //this.textObj.attr('title',this.title)
     //this.set.push(this.rect);
     //this.set.push(this.textObj);
     this.rect.node.onclick = fn;
@@ -1547,7 +1559,7 @@ function setup(data,title, baseFreq, length, scale, tempo) {
 	    baseFreq = baseFreq,
 	    scale = scale,
 	    tempo = tempo,
-	    width = 1000,
+	    width = 960,
 	    height = 550,
 	    notes = [];
 	 
@@ -1561,7 +1573,7 @@ function newSong(data){
 	var tempo = parseInt(document.getElementById('tempoInput').value);
 	scaleString = document.getElementById('scaleInput').value;
 	var scale = scales[scaleString];
-	var baseFreq = parseInt(document.getElementById('baseFreqInput').value);
+	var baseFreq = parseFloat(document.getElementById('baseFreqInput').value);
 	var length = parseInt(document.getElementById('lengthInput').value);
 	console.log('title: '+title+' tempo: ' + tempo + ' Scale: '+scale+'baseFreq: '+baseFreq+'length: ' + length)
 	setup(data, title, baseFreq, length, scale, tempo);
@@ -1587,7 +1599,7 @@ function setup_load(data) {
 	    baseFreq = 16.532
 	    scale = scales[scaleString]
 	    tempo = song.tempo
-	    width = 1000
+	    width = 960
 	    height = 550
 	    notes = []
 	all = new main(id, length, baseFreq, sampleRate, scale, tempo, width, height, slugs, notes,song.name)
@@ -1598,7 +1610,7 @@ function setup_load(data) {
 	document.getElementsByTagName('title')[0].innerHTML = 'SlugJam | '+song.name;
 	document.getElementById('songHeader').children[0].innerHTML = song.name;
 	document.getElementById('songHeader').children[1].innerHTML = 'by ' + song.creator;
-	if (data.parentSong != 0) {
+	if (data.parentSong != 0 && document.getElementById('parentInfo')) {
 		console.log('parent Song :' + data.parentSong)
 		document.getElementById('parentInfo').children[0].innerHTML = 'remix of ' + data.parentSong;
 	}

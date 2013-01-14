@@ -213,11 +213,31 @@ function toggleWave(slugId){
 }	
  
 
+
+
+
 function showImageForm(){
-	document.getElementById('image_form').hidden = false;
+	var form = document.getElementById('image_form');
+	if (form.hidden){
+		form.hidden = false;
+	} else {
+		form.hidden = true;
+	}
 }
 
 
 function showAboutForm(){
-	document.getElementById('about_form').hidden = false;
+	var form = document.getElementById('about_form');
+	var about = document.getElementById('profile_about').children[1];
+	var edit_im = document.getElementById('about_edit')
+	if (form.hidden){
+		form.hidden = false;
+		about.hidden = true;
+		edit_im.style.top = '91px';
+		
+	} else {
+		form.hidden = true;
+		about.hidden = false;
+		edit_im.style.top = '25px';
+	}
 }

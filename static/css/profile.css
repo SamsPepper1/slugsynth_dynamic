@@ -7,7 +7,7 @@
 
 #profile_top header {
 	width: 100%;
-	height: 130px;	
+	height: 160px;	
 	
 	
 }
@@ -55,7 +55,7 @@
 }
 
 #about_edit {
-	top: 40px;
+	top: 25px;
 	left: 200px;
 }
 
@@ -91,7 +91,7 @@
 
 #profile_info {
 	width: 300px;
-	height: 100px;
+	height: 110px;
 	clear: none;
 	float: left;
 	padding: 1em 0.25em 0 1em;
@@ -139,7 +139,7 @@ ul.numbers li strong {
 	clear: none;
 	float: left;
 	width: 200px;
-	max-height: 100px;
+	height: 120px;
 	padding: 0.5em;
 
 
@@ -284,4 +284,14 @@ ul.numbers li strong {
 	padding: 0px;
 	margin: 0px auto;
 
+}
+
+#about_form {
+	position: relative;
+	top: -25px; 
+}
+
+#about_form textarea {
+	border-radius: 3px;
+	box-shadow: inset 0 0 8px 2px #444;
 }

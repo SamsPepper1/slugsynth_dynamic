@@ -79,7 +79,7 @@ var mainAttrs ={'cellAttrs': {
 		    'font-family': 'Courier',
 		    'font': 'Courier',
 		    'font-weight': 'bold',
-                    'font-size': 20,
+                    'font-size': 18,
                     'cursor': 'pointer',
             },
             'buttonPressAttrs': {
@@ -90,10 +90,13 @@ var mainAttrs ={'cellAttrs': {
                 'cursor': 'move',
                 'stroke-width': 0
             },
-            'closeButton': {'fill': '#23530F',
-                            'stroke': '#184505',
-                            'stroke-width': 2,
-                            'cursor': 'pointer'
+            'closeButtonPath': {
+                            'stroke': '#444',
+                            'stroke-width': 4,
+		   	    'stroke-linecap': 'round',
+			    'stroke-linejoin': 'round',
+                            'cursor': 'pointer',
+			    
                              },
 	    'shapeBox':{
 		'fill': '#23530F',
@@ -106,5 +109,9 @@ var mainAttrs ={'cellAttrs': {
 			'font-size': 15,
 			'font-weight': 'bold',
 		},
+	    'paths': {
+			'closeButtonPath' : ''
+		}
+	
     }
  
