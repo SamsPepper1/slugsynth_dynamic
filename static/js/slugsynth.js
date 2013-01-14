@@ -999,7 +999,7 @@ function slugMolder(x,y,width,height,parent){
 			}
 		this.slug[0].animate({'path': path1}, 200)
 		this.slug[2].animate({'path': path2}, 200)
-		setInterval(function(){all.sideBarLeft.slugMold.getEnvelope()}, 500);
+		setTimeout(function(){all.sideBarLeft.slugMold.getEnvelope()}, 500);
 		}	
 	} 
         this.warpSlug = function() {
