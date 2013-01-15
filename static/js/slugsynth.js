@@ -353,6 +353,9 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
                 
             };
     
+
+
+
     this.addNote = function(pos,note,id) {
     
         // TODO rewrite. sort out frequency confusion( with slug object)
@@ -364,6 +367,8 @@ function main(id, gridLength, baseFreq, sampleRate,scale, tempo, pixelWidth, pix
         this.notes.push({'pos': pos, 'note' : note, 'id': id, 'envpk': this.currentSlug.currentShape.pk, 'slugpk': this.currentSlug.pk})
         this.song.addNote(samplePos,this.currentSlug.getTone(frequency,amp),id)
     }
+
+
     this.clear = function() {
         this.song.clear();
         for (var i= 0;i < this.notes.length; i++){
@@ -1388,12 +1393,16 @@ function cell(x, y, width, height,note, pos,paper, parent) {
     }
     this.addNote = function(id){
         var slug = all.currentSlug;
-        var scaleFactorY = this.parent.height/200;
-	var scaleFactorX = all.pixelWidth/550;
         
-        var transform = 't '+ this.x + ',' + (this.y-((scaleFactorY*37)-this.height)) + ' s '+ scaleFactorX + ',' + scaleFactorY + ',0,0';
+	var scaleFactorY = this.parent.height/200;
+
+	//var scaleFactorX = all.pixelWidth/550;
+        //var scaleFactorX = all.songLength/100000;
+	var scaleFactorX = (322*all.pixelWidth)/all.songLength;
+        var transform = 't '+ (this.x-5) + ',' + (this.y-((scaleFactorY*37)-this.height)) + ' s '+ scaleFactorX + ',' + scaleFactorY + ',0,0';
        
         var slugIm = slug.draw(this.parent.paper, 0,transform,mainAttrs.palletteSlugs,id );
+	slugIm.attr('title',slug.name + ' at around ' + parseInt(all.scale[all.scale.length-this.note-1]*all.baseFreq*Math.pow(2,slug.currentShape.env.octave)) + ' hertz.\n (Click to remove)')
         slugIm[1].node.onclick = function() {
             var id= this.id.split('_')[0];
             all.removeNote(id);
