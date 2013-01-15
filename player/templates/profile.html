@@ -17,6 +17,7 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}js/slugsynth.js"></script> 
 	<script type="text/javascript" src="{{ STATIC_URL }}js/profile_edit.js"></script>
 	<script>
+		var static_url = {{ STATIC_URL }}
 		{% if edit %}
 			var editable = true;
 		{% else %}

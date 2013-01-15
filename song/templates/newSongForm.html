@@ -9,7 +9,14 @@
 	
 			<div class="songOptionField">
 				<label for="tempo">Tempo</label>
-				<input id="tempoInput" name="tempo" type="text">
+				<select id="tempoInput" name="tempo">
+					<option value=8>Very Slow</option>
+					<option value=10>Slow</option>
+					<option value=15>Medium</option>
+					<option value=20>Very Medium</option>
+					<option value=30>Fast</option>
+					<option value=40>Very Fast</option>
+				</select>
 				<img class="tooltip" src="{{ STATIC_URL }}images/help-icon.png" title="fast or slow? you decide. pick a number (we recommend something between 100 and 800)."></img>
 
 			</div>

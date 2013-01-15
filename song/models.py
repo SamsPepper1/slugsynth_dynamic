@@ -33,7 +33,9 @@ class Loop(models.Model):
 	public = models.BooleanField()
 	public_edit = models.BooleanField()
 	avScore = models.FloatField(default=0)
+	baseFreq = models.FloatField(default=16.532)
 	thumbnail = models.ImageField(upload_to='songs/thumbnails',null=True,blank=True)
+
 	parent = models.OneToOneField('self', parent_link=True,null=True, blank=True)
 
 	objects = models.Manager()
@@ -76,6 +78,7 @@ class Loop(models.Model):
 		data['length'] = self.length
 		data['name'] = self.name
 		data['creator'] = self.creator.__unicode__()
+		data['baseFreq'] = self.baseFreq
 		if self.parent:
 			data['parentSong'] = self.parent.__unicode__()
 		else: 

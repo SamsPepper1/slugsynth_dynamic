@@ -1568,6 +1568,8 @@ function setup(data,title, baseFreq, length, scale, tempo) {
 	
 }
 
+
+
 function newSong(data){
 	var title = document.getElementById('titleInput').value;
 	var tempo = parseInt(document.getElementById('tempoInput').value);
@@ -1575,6 +1577,7 @@ function newSong(data){
 	var scale = scales[scaleString];
 	var baseFreq = parseFloat(document.getElementById('baseFreqInput').value);
 	var length = parseInt(document.getElementById('lengthInput').value);
+	tempo = tempo*length;
 	console.log('title: '+title+' tempo: ' + tempo + ' Scale: '+scale+'baseFreq: '+baseFreq+'length: ' + length)
 	setup(data, title, baseFreq, length, scale, tempo);
 	document.getElementById('songOptionsBgrnd').hidden = true;
@@ -1596,7 +1599,7 @@ function setup_load(data) {
 	scaleString = song.scale;
 	var id = 'track'
 	    length = song.length
-	    baseFreq = 16.532
+	    baseFreq =song.baseFreq 
 	    scale = scales[scaleString]
 	    tempo = song.tempo
 	    width = 960
@@ -1634,7 +1637,7 @@ function parseSlug(slugJSON,id) {
 	}
 
 function saveSong(name, tags){
-    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': scaleString, 'tags': tags}
+    var songObj = {'tempo': all.tempo, 'length': all.grid.columns, 'name': name,'scale': scaleString, 'tags': tags, 'baseFreq': all.baseFreq}
     songObj.notes = all.notes;
     if (currentSong){
 	songObj.songPK = currentSong;

@@ -66,6 +66,7 @@
 #songOptions input,
 #songOptions select,
 #saveForm input{
+	color: #222;
 	border-radius: 10px;
 	background: #bbb;
 	height: 2em;

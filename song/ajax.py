@@ -15,7 +15,7 @@ def saveSong(request,songString):
 		player = request.user.get_profile()
 		songObj = simplejson.loads(songString)
 		
-		song = Loop(creator = player,name=songObj['name'],tempo=songObj['tempo'],scale=songObj['scale'], length=songObj['length'], notes = simplejson.dumps(songObj['notes']),last_used = tDate(),public=True,public_edit = True)
+		song = Loop(creator = player,name=songObj['name'],tempo=songObj['tempo'],scale=songObj['scale'], length=songObj['length'], notes = simplejson.dumps(songObj['notes']),baseFreq = songObj['baseFreq'],last_used = tDate(),public=True,public_edit = True)
 		try:
 			if songObj['songPK']:
 				song.parent = Loop.objects.get(pk=songObj['songPK'])

@@ -1,8 +1,9 @@
 
 function show_editor(){
-	var editor = document.getElementById(this.id + '_edit');
-	if (! this.attributes.class.value.match('editing')){
-		this.hidden = true;		
+	var h3 = this.parentNode.children[0]
+	var editor = document.getElementById(h3.id + '_edit');
+	if (! h3.attributes.class.value.match('editing')){
+		h3.hidden = true;		
 		editor.hidden = false;
 		editor.children[0].select();
 	};
@@ -66,9 +67,13 @@ function drawSlugs(slugs){
 		h3.innerHTML = slugs[i].name;
 		h3.setAttribute('id','slug_name_'+id);
 		h3.setAttribute('class','slug_name');
-		outer.appendChild(h3)
+		outer.appendChild(h3);
 		if (editable){	
-			h3.onclick = show_editor
+			var img = document.createElement('img'); 
+			img.setAttribute('src',static_url + 'images/edit.png')
+			img.setAttribute('class','editButton');
+			outer.appendChild(img);
+			img.onclick = show_editor
 			// adds edit form
 			var form = document.createElement('form');
 			var input = document.createElement('input');
@@ -76,7 +81,7 @@ function drawSlugs(slugs){
 			input.value = slugs[i].name;
 			input.onblur = cancel_edit;
 			input.onchange = change
-			form.appendChild(input);
+			form.appendChild(input);	
 			form.setAttribute('id','slug_name_'+id+'_edit')
 			form.setAttribute('hidden','true');
 			outer.appendChild(form);
