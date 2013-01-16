@@ -9,15 +9,17 @@
 
 		{% block style %}
 		{% endblock %}
-		<script>
-
-		</script>
 		{% block script %}
 		{% endblock %}
 
 	</head>
 
 	<body>
+	<div id="incompatibleBrowser" hidden=true>
+		<p>Unfortunately, Slugjam will not work fully with your browser.</p>
+		<p>SlugJam currently relies on features available only in firefox. Either wait a short while till I get round to fixing it up for chrome and safari, or download firefox for free from <a href="http://www.mozilla.org/en-US/">Here</a>.</p>
+		<a id="close_browser_warning" href="#" onclick="document.getElementById('incompatibleBrowser').hidden = true">close</a>
+	</div>
 	
 	<header id="mainHeader">
 	<div id="logo">
@@ -60,6 +62,23 @@
 		
 		</footer>
 
+	<script>
+		function incompatibleBrowser(){
+			document.getElementById('incompatibleBrowser').hidden = false;
+		}
+
+	 	if (typeof Audio == 'function'){
+			a = new Audio();
+			if (typeof a.mozSetup == 'function'){
+			} else {
+				incompatibleBrowser();
+			}
+		} else {
+			incompatibleBrowser();
+		}
+			
+		</script>
+	
 	</body>
 
 </html>

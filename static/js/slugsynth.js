@@ -1398,7 +1398,7 @@ function cell(x, y, width, height,note, pos,paper, parent) {
 
 	//var scaleFactorX = all.pixelWidth/550;
         //var scaleFactorX = all.songLength/100000;
-	var scaleFactorX = (322*all.pixelWidth)/all.songLength;
+	var scaleFactorX = 360*all.pixelWidth/all.songLength;
         var transform = 't '+ (this.x-5) + ',' + (this.y-((scaleFactorY*37)-this.height)) + ' s '+ scaleFactorX + ',' + scaleFactorY + ',0,0';
        
         var slugIm = slug.draw(this.parent.paper, 0,transform,mainAttrs.palletteSlugs,id );
@@ -1586,7 +1586,6 @@ function newSong(data){
 	var scale = scales[scaleString];
 	var baseFreq = parseFloat(document.getElementById('baseFreqInput').value);
 	var length = parseInt(document.getElementById('lengthInput').value);
-	tempo = tempo*length;
 	console.log('title: '+title+' tempo: ' + tempo + ' Scale: '+scale+'baseFreq: '+baseFreq+'length: ' + length)
 	setup(data, title, baseFreq, length, scale, tempo);
 	document.getElementById('songOptionsBgrnd').hidden = true;

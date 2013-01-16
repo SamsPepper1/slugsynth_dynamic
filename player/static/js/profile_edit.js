@@ -72,6 +72,7 @@ function drawSlugs(slugs){
 			var img = document.createElement('img'); 
 			img.setAttribute('src',static_url + 'images/edit.png')
 			img.setAttribute('class','editButton');
+			img.setAttribute('title','Change ' + slugs[i].name+"'s name.")
 			outer.appendChild(img);
 			img.onclick = show_editor
 			// adds edit form

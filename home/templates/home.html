@@ -2,14 +2,46 @@
 
 {% block title %}Home{% endblock %}
 
+{% block style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/home.css"></link>
+{% endblock %}
+
 {% block content %}
-<div class="home"></div>
+<div id="home">
+	<header>
+		<div id="welcome">
+			<h2>Welcome to SlugJam!</h2>
+			<p>The first slug-based musical sequencer on earth since before the dinosaurs!</p>
 
+		</div>
+		<div id="signup_outer">
+			<a href="/user/signup/">
+				<div id="sign-up-box">
+					<p class="big" >Sign Up Now</p>
+				</div>
+			</a>
+		</div>
+	</header>
+	<div class="left-text-column">
 
+		<p>SlugJam is entirely free, and exists purely for yor enjoyment.</p>
+		
+		<p>Try it out now by remixing one of the songs that has already been written,  or register to get YOUR VERY OWN pallette of individually selected singing slugs to write your own songs and share them with your friends!</p>
+
+	</div>
+
+	<div class="right-img-column">
+		<a href="/song/load/1"><img src="{{ STATIC_URL }}images/slugjam_screeenshot_smaller.png"></img></a>
+	</div>
+	<div class="sep"></div>
 	
+	<div class="left-img-column">
+		<a href="/song/load/1"><img src="{{ STATIC_URL }}images/slugjam_molder_screenshot_smaller.png"	></a>
+	</div>
+	<div class="right-text-column">
+		<p>gotta find something to say here gotta find something to say ehre gotta find something to say here gotta find something to say ehre gotta find something to say here gotta find something to say ehre gotta find something to say here gotta find something to say ehre gotta find something to say here gotta find something to say ehre gotta find something to say here gotta find something to say ehre gotta find something to say here gotta find something to say ehre </p>
+	</div>
 
-
-
-
+</div>
 {% endblock %}
 

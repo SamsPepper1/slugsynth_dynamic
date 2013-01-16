@@ -1,35 +1,30 @@
-{% extends 'baseTwoColumn.html' %}
+{% extends 'baseBlog.html' %}
 
-{% block title%}Whats the story?{% endblock %}
+{% block article %}
+<header>
+	<h2>Chapter 1 - Origins</h2>
+</header>
+<article>
+{% autoescape off %}
+	<p> Hey! my name is {{ slug }} and I am your {{ instructor }} for this {{ time }}. 
 
-{% block content %}
-	<section id="left">
-		<section class="blog-style">
-			<header>
-				<h2>What's the story?</h2>
-			</header>
-			<article>
-				{% autoescape off %}
-				<p> Hey! my name is {{ slug }} and I am your {{ instructor }} for this {{ time }}. 
+	<p> So, you want to {{ learn }} about the {{ adjective1 }} {{ historysyn }} of our {{ adjective2 }} sluggy kind? I'll tell you what <span title="Everyslugs version of events is different, sometimes because we see things differently, sometimes becasue we forget, and sometimes because we just make things up. Remember never to take anything a slug tells you too seriously!!" class="help">I {{ know }}</span>.</p>
 
-				<p> So, you want to {{ learn }} about the {{ adjective1 }} {{ historysyn }} of our {{ adjective2 }} sluggy kind? I'll tell you what <span title="Everyslugs version of events is different, sometimes because we see things differently, sometimes becasue we forget, and sometimes because we just make things up. Remember never to take anything a slug tells you too seriously!!" class="help">I {{ know }}</span>.</p>
+	<p> It all {{ started }} {{timespan1}} ago, right here on earth in a place now known as {{ place }}. Back then we were much like the slug you might find in your {{ commonSlugPlace }}, all {{icky1}} and {{icky2}}. Because there wasn't very much happening on earth at this time we decided to evolve ourselves intelligence so we could talk to each other and {{ intelligent_act }}. </p>
 
+	<p>Our experiments with genetics worked out even better than expected, however, and very quickly we not only had language and voices, but we evolved telepathy. Telepathy is a bit like having the internet in your head. This was {{ great }}, but it made our newly-invented voice-boxes a bit pointless for communicating amongst ourselves. We decided that instead we would use our voices, and all the time we had on our hands, to sing.</p>
+	
+	<p>We spent over {{ timespan2 }} perfecting the art of music.</p>
 
-				<p> It all {{ started }} {{timespan1}} ago, right here on earth in a place now known as {{ place }}. Back then we were much like the slug you might find in your {{ commonSlugPlace }}, all {{icky1}} and {{icky2}}. Because there wasn't very much happening on earth at this time we decided to evolve ourselves intelligence so we could talk to each other and {{ intelligent_act }}. </p>
+	<p> Sadly, however, there was nobody on earth with enough smarts to understand our songs. We decided that we would leave earth and wander the galaxy finding other species to share songs with. We constructed a {{ spaceship }} out of {{ materials }} in which we could embark on our adventure great unknown.</p>
+	
+	<p>We wanted to leave a parting gift to earth, to thank it for being our home and playground for so long, so before we left we invented the dinosaurs. We thought that by the time we returned (whenever that may be) they would have evolved intelligence, like ourselves, and would have some songs to share with us.</p>
 
-				<p>Our experiments with genetics worked out even better than expected, however, and very quickly we not only had language and voices, but we evolved telepathy. Telepathy is a bit like having the internet in your head. This was {{ great }}, but it made our newly-invented voice-boxes a bit pointless for simple communicating. We decided that instead we would use our voices, and all the time we had on our hands, to sing, and spent {{ timespan2 }} perfecting the art of music.</p>
-				<p> Sadly, however, there was nobody on earth with enough smarts to understand our songs so we decided that we would leave earth and wander the galaxy, finding other species to share songs with. We constructed a {{ spaceship }} out of {{ materials }} in which we could embark on our adventure great unknown. We wanted to leave a parting gift to earth, to thank it for being our home and playground for so long, so before we left we invented dinosaurs, expecting that by the time we returned they would have evolved intelligence, like ourselves, and would have some songs for us.</p>
-
-				<p>For {{ timespan3 }} we {{ movement }} the galaxy, tracking down intelligent life, teaching them our songs and learning theirs. We met all sorts of {{creatures_adjectives}} {{ creatures_general }} on our adventures from {{creature_1}} to {{creature_2}} to {{creature_3}} with teeth on their elbows. </p>
-				<p>Then, just a few of your earth months ago, we heard rumours, from across the galaxy, that the end of earth was coming! If ever there was a reason to visit a childhood home then this was it, so we quickly cobbled together a hyper-transporlator and beamed ourselves back here to see if there was anything we could do to help (or failing that, get a few good photographs).</p>
-
-				<p>We happened to land right into your internets (a soft landing if ever there was one) just in time tofind out that the end-of-the-world rumours were almost entirely wrong, and the world has continued to exist mostly as it was. Except with a few ancient space slugs (ie. us) setting up home in the internets.</p>
+	<p>For {{ timespan3 }} we {{ movement }} the galaxy, tracking down intelligent life, teaching them our songs and learning theirs. We met all sorts of {{creatures_adjectives}} {{ creatures_general }} on our adventures from {{creature_1}} to {{creature_2}} to {{creature_3}} with teeth on their elbows. </p>
 
 
-				<p>Despite a bit of initial disapointment that the dinosaurs we had crafted all those moons ago failed to reach their potential, we decided it was quite nice here, and atleast you had developed music. We thought we'd hang around a while.</p>
-		{% endautoescape %}
-			</article>
-		</section>
-	</section>
-	{{ block.super }}
+{% endautoescape %}
+</article>
+<hr/>
+<a class="blog-link" href="/story2">Next Chapter ></a>
 {% endblock %}

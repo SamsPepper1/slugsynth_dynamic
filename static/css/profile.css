@@ -22,7 +22,9 @@
 	background-image: url(../images/formbg.jpg);
 	margin: 0.5em 1em 0em 0em;	
 	border: 1px solid #444;
-	box-shadow: 0px 0px 5px #222222;
+	-moz-box-shadow:    0px 0px 8px #666;
+	-webkit-box-shadow: 0px 0px 8px #666;
+	box-shadow: 0px 0px 8px #666;
 }
 
 .avatarBox {
@@ -176,7 +178,6 @@ ul.numbers li strong {
 .info {
 	display: inline;
 	width: 200px;
-
 	margin-left: 1em;
 }
 
@@ -185,14 +186,13 @@ ul.numbers li strong {
 	border-radius: 5px;
 	color: #99bca0;
 	height: 2em;
-	-moz-box-shadow: 0px 0px 5px #222222;
-	-webkit-box-shadow: 0px 0px 5px #222222;
-	box-shadow: 0px 0px 5px #222222;
+	-moz-box-shadow: 0px 0px 8px #666666;
+	-webkit-box-shadow: 0px 0px 8px #666666;
+	box-shadow: 0px 0px 8px #666;
 }
 
 #profile_nav ul li {
 	vertical-align: middle;
-
 	cursor: pointer;
 	font-weight: bold;
 	
@@ -205,7 +205,6 @@ ul.numbers li strong {
 }
 
 .sel {
-
 	font-weight: bolder;
 	color: #4F7ABA;
 	
@@ -232,6 +231,7 @@ ul.numbers li strong {
 .slugDiv img {
 	float: right;
 	display: block;	
+	margin-right: 1em;
 }
 
 .slugBox {
@@ -282,7 +282,6 @@ ul.numbers li strong {
 	padding: 0;
 	height: 21px;
 	width: 50%;
-
 }
 
 
@@ -302,5 +301,7 @@ ul.numbers li strong {
 
 #about_form textarea {
 	border-radius: 3px;
+	-moz-box-shadow:  inset  0px 0px 8px 2px #444;
+	-webkit-box-shadow: inset 0px 0px 8px 2px #444;	
 	box-shadow: inset 0 0 8px 2px #444;
 }

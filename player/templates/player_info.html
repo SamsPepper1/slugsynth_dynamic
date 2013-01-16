@@ -41,7 +41,8 @@
 		<form method=POST action="/user/imageChange/" enctype=multipart/form-data hidden=True id="image_form">
 			{% csrf_token %}
 			{{ imageForm }}
-			<input type="submit" title="submit"/>
+			<input type="submit" title="submit" value="Upload"/>
+
 		</form>
 		{% endif %}
 	</header>	

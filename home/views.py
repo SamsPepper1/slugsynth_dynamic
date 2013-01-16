@@ -20,6 +20,8 @@ def about(request):
 def story(request):
 	storyWords = getRandomStoryWords()
 	return render(request, 'story.html', storyWords)
+def story2(request):
+	return render(request, 'story2.html')
 
 
 def donate(request):

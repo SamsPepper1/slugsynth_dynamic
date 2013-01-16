@@ -1,14 +1,13 @@
-{% extends 'baseTwoColumn.html' %}
+{% extends 'baseBlog.html' %}
 
 {% block title %}About{% endblock %}
 
-{% block content %}
-
-<section id="left">
-
+{% block article %}
 	<section id="intro_block">
-		<h3> What is this all about, then?</h3>
+		<header>
+			<h3> What is this all about, then?</h3>
 
+		</header>
 		<p>SlugJam is (<em>probably<a id="footnote_1_pos" href="#footnote_1">*</a></em>) the first slug-based=synthesiser on earth in around 300 million years.</p>
 
 		<p>Songs are generated through the <a href="#breeding_block">breeding</a>, <a href="#molding_block">molding</a>, and <a href="#arranging_block"> arranging </a> of slugs.</p>
@@ -40,6 +39,6 @@
 		</ul>
 	</section>
 </section>
-{{ block.super }}
+
 
 {% endblock %}

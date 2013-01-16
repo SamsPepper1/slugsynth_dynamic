@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from home.views import home, testAjax, about, story, donate
+from home.views import home, testAjax, about, story,story2, donate
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 	url(r'^$', home),
 	url(r'^about/$', about),
 	url(r'^story/$',story),
+	url(r'^story2/$',story2),
 	url(r'^donate/$',donate),
 	url(r'^testajax$',testAjax),
 	url(r'^song/', include('song.urls')),

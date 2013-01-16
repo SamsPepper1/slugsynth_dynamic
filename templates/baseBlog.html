@@ -1,0 +1,11 @@
+{% extends 'baseTwoColumn.html' %}
+
+{% block content %}
+	<section id="left">
+		<section class="blog-style">
+			{% block article %}
+			{% endblock %}
+		</section>
+	</section>
+	{{ block.super }}
+{% endblock %}
