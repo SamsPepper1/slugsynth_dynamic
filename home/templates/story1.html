@@ -1,0 +1,80 @@
+{% extends 'baseBlog.html' %}
+
+{% block title %}Our Story - Chapter 1: Origins {% endblock %}
+
+
+{% block article %}
+
+{% load random_tags %}
+<header>
+	<h2>Chapter 1 - Origins</h2>
+</header>
+<article>
+{% autoescape off %}
+	<p> Hey! my name is {{ slug }} and I am your
+	{{ instructor|rw }} for this {{ time|rwc }}.</p> 
+
+	<p> So, you want to {{ learn|rw }} about the 
+	{{ adjective|rw }} {{ history|rw }} of our 
+	{{ adjective|rw }} sluggy kind? I'll tell 
+	you what 
+	<span title="Everyslugs version of events is different, sometimes becausewe see things differently, sometimes becasue we forget, and sometimes because we just make things up. Remember never to take anything a slug tells you too seriously!!" class="help">
+	I {{ know|rw }}</span>.</p>
+
+	<p> It all {{ started|rw }} more than {{ timespan|rwc }}
+	ago, right here on earth, in a place now known
+	as {{ location|rw }}. Back then we were much 
+	like the slug you might find in your 
+	{{ common_place|rw }}, all {{ icky|rw:2 }}.
+	Because there wasn't a lot 
+	happening on earth at the time we decided 
+	to evolve ourselves intelligence so we could
+	talk to each other and {{ act|rw }}. </p>
+
+	<p>Our experiments with genetics worked out even 
+	better than expected, however, and very quickly 
+	we not only had language and voices, but we had 
+	developed telepathy. (Telepathy is a bit like 
+	having the internet in your head, by the way). This was 
+	{{ great|rw }}, but it made our newly-invented
+	voice-boxes a bit pointless for communicating
+	amongst ourselves. We decided that instead we
+	would use our voices, and all the time we had
+	on our hands, to sing.</p>
+	
+	<p>We spent over {{ timespan|rwc }} perfecting 
+	the art of music.</p>
+
+	<p> Sadly, however, there was nobody on earth 
+	with enough smarts to understand our songs. We
+	decided that we would leave earth and wander
+	the galaxy finding other species to share songs
+	with. We constructed a {{ spaceship|rwc:'-' }} out of 
+	{{ materials|rw:2}} in 
+	which we could embark on our adventure into the
+	great unknown.</p>
+	
+	<p>We wanted to leave a parting gift to earth, 
+	to thank it for being our home and playground 
+	for so long, so before we left we invented the 
+	dinosaurs. We thought that by the time we 
+	returned (whenever that may be) they would have
+	evolved intelligence, like ourselves, and would
+	have some songs to share with us.</p>
+
+	<p>For {{ timespan|rwc }} we {{ movement|rw }} 
+	the galaxy, tracking down intelligent life, 
+	teaching them our songs and learning theirs. 
+	We met all sorts of {{creatures_adjective|rw}}
+	{{ beasties_generic|rw }} on our adventures from 
+	{{ creature|rwc }} to {{ creature|rwc }} to 
+	{{ creature|rwc }} with
+	{{ creature_characteristic|rwc:' on their ' }}.</p>
+
+
+
+{% endautoescape %}
+</article>
+<hr/>
+<a class="blog-link" href={{ nextpage }}>Next Chapter ></a>
+{% endblock %}

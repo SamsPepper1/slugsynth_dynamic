@@ -81,6 +81,14 @@
 	float: right;
 }
 
+#home .right-text-column ul li {
+	margin: 0 0.2em;
+}
+
+#home strong {
+	font-weight: 900;
+	font-size: 120%;
+}
 
 #home .left-img-column,
 #home .right-img-column {
@@ -97,8 +105,8 @@
 	padding: 0;
 }
 
-#home .right-img-column {
-	
+#home .right-img-column ul li {
+
 }
 
 #home .left-img-column {

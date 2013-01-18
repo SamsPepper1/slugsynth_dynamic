@@ -1,72 +1,21 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//need to put lisence info here..//
+
+
+//Copyright (c) 2013 Sam Sharp
+
+//Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+//The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//STRUCTURE//
-
-//objects//
-    //main(id,gridLength,baseFreq,sampleRate,scale,tempo,pixelWidth,pixelHeight, palletteSlugs,notes)
-    //sideBarLeft(id,x,y,width,height,parent)
-    //slugMolder(x,y,width,height,parent)
-    //pallette(xMargin,yMargin,parent)
-    //controls(x,y,xMargin, yMargin,id,height, buttons, barAttrs,parent)
-    //button(x, y,width,height,textAttrs, attrs, pressAttrs, text, fn,parent)
-    //grid(x,y,xMargin, yMargin, parent)
-    //cell(x, y, width, height,note, pos,paper, parent)
-    //slugFamily(name,id, waveTableGenerator,color, octave, shapes)
-    
-//attrs//
-    //mainAttrs
-//window.onload//
-
-    //randomSlug()
-    //initialising vars
-    // call main()
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//// TODO ////
-
-// BIG TASKS
-//* use prototyping to make GUI objects related 
-//  *cleaning code and getting rid of repetative 'boilerplate' stuff
-//
-//* make sure everything is fluid an scalable
-//  * sideBarLeft scaling factors
-//  * new object for slug-model (prototype of raphael.set()?)
-//      *should have 'draw' and 'morph' functions
-//  *grid slug lengths should represent sound length. Should adapt with change in tempo and grid.cellWidth
-//
-// 'outsource' synthesiser (and 'play' function) to webWorker to prevent clash between GUI and music threads
-
-// SMALLER TASKS
-//* add octave and amplitude buttons to interface
-//  * octave in slugMold, amplitude on pallette?
-//      * left/right amplitude channels set by moving antenna?
-//      *octave represented in number of ripples on base?
-//
-//* sort out control bar(s)
-//  * top bar - play, stop, clear, save, help
-//  * bottom bar - mold, view waves,
-//
-//* change default slugs
-//  * one 'nice' sine wave, one square wave, one with phase/fm, ane chaotic/aharmonic
-//* general GUI glitches
-//  *slug svg needs to be redrawn to prevent paths from going crazy when shortened
-//      * a bit of crazy is good/fun
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//slugsynth.js version 0.02
+//in desperate need of refactoring and documenting.. Please excuse the mess.
 
 
 
@@ -1145,16 +1094,7 @@ function pallette(xMargin,yMargin, parent) {
                 	all.changeCurrentSlug(this.id[0]);
 		} else {
 			if (all.pallette.shapesRect){
-				all.pallette.shapesRect.remove();
-				all.pallette.shapesRect = undefined;
-				if (all.pallette.slugShapeSet){
-					all.pallette.slugShapeSet.remove();
-					all.pallette.slugShapeSet = undefined;
-				};
-				if (all.pallette.shapeSetText){
-					all.pallette.shapeSetText.remove();
-					all.pallette.shapeSetText = undefined;
-				};
+				all.pallette.removeShapes()
 			} else {
 	 			all.pallette.showShapes(this.id[0]);
 			};
@@ -1227,6 +1167,20 @@ function pallette(xMargin,yMargin, parent) {
 	}
 	all.currentSlug.currentShape = currentShape;
 	
+    }
+    this.removeShapes = function() {
+	if (all.pallette.shapesRect){
+		all.pallette.shapesRect.remove();
+		all.pallette.shapesRect = undefined;
+		if (all.pallette.slugShapeSet){
+			all.pallette.slugShapeSet.remove();
+			all.pallette.slugShapeSet = undefined;
+		};
+		if (all.pallette.shapeSetText){
+			all.pallette.shapeSetText.remove();
+			all.pallette.shapeSetText = undefined;
+		};
+	}	
     }
     this.remold = function(id) {
             // edit copy of slug on pallette.
@@ -1336,7 +1290,8 @@ function grid(x,y,xMargin, yMargin, parent) {
         this.rows = this.scale.length;
         this.cellWidth = ((this.width)/this.columns) - 3;
         this.cellHeight = ((this.height)/this.rows) -3;
-        
+	this.timing = this.columns%3==0?3:4;
+	
         this.drawCells = function() {
             columns = [];
             for (var ix = 0; ix < this.columns; ix ++) {
@@ -1368,13 +1323,14 @@ function cell(x, y, width, height,note, pos,paper, parent) {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.attrs = mainAttrs.cellAttrs;
+    this.attrs = (pos%this.parent.timing==0)?mainAttrs.cellAttrsMarker:mainAttrs.cellAttrs;
     this.note = note;
     this.pos = pos;
     this.notes = {};
     this.paper = paper;
-    this.r = this.paper.rect(this.x,this.y, this.width, this.height, 5).attr(this.attrs);
+    this.r = this.paper.rect(this.x,this.y, this.width, this.height, 5).attr(this.attrs); 
     this.r.data('cell', this)
+    this.r.attr('title','Click here to add a slug.');
     this.r.node.setAttribute('pos', this.pos)
     this.r.node.setAttribute('note', this.note)
     this.r.node.onmouseover = function() {
@@ -1384,7 +1340,7 @@ function cell(x, y, width, height,note, pos,paper, parent) {
         };
     this.r.node.onmouseout = function() {
         var cell = all.grid.cells[pos][note];
-        cell.r.animate({'fill': mainAttrs.cellAttrs.fill}, 400);
+        cell.r.attr(cell.attrs);
     }
     this.r.node.onclick = function() {
         var cell = all.grid.cells[pos][note];
@@ -1392,6 +1348,7 @@ function cell(x, y, width, height,note, pos,paper, parent) {
 	cell.addNote(id);
     }
     this.addNote = function(id){
+    	all.pallette.removeShapes()
         var slug = all.currentSlug;
         
 	var scaleFactorY = this.parent.height/200;

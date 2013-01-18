@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from home.views import home, testAjax, about, story,story2, donate
+from home.views import home, testAjax, about, story,donate, limit_reached,image_error
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -12,10 +12,11 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	url(r'^$', home),
 	url(r'^about/$', about),
-	url(r'^story/$',story),
-	url(r'^story2/$',story2),
+	url(r'^story/chapter(?P<chapter>[1-2]+)/$',story),
 	url(r'^donate/$',donate),
 	url(r'^testajax$',testAjax),
+	url(r'^limit_reached$',limit_reached),
+	url(r'^image_error$',image_error),
 	url(r'^song/', include('song.urls')),
 	#url(r'^poll/(\d+)/$', poll),
 	url(r'^user/', include('player.urls')),

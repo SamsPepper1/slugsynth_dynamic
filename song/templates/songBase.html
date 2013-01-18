@@ -36,21 +36,5 @@
 	{% block extra_content %}
 
 	{% endblock %}
-	<div class="coverall" id="saveFormBgrnd" hidden="true">
-	<div id="saveForm">
-		<h3>Save your Song</h3>
-		<div class="saveFormField">
-			<label for="title">Title</label>
-			<input id="saveFormTitle" type="text" name="title" placeholder="name your song here">
-		</div>
-		<div class="saveFormField">
-			<label for="tags">Tags</label>
-			<input type="text" id="saveFormTags" name="tags" placeholder="Tag your song here">
-		</div>
-		<br/>
-		<input type="button" name="save" value="save">
-		<input id="cancelSave" type="button" name="close" value="cancel">
-
-	</div>
-	</div>
+{% include 'saveForm.html' %}
 {% endblock %}

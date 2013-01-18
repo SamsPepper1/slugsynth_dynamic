@@ -12,16 +12,16 @@
 				<p>Have you ever seen a slug in the corner shop buying a loaf of bread? Probably not. That is because we slugs don't believe in money (yep, even earth slugs are intelligent enough not to believe in money.). for this reason SlugJam is free to use, and always will be for as long as it exists.</p>
 				<p>Slugs do have needs, however. Even hyper-intelligent musical slugs-from-space. Because we happen to be currently stuck in the internets we find it quite difficult to fend for ourselves.</p>
 				<p>Thankfully the rent is currently quite cheap here, and we can happuly eat mostly electricity.</p>
+
+				<h2>So, where will the money go?</h2>
 				<p> Our <a href="#">human facilitators</a> have persuaded us that to allow donations to try and cover these costs, and some compensation for the time taken by them to do their facilitations<a id="footnote_1_pos" href="#footnote_1">*</a>.</p>
 				<p>We will attempt to report back on how this policy works, and where any of your donations are going.</p>
 			</article>
-			<hr/>
+{% endblock %}
 
-			<section id="footnotes">
-				<ul>
-					<li id="footnote_1">1<a href="#footnote_1_pos">^</a>. To the sum of no more than twelve British Pounds per earth-hour.</li>
-				</ul>
-			</section>
-
-
+{% block footnotes %}
+{{ block.super }}
+	<ul>
+		<li id="footnote_1">1. <a href="#footnote_1_pos">^</a>To the sum of no more than twelve British Pounds per earth-hour.</li>
+	</ul>
 {% endblock %}

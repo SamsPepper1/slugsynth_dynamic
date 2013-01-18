@@ -1,0 +1,23 @@
+<div class="coverall" id="saveFormBgrnd" hidden="true">
+
+	<div id="saveForm">
+
+		<h3>Save your Song</h3>
+		<div class="saveFormField">
+			<label for="title">Title</label>
+			<input id="saveFormTitle" type="text" name="title" placeholder="name your song here">
+			<img class="tooltip" src="{{ STATIC_URL }}images/help-icon.png" title="Give your song a name. "></img>
+
+		</div>
+		<div class="saveFormField">
+			<label for="tags">Tags</label>
+			<input type="text" id="saveFormTags" name="tags" placeholder="Tag your song here">
+			<img class="tooltip" src="{{ STATIC_URL }}images/help-icon.png" title="This will help people know a bit about your song. Perhaps include the genre of the song, or what it makes you feel like. "></img>
+		</div>
+		<br/>
+		<input type="button" name="save" value="save">
+		<input id="cancelSave" type="button" name="close" value="cancel">
+
+	</div>
+</div>
+

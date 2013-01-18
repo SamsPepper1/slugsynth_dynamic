@@ -7,11 +7,15 @@ from player.models import Player
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from PIL import Image
+from slugsynth_dynamic.settings import PLAYER_LIMIT
 
 
 def SignUp(request):
 	if request.user.is_authenticated():
 		return HttpResponseRedirect('/user/myprofile/')
+	if Player.objects.count() >= PLAYER_LIMIT:
+		return HttpResponseRedirect('/limit_reached')
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
@@ -87,6 +91,8 @@ def MyProfile(request):
 	return render_to_response('profile.html', context,context_instance = RequestContext(request))
 
 
+
+
 @login_required
 def imageChange(request):
 	if not request.user.is_authenticated() or not request.method == 'POST':
@@ -94,11 +100,15 @@ def imageChange(request):
 	player = request.user.get_profile()
 	form = ImageForm(request.POST,request.FILES)
 	if form.is_valid():
-		image = form.cleaned_data['image']	
+		image = form.cleaned_data['image']
+		if image.size > 32000:
+			return HttpResponseRedirect('/image_error')
 		player.avatar = image
 		player.save()
 		return HttpResponseRedirect('/user/myprofile/')
 	return HttpResponseRedirect('/user/myprofile/')
+
+
 
 
 @login_required

@@ -1,17 +1,45 @@
 {% extends 'baseBlog.html' %}
 
 {% block article %}
+
+{% load random_tags %}
+
 <header>
 	<h2>Chapter 2 - Return to Earth</h2>	
 </header>
 <article>
 	{% autoescape off %}
-	<p>Then, just a few of your earth months ago, we heard rumours, from across the galaxy, that the end of earth was coming! If ever there was a reason to visit a childhood home then this was it, so we quickly cobbled together a hyper-transporlator and beamed ourselves back here to see if there was anything we could do to help (or failing that, get a few good photographs).</p>
 
-	<p>We happened to land right into your internets (a soft landing if ever there was one) just in time tofind out that the end-of-the-world rumours were almost entirely wrong, and the world has continued to exist mostly as it was. Except with a few ancient space slugs (ie. us) setting up home in the internets.</p>
+	<p>Then, just a few of your earth months ago,
+	we heard rumours from across the galaxy that 
+	the end of earth was coming! If ever there was
+	a reason to visit a childhood home then this 
+	was it.</p>
+	
+	<p>So, quick as a bean we cobbled together a 
+	hyper-transporlator and beamed ourselves back 
+	here to see if there was anything we could do 
+	to help (or failing that, get a few good 
+	photographs of the whole thing ending).</p>
 
-	<p>Despite a bit of initial disapointment that the dinosaurs we had crafted all those moons ago failed to reach their potential, we decided it was quite nice here, and atleast you had developed music. We thought we'd hang around a while.</p>
+	<p>We happened to land right into your internets
+	(a soft landing if ever there was one) just in 
+	time tofind out that the end-of-the-world rumours
+	were almost entirely wrong, and the world has 
+	continued to exist mostly as it was. Except with
+	a few ancient space slugs (ie. us) setting up home
+	in the internets.</p>
+
+	<p>Despite a bit of initial disapointment that the 
+	dinosaurs we had crafted all those moons ago failed 
+	to reach their potential, we decided it was quite 
+	nice here, and atleast you had developed music. 
+	We thought we'd hang around a while.</p>
+
+	<p>We found a willing humanoid interpreter and set 
+	about learning how to make music in cyberspace..</p> 
 
 		{% endautoescape %}	
+
 </article>
 {% endblock %}

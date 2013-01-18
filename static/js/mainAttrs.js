@@ -4,6 +4,11 @@ var mainAttrs ={'cellAttrs': {
                     "stroke-width": 5,
                     "stroke-opacity": 0,
             },
+	    'cellAttrsMarker': {
+		    'fill': '#325F1D',
+		    'stroke-opacity': 0,
+		    'stroke-width':5,
+	    },
             'paperAttrs': {
             
             },

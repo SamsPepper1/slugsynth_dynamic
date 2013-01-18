@@ -6,7 +6,7 @@ import django
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 DAJAXICE_MEDIA_PREFIX="dajaxice"
-
+PLAYER_LIMIT = 3
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -225,3 +225,6 @@ INTERNAL_IPS = ('127.0.0.1')
 import djcelery
 djcelery.setup_loader()
 BROKER_URL = 'django://'
+
+
+
