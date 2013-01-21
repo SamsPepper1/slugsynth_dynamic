@@ -224,6 +224,7 @@ footer {
 
 
 footer ul {
+	margin: 0 auto;
 	width: 960px;
 	list-style: none;
 	font-size: 70%;
@@ -232,6 +233,8 @@ footer ul {
 
 
 footer ul li {
+	margin: 0 1em;
+	float: left;
 	text-align: right;
 }
 

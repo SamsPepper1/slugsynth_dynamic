@@ -8,6 +8,8 @@ from django.views.generic import ListView
 
 
 def newSong(request):
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect('/song/load/2')
 	context = {'title': 'New Song',}
 	return render(request, 'newsong.html', context)	
 

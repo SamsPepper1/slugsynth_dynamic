@@ -72,7 +72,11 @@
 				<div class='sep'></div>
 			{% empty %}
 				<div class="empty">
+					{% if edit %}
 					<p> You don't have any songs yet. Why not make one? <a href="/song/new/">Click Here!!</a></p>
+					{% else %}
+					<p>{{ player.user.username }} has no songs yet..</p>
+					{% endif %}
 				</div>
 			{% endfor %}
 		</div>
