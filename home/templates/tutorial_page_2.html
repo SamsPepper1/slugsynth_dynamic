@@ -1,0 +1,50 @@
+{% extends 'tutorialBase.html' %}
+
+{% block title %}{{ block.super }} | Part 2{% endblock %}
+
+{% block tut_title %}
+	<header>
+		<h2>Tutorial Part Two</h2>
+		<p>The Slug Molder</p>
+	</header>
+{% endblock %}
+
+{% block image %}
+	<img src="{{ STATIC_URL }}images/tutorial/tut_im_2.png"></img>
+{% endblock %}
+
+{% block tutorial_text %}
+
+<ul>
+	<li>
+		<img src="{{ STATIC_URL }}images/tutorial/label_1.png"></img>
+		<div class="item">
+			<p>See the litte circles? Drag them around to change the shape of your slug. The shape of the slug controls the shape of the sound. It's a lot like what music technology [people call a <strong>sound envelope</strong>. The height of the slug determines how loud the sound it, where the slugs head is the start of the sound, an the tail is the end.</p>
+		</div>
+	</li>
+
+	<li>
+		<img src="{{ STATIC_URL }}images/tutorial/label_2.png"></img>
+		<div class="item">
+			<p>Push these buttons to change the <strong>octave</strong> of the slug. This is like how high or low the sound is. A low octave will make a low sound, like a bass or a tuba, whereas a high octave will make a higher sound like a violin or a penny whistle. You will see the antennas move up or down when you change the octave.</p>
+		</div>
+	</li>
+
+	<li>
+		<img src="{{ STATIC_URL }}images/tutorial/label_3.png"></img>
+		<div class="item">
+			<p>Click on <strong>Save Shape</strong> to, you guessed it, saveyour shape, and click the big <strong>X</strong> in the top corner to close the slugmold box.</p>
+
+		</div>
+	</li>
+
+	<li>
+		<img src="{{ STATIC_URL }}images/tutorial/label_4.png"></img>
+		<div class="item">
+			<p>This is just some information on the <strong>envelope</srong> of your current slug</p>
+		</div>
+	</li>
+</ul>
+
+
+{% endblock %}

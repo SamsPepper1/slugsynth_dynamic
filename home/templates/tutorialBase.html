@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Tutorial{% endblock %}
+
+
+{% block style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/tutorial.css"></link>
+{% endblock %}
+
+
+{% block content %}
+
+{% include 'tut_links.html' %}
+	<div class="tut_title">
+		{% block tut_title %}
+		{% endblock %}
+	</div>
+	<div class="tut_image">
+		{% block image %}
+		{% endblock %}
+	</div>
+	
+	<div class="tut_text">
+		{% block tutorial_text %}
+		{% endblock %}
+	</div>
+
+{% include 'tut_links.html' %}
+{% endblock %}
